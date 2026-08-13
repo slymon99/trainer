@@ -5,10 +5,11 @@ training, write workouts, and revise a plan.
 
 ## Ground rules
 
-**This repo is public. `plan.md`, `.env`, `.strava_tokens.json` and `data/` are
-gitignored and must stay that way** — `plan.md` holds weight, resting HR, HRV and
-physiological history. Never quote personal health values into a committed file,
-a commit message, or a docs example — use obvious placeholders instead.
+**This repo is private**, so health values in committed files are fine — a real
+CTL number in a doc example is clearer than a placeholder. Two things still stay
+out of git: `.env` and `.strava_tokens.json`, because credentials leak
+independently of who can see the repo. `plan.md`, `data/` and `__marimo__/` are
+gitignored too, but only because they're personal or regenerable — not secret.
 
 **Read `plan.md` before prescribing anything.** It's the athlete's brief: goal,
 zones, weekly structure, and the rules for when to push or back off. It's free-form

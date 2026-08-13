@@ -89,8 +89,9 @@ The one thing worth being explicit about is **decision rules** — what has to b
 true to progress, repeat, or back off a week. Without those, a plan drifts into
 "whatever felt good", and neither you nor Claude can tell whether it's working.
 
-**`plan.md` is gitignored.** This repo is public and the plan will hold weight,
-resting HR, HRV and physiological history. Keep it that way.
+**`plan.md` is gitignored**, since it holds weight, resting HR, HRV and
+physiological history. If you fork this for yourself, decide deliberately
+whether that stays true — it's the one file you'd regret publishing.
 
 ## Layout
 

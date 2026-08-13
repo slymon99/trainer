@@ -2,15 +2,13 @@
 .env
 .strava_tokens.json
 
-# --- personal training data (this repo is public) ----------------------
-# Your real plan and any exported data stay local. Only the templates in
-# docs/ are committed. Keep it this way: plan.md contains weight, HR, HRV
-# and physiological history.
+# --- local data --------------------------------------------------------
+# Not secret (the repo is private) — just regenerable and bulky. data/ is
+# rebuilt by `pixi run sync`, and __marimo__/ is a cache of notebook cell
+# outputs that churns on every run.
 plan.md
 data/
 *.private.md
-# marimo caches cell *outputs* to disk — session files hold rendered wellness
-# rows (resting HR, HRV, weight), so they must never be committed.
 __marimo__/
 
 # --- python ------------------------------------------------------------
