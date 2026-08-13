@@ -41,10 +41,11 @@ pixi run check intervals
 # intervals.icu  OK — Your Name (id i123456)
 ```
 
-### Strava (optional)
+### Strava
 
-Intervals.icu already imports your Strava activities, so **you only need this for
-raw streams, segment efforts, or photos.** Skip it otherwise.
+intervals.icu imports your Strava activities but **won't serve their detail back
+over its API** — so per-rep power and HR come from Strava directly. Set this up
+unless you only care about the CTL/ATL model and the calendar.
 
 1. Create an app at [strava.com/settings/api](https://www.strava.com/settings/api).
    Set **Authorization Callback Domain** to exactly `localhost` — no port, no `http://`.
@@ -63,6 +64,19 @@ the consent screen, or private rides stay invisible. Access tokens expire every
 ```bash
 pixi run check strava
 ```
+
+### Pull your data
+
+```bash
+pixi run sync     # incremental — safe to re-run any time
+pixi run sql      # see what's stored
+```
+
+This lands both sources in `data/warehouse/` as parquet, normalised and joined
+on activity id. The first run backfills a year; Strava's rate limit means
+per-rep detail arrives over a few runs, newest first. Everything downstream
+reads from here rather than the APIs — see
+[docs/data-store.md](docs/data-store.md).
 
 ### Your plan
 
@@ -85,32 +99,42 @@ trainer/
   intervals.py       IntervalsClient — activities, wellness, calendar events
   strava.py          StravaClient — activities, streams, segments
   strava_auth.py     one-time OAuth flow
+  http.py            timeouts, retries, rate-limit budget
+  tables.py          warehouse schemas and the API field mapping
+  store.py           parquet + DuckDB — read, merge, partition
+  sync.py            incremental pull  (pixi run sync)
+  query.py           ad-hoc SQL        (pixi run sql)
 docs/
+  data-store.md          the tables, how to query them, how the sync decides
   reading-data.md        what each field means, which source to use
   intervals-workouts.md  workout-text syntax and the calendar API
 .claude/skills/
-  review-training/   pull data, assess the block
+  review-training/   assess the block
   create-workouts/   write workouts to the calendar
   adjust-plan/       revise plan.md
+data/                your training data (gitignored)
 plan.md              your plan (gitignored)
 .env                 your credentials (gitignored)
 ```
 
 ## Using it directly
 
-The clients are ordinary Python if you'd rather not go through Claude:
+It's ordinary Python and SQL if you'd rather not go through Claude:
 
 ```python
-from trainer import IntervalsClient
+from trainer.store import Store
 
-client = IntervalsClient()
-for a in client.activities(oldest="2026-08-01", newest="2026-08-13"):
-    print(a["start_date_local"][:10], a["name"], a["icu_training_load"])
+store = Store()
+store.sql("""
+    SELECT date, planned_name, planned_load, actual_np, lap_count
+    FROM planned_vs_actual WHERE date >= '2026-08-01' ORDER BY date
+""").show()
 ```
 
-See [docs/reading-data.md](docs/reading-data.md) for the full surface.
+See [docs/data-store.md](docs/data-store.md) for the tables, and
+[docs/reading-data.md](docs/reading-data.md) for what the numbers mean.
 
 ## Notes
 
-- Strava allows 100 requests / 15 min and 1000 / day. Cache to `data/` (gitignored) rather than re-fetching streams.
+- Strava allows 100 requests / 15 min and 1000 / day. `pixi run sync` fetches each activity once, caches the raw response under `data/`, and stops short of the wall.
 - Nothing here writes to Strava — it's read-only. Only intervals.icu gets written to, and only to the calendar.

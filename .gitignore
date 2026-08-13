@@ -9,6 +9,9 @@
 plan.md
 data/
 *.private.md
+# marimo caches cell *outputs* to disk — session files hold rendered wellness
+# rows (resting HR, HRV, weight), so they must never be committed.
+__marimo__/
 
 # --- python ------------------------------------------------------------
 __pycache__/

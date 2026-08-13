@@ -9,9 +9,22 @@ version = "0.1.0"
 strava-auth = "python -m trainer.strava_auth"
 # Connection smoke test — `pixi run check` or `pixi run check intervals`
 check = "python -m trainer.check"
+# Incremental pull into data/warehouse — `pixi run sync` or `pixi run sync --help`
+sync = "python -m trainer.sync"
+# Query the warehouse — `pixi run sql "SELECT * FROM iv_wellness LIMIT 5"`
+sql = "python -m trainer.query"
+test = "pytest -q"
+# Launch the marimo notebook server — `pixi run notebook`
+notebook = "marimo edit"
 
 [dependencies]
 python = ">=3.13.0,<3.14"
 requests = ">=2.34.2,<3"
 python-dotenv = ">=1.2.2,<2"
 ruff = ">=0.14.3,<0.15"
+python-duckdb = ">=1.5.5,<2"
+pyarrow = ">=25.0.0,<26"
+pytest = ">=9.0.1,<10"
+marimo = ">=0.23.16,<0.24"
+altair = ">=6.2.2,<7"
+polars = ">=1.43.2,<2"

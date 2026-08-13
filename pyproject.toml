@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# The package isn't installed into the env — pixi manages deps, not this repo —
+# so put the repo root on sys.path for `import trainer`.
+pythonpath = ["."]
+testpaths = ["tests"]

@@ -5,22 +5,41 @@ description: Pull recent training data from intervals.icu and Strava and assess 
 
 # Review training
 
-Read [docs/reading-data.md](../../../docs/reading-data.md) for what each field
-means and which source to use.
+Everything is already on disk, normalised and joined. Refresh it, then query —
+don't call the APIs directly.
+
+```bash
+pixi run sync
+```
 
 ```python
-from trainer import IntervalsClient
-client = IntervalsClient()
+from trainer.store import Store
+store = Store()
 ```
+
+[docs/data-store.md](../../../docs/data-store.md) has the tables and views;
+[docs/reading-data.md](../../../docs/reading-data.md) has what each field means
+and the TSS-recovery formulas.
 
 ## What to pull
 
 Default to the current block, or the last 6 weeks if no block is defined:
 
-1. `client.wellness(oldest, newest)` — CTL/ATL trend, resting HR, HRV
-2. `client.events(oldest, newest)` — what was **prescribed**
-3. `client.activities(oldest, newest)` — what was **done**
-4. `client.activity_intervals(id)` on the key sessions — per-rep actuals
+1. `iv_wellness` — CTL/ATL trend, resting HR, HRV
+2. `planned_vs_actual` — prescription against execution, already joined
+3. `strava_laps` — per-rep actuals for the key sessions
+4. `iv_athlete` — the FTP/LTHR intervals.icu was modelling with **at the time**
+
+```python
+store.sql("""
+    SELECT date, planned_name, planned_load, actual_secs/60 AS actual_min, actual_np
+    FROM planned_vs_actual WHERE date >= ? ORDER BY date
+""", block_start).show()
+```
+
+If a session is missing its laps, `pixi run sync --details 20` fetches them;
+Strava's quota means the store holds recent activities in full and older ones
+as summaries.
 
 ## How to assess
 

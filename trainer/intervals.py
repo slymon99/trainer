@@ -5,9 +5,8 @@ from https://intervals.icu/settings ("Developer Settings").
 Docs: https://intervals.icu/api-docs.html
 """
 
-import requests
-
 from trainer.config import get_env, require_env
+from trainer.http import check, make_session
 
 BASE_URL = "https://intervals.icu"
 
@@ -16,23 +15,17 @@ class IntervalsClient:
     def __init__(self, api_key: str | None = None, athlete_id: str | None = None):
         self.api_key = api_key or require_env("INTERVALS_API_KEY")
         self.athlete_id = athlete_id or get_env("INTERVALS_ATHLETE_ID", "0")
-        self.session = requests.Session()
+        self.session = make_session()
         self.session.auth = ("API_KEY", self.api_key)
 
     def _get(self, path: str, **params):
-        resp = self.session.get(f"{BASE_URL}{path}", params=params)
-        resp.raise_for_status()
-        return resp.json()
+        return check(self.session.get(f"{BASE_URL}{path}", params=params)).json()
 
     def _post(self, path: str, json_body, **params):
-        resp = self.session.post(f"{BASE_URL}{path}", json=json_body, params=params)
-        resp.raise_for_status()
-        return resp.json()
+        return check(self.session.post(f"{BASE_URL}{path}", json=json_body, params=params)).json()
 
     def _put(self, path: str, json_body, **params):
-        resp = self.session.put(f"{BASE_URL}{path}", json=json_body, params=params)
-        resp.raise_for_status()
-        return resp.json()
+        return check(self.session.put(f"{BASE_URL}{path}", json=json_body, params=params)).json()
 
     # --- reading -----------------------------------------------------------
 
