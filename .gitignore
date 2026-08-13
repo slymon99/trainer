@@ -1,0 +1,26 @@
+# --- secrets -----------------------------------------------------------
+.env
+.strava_tokens.json
+
+# --- personal training data (this repo is public) ----------------------
+# Your real plan and any exported data stay local. Only the templates in
+# docs/ are committed. Keep it this way: plan.md contains weight, HR, HRV
+# and physiological history.
+plan.md
+data/
+*.private.md
+
+# --- python ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+
+# --- pixi --------------------------------------------------------------
+.pixi/*
+!.pixi/config.toml
+
+# --- macos -------------------------------------------------------------
+.DS_Store
+
+# local one-off block-push scripts (contain personal targets)
+scripts/

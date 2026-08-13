@@ -1,0 +1,17 @@
+[workspace]
+channels = ["conda-forge"]
+name = "trainer"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+# One-time Strava authorization
+strava-auth = "python -m trainer.strava_auth"
+# Connection smoke test — `pixi run check` or `pixi run check intervals`
+check = "python -m trainer.check"
+
+[dependencies]
+python = ">=3.13.0,<3.14"
+requests = ">=2.34.2,<3"
+python-dotenv = ">=1.2.2,<2"
+ruff = ">=0.14.3,<0.15"
