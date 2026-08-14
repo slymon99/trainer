@@ -309,21 +309,17 @@ weather.
 
 ## Fuelling
 
+**No caloric deficit during build blocks** — it compromises the exact adaptations
+being chased. This is a watts goal, not a weight goal.
+
 The Sunday session and the long weekend rides work *because* they land on depleted
 glycogen — but that state comes from the duration in front of them, not from
 under-eating. Riding them under-fuelled just means riding them badly.
 
-| Ride | Carbohydrate |
-|---|---|
-| Easy, under ~90 min | Nothing needed |
-| Quality session, 60–90 min | 40–60 g/h — protects the last reps |
-| 90 min – 2.5 h | ~60 g/h |
-| 3–4 h, and camp days | **80–90 g/h.** Needs a glucose+fructose mix; single-source absorption tops out near 60 g/h |
-| After anything hard or long | ~80–90 g carb + ~25 g protein within the hour |
-
-**No caloric deficit during build blocks** — it compromises the exact adaptations
-being chased. Multi-day trips are where under-fuelling compounds; that's the one to
-watch.
+Carbohydrate rates by ride duration, daily carb and protein targets, and the meals
+that hit them are in [`plan/fuelling.md`](plan/fuelling.md). Read it before
+concluding anything about fitness from a session that went badly — normal HR with
+high RPE is a fuelling signal first.
 
 ---
 
@@ -424,6 +420,7 @@ in `plan/check-ins.md`.
 | | |
 |---|---|
 | Current block, its weeks and its test | [`plan/block-1.md`](plan/block-1.md) |
+| Fuelling on and off the bike, daily targets, meals | [`plan/fuelling.md`](plan/fuelling.md) |
 | Blocks 2–5 and the test schedule | [`plan/roadmap.md`](plan/roadmap.md) |
 | Re-anchor history, power anchors, the evidence behind LTHR and the diagnosis | [`plan/decisions.md`](plan/decisions.md) |
 | Weekly check-in answers | [`plan/check-ins.md`](plan/check-ins.md) |
