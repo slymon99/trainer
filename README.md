@@ -89,9 +89,20 @@ The one thing worth being explicit about is **decision rules** — what has to b
 true to progress, repeat, or back off a week. Without those, a plan drifts into
 "whatever felt good", and neither you nor Claude can tell whether it's working.
 
-**`plan.md` is gitignored**, since it holds weight, resting HR, HRV and
-physiological history. If you fork this for yourself, decide deliberately
-whether that stays true — it's the one file you'd regret publishing.
+Two things this plan learned the hard way, both worth copying:
+
+- **Write targets as percentages of FTP, not watts.** intervals.icu resolves `%`
+  against your sport settings, so re-testing updates every scheduled workout at
+  once. Absolute watts scattered through a plan go stale silently, and training off
+  a stale FTP is the classic way to spend a season getting nowhere.
+- **Split anything that grows.** Block detail expires in a month and check-in logs
+  grow forever; neither belongs in the file that gets read before every session.
+  Optional `plan/` files keep the brief short — see the layout below.
+
+**`plan.md` is tracked**, deliberately: its history is worth having, and this repo
+is private. It holds weight, resting HR, HRV and physiological history, so if you
+fork this, decide that deliberately — untrack it *before* the first commit, since
+rewriting history is the only way to remove it afterwards.
 
 ## Layout
 
@@ -114,7 +125,12 @@ docs/
   create-workouts/   write workouts to the calendar
   adjust-plan/       revise plan.md
 data/                your training data (gitignored)
-plan.md              your plan (gitignored)
+plan.md              the standing brief — read before every prescription
+plan/
+  block-1.md         the current block; expires when the block does
+  roadmap.md         later blocks and the test schedule
+  decisions.md       why rules are what they are; re-anchor history
+  check-ins.md       weekly subjective check-in log
 .env                 your credentials (gitignored)
 ```
 

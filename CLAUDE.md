@@ -8,13 +8,25 @@ training, write workouts, and revise a plan.
 **This repo is private**, so health values in committed files are fine — a real
 CTL number in a doc example is clearer than a placeholder. Two things still stay
 out of git: `.env` and `.strava_tokens.json`, because credentials leak
-independently of who can see the repo. `plan.md`, `data/` and `__marimo__/` are
-gitignored too, but only because they're personal or regenerable — not secret.
+independently of who can see the repo. `data/` and `__marimo__/` are gitignored too,
+but only because they're regenerable — not secret. `plan.md` and `plan/` **are**
+tracked, deliberately: their history is the record of how the plan evolved.
 
 **Read `plan.md` before prescribing anything.** It's the athlete's brief: goal,
 zones, weekly structure, and the rules for when to push or back off. It's free-form
 and may carry its own instructions for whoever plans from it — follow those over
 anything here. If it doesn't exist, say so rather than inventing an athlete profile.
+
+`plan/` holds the parts with a different lifecycle — `block-*.md` (current block),
+`roadmap.md`, `decisions.md` (why rules are what they are), `check-ins.md`. Read the
+block file when planning a week; read `decisions.md` when re-anchoring FTP or when a
+rule looks wrong.
+
+**Prescribe in `%FTP`, never absolute watts.** intervals.icu resolves percentages
+against sport settings, so re-anchoring updates every scheduled workout at once. A
+watt number written into a plan or a workout goes stale silently — that is the
+documented root cause of this athlete's 2026 plateau. Neuromuscular targets
+(sprints) are the one exception and the plan names them.
 
 **Don't invent data.** If a number is missing, state the assumption and what
 changes if it's wrong.
