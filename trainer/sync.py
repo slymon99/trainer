@@ -24,13 +24,22 @@ from trainer.intervals import IntervalsClient
 from trainer.store import Store
 from trainer.strava import StravaClient
 
+# intervals.icu is not meaningfully rate limited — a year of calendar is one
+# request — so its windows are set by how far back data can still *change*,
+# not by what we can afford. Only Strava's steps economise.
+#
 # Wellness is re-fetched over this window every run: intervals.icu revises
 # CTL/ATL backwards as activities land, so yesterday's numbers change.
 WELLNESS_LOOKBACK = 45
 # Planned workouts get edited and deleted, so the calendar window is re-read
-# whole rather than merged.
-EVENTS_PAST = 90
-EVENTS_FUTURE = 120
+# whole rather than merged. It reaches far enough forward to cover a whole
+# block pushed in advance, and far enough back that revising an old week's
+# prescription still lands here.
+EVENTS_PAST = 365
+EVENTS_FUTURE = 240
+# Activities are re-read whole over this window too: intervals.icu won't tell
+# us an activity was deleted, so the only way to notice is to stop finding it.
+ACTIVITIES_LOOKBACK = 365
 # How far back to reach when the warehouse is empty.
 FIRST_RUN_DAYS = 365
 # Stop this far short of Strava's wall, leaving room for an interactive query.
@@ -86,8 +95,10 @@ class Sync:
     def start_for(self, table: str, lookback: int) -> date:
         """Where to resume: back from the watermark, or `--since` if given.
 
-        The lookback overlap is deliberate — re-reading the last few days is
-        one cheap request and it catches anything that landed late.
+        The lookback overlap is deliberate: it catches anything that landed
+        late, and on the steps that re-read whole it is what lets a deletion
+        be noticed. How far back is worth reaching depends on the API — see
+        the window constants above.
         """
         if self.since is not None:
             return self.since
@@ -114,11 +125,11 @@ class Sync:
         return self.store.write("iv_events", rows, replace_range=(start, end))
 
     def activities(self) -> int:
-        start = self.start_for("iv_activities", 7)
+        start = self.start_for("iv_activities", ACTIVITIES_LOOKBACK)
         rows = []
         for chunk_start, chunk_end in _chunks(start, self.today):
             rows += self.iv.activities(oldest=str(chunk_start), newest=str(chunk_end))
-        return self.store.write("iv_activities", rows)
+        return self.store.write("iv_activities", rows, replace_range=(start, self.today))
 
     def athlete(self) -> int:
         settings = self.iv.athlete().get("sportSettings") or []
