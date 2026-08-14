@@ -132,6 +132,34 @@ Rough order of operations, all of which is just querying the store:
 3. `strava_laps` on the key sessions — were the target watts actually hit, or were later reps fading? And **what HR did they cost**: watts on target at a HR well below the expected band is a re-anchoring signal, not a good session.
 4. `resting_hr` / `hrv` trend against the athlete's own baseline, not population norms.
 
+**Judge the ramp on build weeks only.** Averaging a recovery week into the block
+drags the mean down and makes a healthy ramp look flat — or, in the other direction,
+makes an aggressive one look compliant.
+
+### CTL ramp arithmetic
+
+CTL is a 42-day exponential average of daily TSS. Over `d` days at a constant average
+daily TSS:
+
+```
+CTL_d = TSS_avg + (CTL_0 - TSS_avg) * exp(-d/42)
+```
+
+which over 28 days reduces to a useful planning rule:
+
+```
+ΔCTL(28d) ≈ (TSS_avg_daily - CTL_0) * 0.487
+```
+
+So planning a block backwards from a CTL target: to gain 12 CTL in 28 days from a
+starting CTL of 48 you need `48 + 12/0.487 ≈ 73` TSS/day, or ~510 TSS/week.
+
+Sanity-check the result against available hours before committing to it. Weekly TSS
+implies an average IF (`TSS = IF² × hours × 100`), and a plan built on two quality
+days with everything else capped in Z2 tops out around IF 0.70. If the TSS target
+needs 0.72, the hours target and the TSS target are not both achievable — say which
+one gives, rather than writing down both.
+
 Interpretation belongs in `plan.md`, not here. This doc tells you what the numbers
 are; the athlete's plan is what says which of them justify progressing, repeating,
 or backing off a week.

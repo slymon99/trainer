@@ -54,10 +54,14 @@ Work through:
 - On interval sessions, were target watts hit on every rep, or fading on the last two? Fading late reps is the earliest signal of too much load.
 - Are resting HR and HRV drifting against the athlete's **own** baseline?
 
-If `plan.md` exists, apply **its** progress/repeat/back-off rules and its check-in
-questions rather than inventing criteria. Ask any subjective check-in questions
-**before** presenting a conclusion — otherwise the answers get rationalised to fit
-a verdict already on screen.
+If `plan.md` exists, apply **its** rules and its check-in question rather than
+inventing criteria. Ask any subjective check-in questions **before** presenting a
+conclusion — otherwise the answers get rationalised to fit a verdict already on
+screen. Append the answer to `plan/check-ins.md` if that file exists.
+
+**Check what a session was designed to feel like before reading how it felt as a
+signal.** A session prescribed as sub-threshold, coming in at a moderate RPE with HR
+proportional to power, is the design working — not evidence the target is soft.
 
 ## Reporting
 

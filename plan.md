@@ -1,962 +1,466 @@
-# Training Plan: August – December 2026
-### Target: 288 W FTP (4.0 W/kg @ 72 kg) by late December
+# Training plan — August to December 2026
 
-**Athlete:** 27M, 72 kg, 5'10". Structured training since Oct 2025 (year 2).
-**Working FTP:** 270 W (under review — see §1. Re-anchor considered and rejected 13 Aug 2026, §12.2)
-**LTHR:** 170 bpm (measured: last 20 min of 52-min max effort, Jan 2026)
-**Max HR:** ~194 bpm working figure (196 tested years ago, 192 on a recent sprint)
-**Written:** 11 Aug 2026
+**Goal:** 288 W FTP (4.0 W/kg at 72 kg) by the end of December. No target event.
+Durable fitness to build on next season, not a peak.
 
----
+**Working FTP lives in intervals.icu**, in sport settings — not in this file. Every
+target here is a percentage of it, so the number exists in exactly one place and
+moves in exactly one way (see *Re-anchoring FTP*). `athlete()["icu_ftp"]` is the
+source of truth.
 
-## Contents
-
-0. **[How to use this document (read first)](#0-how-to-use-this-document)** — athlete profile, history, constraints, and instructions for whoever is planning the sessions
-1. [Diagnosis: why the plateau happened](#1-diagnosis)
-2. [Is +18 W realistic?](#2-is-18-w-realistic)
-3. [Zones and ceilings — the reference table](#3-zones-and-ceilings)
-4. [The standard warm-up](#4-the-standard-warm-up)
-5. [Block 1: re-entry (Aug 10 – Sep 13)](#5-block-1-re-entry) — incl. [5.1 the Labor Day restructure](#5-1-labor-day)
-6. [The week, both variants](#6-the-week-both-variants)
-7. [The Thursday/Sunday decision rule](#7-the-thursdaysunday-decision-rule)
-8. [Heat adjustment and reading low power](#8-heat)
-9. [Trash miles: ceilings and group ride rules](#9-trash-miles)
-10. [Is the target hard enough? The bonus rep test](#10-is-the-target-hard-enough)
-11. [Reps vs. watts: the decision rule](#11-reps-vs-watts)
-12. [Re-anchoring FTP and the test schedule](#12-re-anchoring-ftp) — incl. [12.2 the re-anchor log](#12-2-re-anchor-log)
-13. [Block roadmap through December](#13-block-roadmap)
-14. [Progress / repeat / back off](#14-progress-repeat-back-off)
-15. [Assumptions](#15-assumptions)
+**LTHR 170 bpm**, measured over the last 20 min of a 52-min max effort in Jan 2026.
+Also set in intervals.icu.
 
 ---
 
-<a name="0-how-to-use-this-document"></a>
-## 0. How to use this document
+## How to use this document
 
-### 0.1 Instructions for a coach or LLM planning sessions from this
+This is the whole brief. Read it before prescribing anything.
 
-This document is the complete brief. Everything needed to write my next week of training is in here. Read all of it before prescribing anything.
+1. **Prescribe in percentages, never watts.** intervals.icu resolves `%` targets
+   against sport settings, so a re-anchor updates every scheduled workout for free.
+   Writing an absolute number into a workout breaks that and goes stale silently.
+   The single exception is the Wednesday sprints, which are neuromuscular and not a
+   fraction of FTP in any meaningful sense.
+2. **Two quality sessions a week. Not three.** Reasoning below; it's specific to my
+   history, not a general principle.
+3. **Keep the Thursday/Sunday swap intact.** Every week must work in both variants.
+   Don't hand me a week that breaks if Sunday turns into a group ride.
+4. **Explain the physiology of each session.** I'm learning to self-coach. A session
+   I can't justify is a session I'll drop in November.
+5. **Flag every assumption.** If you need a number I haven't given, say what you
+   assumed and what changes if it's wrong. Don't invent data.
+6. **Don't hedge.** Commit to a prescription and defend it.
+7. **Ask the check-in question** (see *Load, recovery, and backing off*) before you
+   write the week, not after — once I've seen a plan I'll rationalise my answers
+   to fit it.
 
-**Rules for prescribing:**
+**What I'll give you:** how sessions felt, and whether a group ride is on the
+calendar. **Pull the rest yourself** — completed sessions with per-rep power and HR,
+CTL/ATL, HRV and RHR are all in the store. Don't ask me for numbers you can read.
+Do ask about RPE, which no API carries — but treat it as ±1, because it is.
 
-1. **Give watts, not just percentages.** Use the working FTP in the header. If you think it should change, say so explicitly and justify it against §12 — don't silently re-anchor.
-2. **Flag every assumption.** If you need a number I haven't given (RHR baseline, HRV, recent TSS, what a specific session actually felt like), state the assumption you're making and what changes if it's wrong. Don't invent data.
-3. **Two quality efforts per week. Not three.** The reasoning is in §2 and it is not a general principle — it's specific to my history. If you want to argue for three, argue against §2 directly.
-4. **Keep the Thursday/Sunday swap intact.** Every week must work in both variants (§6, §7). Don't hand me a week that breaks if Sunday turns into a group ride.
-5. **Explain the physiology of each session.** I'm learning to self-coach. A session I can't justify is a session I'll drop in November.
-6. **Adjust for heat** using §8 if any session is outdoors and the dew point is above 60°F.
-7. **Don't hedge.** Commit to a prescription and defend it.
-8. **Progress in watts, not just reps**, per the decision rule in §11. This is the error that cost me 2026.
-9. **Run the §14.2 desire-to-train check-in every week, before prescribing and before showing me the week.** Ask it cold — if I've already seen a plan I'll rationalise my answers to fit it. If the answers come back amber, cut load even if RHR, HRV and power all look fine.
+**What I want back:** the week day by day, with durations, `%FTP` targets,
+recoveries, expected HR, and one line on what each session is for. Both variants if
+a group ride is uncertain.
 
-**What I'll usually give you alongside this:** how the sessions felt (RPE per rep) and whether a group ride is on the calendar. **Pull the rest yourself** — completed sessions with actual power and HR per rep, CTL/ATL, HRV and RHR are all available via the intervals.icu + Strava join (§15). Don't ask me for numbers you can read; do ask for RPE, which no API carries.
+---
 
-**What I want back:** the next week laid out day by day with durations, target watts, recoveries, expected HR, and one line on what each session is for. Both variants if a group ride is uncertain.
+## The athlete
 
-### 0.2 Athlete profile
-
-- 27M, 72 kg (160 lb), 5'10", reasonably lean, some upper-body muscle mass
-- **Training age:** started structured training Oct 2025. This is **year 2.**
-- Sleep 8 h, low stress, good life load
-- Weight is stable at 72 kg and stays there. **This is a watts goal, not a weight goal.** No caloric restriction during build blocks.
-
-### 0.3 Power and training history
-
-**Power anchors:**
-
-| Date | Effort | Notes |
-|---|---|---|
-| Jan 2026 | **270 W for 52 min** (Alpe du Zwift) | Most reliable FTP anchor. Genuine max. Last 20 min avg HR 170 → LTHR. |
-| Apr 2026 | **367 W for 4 min** | Completely empty at the end |
-| Aug 2026 | **917 W for 15 s** (best of 553 / 748 / 917 / 806) | Standing starts, indoor. Anchors the Wednesday sprint prescription in §6 — which had read 350–400 W, less than half this. |
-| Aug 2026 | **279 W for 18 min**, avg HR 179 | Outdoor climb, 85°F / 74°F dew point, 2 weeks into riding after ~3 weeks off. Intervals.icu called it 265 W eFTP. |
-| 11–13 Aug 2026 | **3×12 @ 245 W and 2×20+10 @ 228–240 W**, both RPE 7 | Indoor, cool. HR 151 and 144 respectively — proportional to power, not suppressed. Confirms the HR/power relationship, does *not* move FTP. See §12.2. |
-
-**Working assumption before this plan:** true FTP has been 265–275 W all year. See §1 for why that may understate it.
-
-**What I actually did in 2026:**
-
-- **Sweet spot, winter:** built to 3×20 min @ 240 W (89% of 270) Feb–Mar. Felt good and sustainable at the end of the progression.
-- **VO2, spring:** 3×4 min → 5×4 min @ 315 W, Mar–May. That's 117% of assumed FTP but only 86% of my demonstrated 4-min max of 367 W. Felt pretty hard but doable.
-- **I progressed both by adding reps, never by raising watts.**
-- **Interval targets stayed anchored to a 270 W FTP estimate I never revised after January.**
-
-**Recent:** consistent structured training Oct 2025 – June 2026, gran fondo in June. Little structure after June. Travel in July. ~2–3 weeks off sick. Riding for 2 weeks now, ramping back up, ending in the 18-min effort above.
-
-**CTL:** peaked ~63, dropped to 43, now back to ~48 after 2 weeks of almost all Z2.
-
-**Core problem this plan exists to solve:** FTP flat at 265–275 W since January despite continued training.
-
-### 0.4 Availability, equipment, terrain
-
-- **Realistic weekly hours:** 8–12. This plan is built around **10–11**.
-- **Days available:** 5–6. Longest ride 4–5 h on one weekend day.
-- **Weekdays are indoor only** (smart trainer). **Weekends are outdoor.**
-- Power meter on the bike, smart trainer indoors — **confirmed same unit**, so indoor and outdoor numbers are directly comparable.
-- **Terrain:** NYC, mostly rolling. 1 h to a 4–6 min climb, 2 h to a 20 min climb.
-- Heat: training through late summer in the northeast US with high dew points. Only somewhat heat-adapted.
-
-### 0.5 Goal and constraints
-
-**Goal:** 288 W FTP (4.0 W/kg at 72 kg) by end of 2026 — roughly 4.5 months. No target event. **I want durable fitness I can build on next season**, not a peak.
+- 27M, 72 kg, 5'10". Structured training since Oct 2025 — **this is year 2**.
+- Sleep 8 h, low stress, good life load. Weight stable and staying there: **this is
+  a watts goal, not a weight goal.**
+- **8–12 h/week available, built around 10–11.** 5–6 days. Longest ride 4–5 h on one
+  weekend day.
+- **Weekdays indoor** (smart trainer), **weekends outdoor**. Same power meter both,
+  so the numbers are directly comparable.
+- NYC, rolling terrain. 1 h to a 4–6 min climb, 2 h to a 20 min climb.
+- Training through a northeast summer with high dew points. Only somewhat
+  heat-adapted.
 
 **Constraints, in priority order:**
 
-1. **Hard outdoor group rides with friends are a SUB-GOAL, not a cost.** 1–2 per month, often unplanned. The week must have optionality built in rather than bolted on. **I accept that keeping them may delay 288 W. I'd rather delay it than cut them.**
-2. **Burnout is the main risk.** I fell out of structured training after my June race. **I'd rather fall a few watts short than peak in a hard, unsustainable way.** If there's a choice between more load and more sustainability, choose sustainability.
-3. **No strength training.** Not interested, not currently doing any. Don't prescribe it.
-4. **No trash miles.** I accumulate unstructured medium-hard riding that builds fatigue without stimulus. Easy rides must be genuinely easy — hard ceilings in §3.
-5. **Sharpening can wait.** I care about threshold right now. Almost no VO2 work through December is a deliberate, accepted decision — see §1 for the reasoning.
+1. **Hard group rides with friends are a sub-goal, not a cost.** 1–2 a month, often
+   unplanned. The week needs optionality built in, not bolted on. Keeping them may
+   delay 288 W; I'd rather delay it than cut them.
+2. **Burnout is the main risk.** I fell out of structured training after my June
+   race. Given a choice between more load and more sustainability, choose
+   sustainability.
+3. **No strength training.** Not interested. Don't prescribe it.
+4. **No trash miles.** Easy rides must be genuinely easy.
+5. **Sharpening can wait.** Almost no VO2 work through December is deliberate.
 
 ---
 
-<a name="1-diagnosis"></a>
-## 1. Diagnosis: why the plateau happened
+## Why this plan looks like this
 
-### The limiter is fractional utilization, not top-end
+FTP has been flat at 265–275 W since January despite continued training. Three
+things caused that, and the plan is built around them.
 
-Don't read the ratio as "4-min power is 1.36× FTP." Flip it:
+**The limiter is fractional utilization, not top end.** FTP divided by 4-min max
+puts me in the low 70s as a percentage; trained cyclists sit at 75–85%. That's a
+normal ceiling on top of an underbuilt aerobic engine — the gap is a low floor, not
+a high roof. So the target is already inside my existing ceiling, and raising a roof
+I'm standing well below is the lowest-value thing available. **Consequence: threshold
+and durability work, almost no VO2, through December.**
 
-**FTP ÷ 4-min max = 270 / 367 = 73.5%**
+**I never re-anchored.** FTP was set in January and trained off through June. If it
+drifted upward unmeasured, every session slid down into maintenance while I kept
+doing it. This is the single biggest error of the year, and it's why the entire plan
+is written in percentages against one number that gets retested every block.
 
-That's fractional utilization — how much of your aerobic ceiling you can hold for an hour. Trained cyclists sit at 75–85%. Well-developed endurance athletes are 80%+. You are below the bottom of the normal range.
+**I progressed reps, never watts.** Both 2026 progressions ended feeling good. That's
+the tell — a finished progression should end at the edge. Duration is now bounded by
+a time-in-zone target, and watts move at the block test.
 
-This reframes the problem. You don't have an exceptional top end. 367 W at 72 kg is 5.1 W/kg — solid, not remarkable. You have a *normal* ceiling sitting on top of an **underbuilt aerobic engine**. The gap isn't a high roof; it's a low floor.
+**Two hard days, not three** — but note the reasoning, because it changes what to
+protect. My history doesn't show intensity intolerance; I did eight unbroken months
+of structure. What broke was the **calendar**: the June fondo ended and nothing
+replaced it. That's a goal-vacuum failure, not an overload failure. Reducing hard
+days doesn't fix it — scheduled anchors do, hence a test at the end of every block
+and a pre-scheduled December transition. Two hard days is right for a different
+reason: three *kind of hard* sessions are more corrosive over 18 weeks than two
+genuinely hard ones plus four genuinely easy rides, and produce less adaptation.
 
-**The limiter is therefore muscular endurance and lactate clearance at threshold** — mitochondrial density, capillarization, the ability to hold sub-maximal work without drift. Not VO2max.
+**Thesis: harder sessions, not more of them, and much easier easy days.**
 
-**Consequence:** almost no VO2 work through December. Even holding 367 W constant, moving to a normal 78% ratio puts you at **286 W FTP**. The goal is already inside your existing ceiling. Raising a roof you're standing four feet below is the lowest-value thing available.
-
-### Three compounding errors in 2026
-
-**1. You never re-anchored.** Set 270 W in January, trained off it through June. If true FTP drifted to 282 by April, your sweet spot at 240 W was 85% of true FTP, not 89%. Your VO2 at 315 W was 112%, not 117%. The training didn't stop working — **it slid down into maintenance while you kept doing it.** This is the single biggest error of the year.
-
-**2. Reps progressed, watts never did.** Adding reps at fixed power raises time-in-zone, which is real — until duration saturates. After that it's more fatigue for the same signal. Both progressions "ended feeling good." That's the tell. A completed progression should end at the edge.
-
-**3. VO2 targets were too low to be VO2 work.** 315 W is 86% of your 4-min max. For 5×4 min the standard is 88–93%. You were under-range even at 5 reps and described it as "pretty hard but doable." VO2 work isn't doable. March–May was extended threshold work in a VO2 costume: too hard to be aerobic, too easy to stress VO2max.
-
-**4 (quieter).** Peak CTL 63 on 8–12 h/week available. Underweight for the hours. Chronic aerobic load is the untouched lever.
-
-### Part of the plateau may be measurement, not physiology
-
-The August effort: 279 W / 18 min at 85°F / 74°F dew point, two weeks back from three weeks off, CTL 48 (down from 63), **avg HR 179 — 9 bpm above LTHR, 92% of max.** That HR confirms a genuinely maximal effort, not a paced one.
-
-- Heat at 74°F dew point: ~5–7% cost at threshold duration
-- Detraining residual after three weeks off, partly clawed back: ~2–4%
-
-Cool, rested equivalent: **~295 W for 18 min → FTP ~276–280.**
-
-There is a real chance FTP is already 278–282 and has been drifting upward unmeasured. The September test resolves it. Until then, working FTP stays 270 — conservative by design for a re-entry block.
-
-**Not resolved by week 1 (13 Aug 2026).** Both quality sessions came in at RPE 7, which looked like a rule 3 trigger and isn't — the sessions are prescribed sub-threshold and their HR was proportional to their power. Full reasoning in §12.2. **Nothing before the 12 Sep test will settle this**, which is the point of having a test.
-
-### Evidence that would confirm or refute the limiter
-
-| Test | Confirms | Refutes |
-|---|---|---|
-| 2×20 min @ 262 W (97%), indoor, cool, rested | Barely finish; HR drift >6 bpm rep 1→2; final 5 min a countdown | Finish at RPE 7 → targets were the whole problem, FTP ≥280 |
-| 3 h Z2 decoupling @ 170 W | Pw:Hr drift >5% → base genuinely thin | Drift <3% → base is fine, purely a targets problem |
-| 4-min max retest, October | Still ~365 W while FTP climbs → ratio falls toward 0.78 | Dropped below 350 W → VO2 dose too low, add a session per fortnight |
-| Cool 20-min test, early September | 270–275 → plateau was physiological | 282+ → plateau was substantially measurement artifact |
+Is +18 W realistic? Yes, if the hours average 10–11 and the re-anchoring actually
+happens. Year 2 past the beginner surge with a specific correctable error is the
+good year for this. Realistic downside is landing a few watts short in December and
+getting there in February — worth pre-committing to accepting. Part of the gain is
+also environmental: a December test at 45°F flatters an August reference at 85°F.
+Know that now so next July doesn't demoralize.
 
 ---
 
-<a name="2-is-18-w-realistic"></a>
-## 2. Is +18 W realistic?
+## Zones
 
-**Yes. ~70% likely with three conditions, ~35% without.**
+Percentages only. Nothing here needs editing when FTP changes.
 
-1. **Average 10–11 h/week, not 8.** CTL is the untouched lever and the arithmetic in §5 doesn't work at 8 h.
-2. **Re-anchor FTP every 4–5 weeks** and raise interval watts off the new number. Fixing this is worth more than any session design.
-3. **Spend the blocks on threshold and durability, not VO2.**
+| Zone | % FTP | % LTHR | What it's for |
+|---|---|---|---|
+| Recovery | <60% | <78% | Nothing. Genuinely nothing. |
+| **Endurance (Z2)** | **60–75%** | **78–85%** | Aerobic volume, the bulk of the week |
+| Tempo | 76–84% | 82–87% | Durability blocks late in long rides |
+| **Sweet spot** | **85–88%** | **84–89%** | High aerobic load per unit of fatigue |
+| **Sub-threshold** | **89–94%** | **87–93%** | Near MLSS. Repeatable weekly. |
+| Threshold | 95–103% | 93–101% | The main event from Block 2 on |
+| VO2 (rare) | 110–120% | >100% | Maintenance only, Block 3 |
 
-**Two caveats:**
+These band names are the only intensity vocabulary in this document. If a session is
+described by a band name anywhere, it means the range in this table and nothing else.
 
-*Part of +18 W is environmental.* You'll test in December at ~45°F against an August reference from 85°F. 288 W in December ≈ 270–276 W in last week's conditions. Still real fitness — it's the number you'd race on in spring — but know it now so July doesn't demoralize you.
+**Short efforts are prescribed by their own protocol**, not by a band, and carry no
+band HR expectation — warm-up primers, openers, over-unders, sprints.
 
-*Year 2 is the good year.* Past the beginner surge, nowhere near the ceiling, with a specific identified correctable error. +6.7% in 4.5 months would be optimistic for a year-6 athlete. For you it's the expected outcome.
+### What "easy" means
 
-**Realistic downside is 282–284 in December, 288 in February.** Pre-commit to accepting that.
+Easy is Z2 by power, with **ride NP under ~72% FTP**. **Prescribed blocks inside a
+ride are exempt** — the cap describes the riding around them, not the intervals.
 
-### On training frequency
+The NP cap is what catches trash miles: they show up as a respectable average hiding
+40 min of surging, so you pay threshold-day recovery costs for tempo-day stimulus.
+Rolling terrain isn't an excuse — soft-pedal the descents, use the small ring.
 
-Two quality efforts per week, not three. But note the reasoning, because it changes what you protect:
+### Reading HR
 
-Your history does **not** show intensity intolerance — you did eight unbroken months of structure including two full progressions. What broke was the **calendar**: the June gran fondo ended and nothing replaced it. That's a goal-vacuum failure, not an overload failure. Reducing hard days doesn't fix it; scheduled anchors do. Hence a test at the end of every block and a **pre-scheduled** December transition.
-
-Two hard days is right for a different reason: **three sessions of *kind of hard* is more corrosive over 18 weeks than two genuinely hard sessions plus four genuinely easy rides — and produces less adaptation.** Same disease as trash miles.
-
-**Thesis of the whole plan: harder sessions, not more of them, and much easier easy days.**
+- **Judge a rep on its last 5 minutes**, not its average. The average drags in the
+  climb-in, and the warm-up's ramp-in depresses rep 1 by design. Rep 1 running low
+  is correct, not a warning.
+- HR should **climb across a threshold session** rather than sitting at LTHR from rep
+  1. It should stay roughly **flat across a sweet spot or sub-threshold session** —
+  that's what "repeats weekly without digging a hole" looks like in the data, not a
+  sign the target is soft.
+- **Check what a session was designed to feel like before reading how it felt as a
+  signal.** A moderate session feeling moderate is the design working, not evidence
+  the target is too low.
+- **HR won't rise despite maximal RPE:** stop. See the hard stops below.
 
 ---
 
-<a name="3-zones-and-ceilings"></a>
-## 3. Zones and ceilings
+## The standard warm-up
 
-**At FTP 270 W / LTHR 170 bpm.** Update all of this after each retest.
+Before every quality session. It exists to solve the first-rep problem.
 
-| Zone | Power | % FTP | HR | % LTHR |
-|---|---|---|---|---|
-| Recovery | 140–165 W | 52–61% | <135 | <79% |
-| **Endurance (Z2)** | **160–185 W** | **59–68%** | **≤145 avg, ≤153 spot** | **≤85 / ≤90%** |
-| Tempo | 190–215 W | 70–80% | 145–156 | 85–92% |
-| Sweet spot | 228–240 W | 85–89% | 145–155 | 85–91% |
-| **Sub-threshold** | **243–254 W** | **90–94%** | **150–160** | **88–94%** |
-| Threshold | 256–278 W | 95–103% | 162–170 | 95–100% |
-| VO2 (rare) | 300–330 W | 111–122% | 175+ | 103%+ |
+**Why:** oxygen uptake kinetics are sluggish at session start — the aerobic system
+needs 2–3 min to reach steady state, so rep 1 runs disproportionately anaerobic and
+accumulates lactate you can't yet clear. Reps 2–3 feel better because rep 1 primed
+the system. Prior hard work speeds VO2 kinetics on subsequent efforts, so pay that
+priming cost in the warm-up where it's cheap.
 
-> **The sub-threshold row was added 13 Aug 2026, and it is the most important thing in
-> this section.** Before that, sweet spot ended at 89% and threshold began at 91%, so
-> **90% belonged to no zone** — and the plan's own Tuesday anchor session sits at 91%.
-> Everything in the 90–94% band was being read against threshold expectations it was
-> never designed to meet. That produced a false "raise FTP" signal on 13 Aug 2026
-> (§12.2). The threshold row also moved from 91–100% to **95–103%** to match §10, §13
-> and §1, which all already used 95%+ as the threshold floor. **No session target
-> changed** — only the labels and the HR expectations attached to them.
+1. 8 min ramping 48% → 70%
+2. **3 × 1 min @ 100–105%**, 2 min @ 52% between — firm, not maximal
+3. 5 min @ 55%
+4. **Rep 1 ramp-in:** first 2 min of rep 1 ~4% under target, then settle
+
+The size of the deficit being primed scales with how far the work sits above
+aerobic steady state, so this matters most before threshold and VO2 and least before
+sweet spot. One warm-up covers all of it at 100–105%; add a fourth primer before
+VO2 work if rep 1 is consistently ugly.
+
+**Diagnostic:** rep 1 hard and reps 2–3 fine is a warm-up problem, and a normal one.
+Don't change targets over it.
+
+---
+
+## The week
+
+**Tuesday is always on. Thursday and a hard Sunday are the swappable pair.** Two
+quality efforts either way.
+
+### Variant A — Thursday kept, Sunday is Z2
+
+| Day | Session | Target | Purpose |
+|---|---|---|---|
+| **Mon** | Off, or 40 min recovery | <60% | Nothing. Genuinely nothing. |
+| **Tue** | **Sub-threshold.** Warm-up → **3 × 12 min @ 90–93%**, 5 min @ 55% between → 10 min CD. ~85 min | 90–93% | Sustained work near MLSS — lactate clearance and muscular endurance, the actual limiter. Deliberately sub-threshold so it repeats weekly without digging a hole. |
+| **Wed** | 70 min easy + **4 × 15 s standing starts, MAX**, full recovery between | 60–70% base; sprints **500–800 W** | Aerobic volume. Sprints cost nothing and keep neuromuscular recruitment alive so top end doesn't quietly decay. |
+| **Thu** | **Sweet spot.** Warm-up → **2 × 20 min @ 85–88%**, 6 min easy between → **1 × 10 min @ 85–88%** → CD. ~85 min | 85–88% | High aerobic load per unit of fatigue — the TSS engine of the week. Deliberately *not* threshold: it's the droppable session, so it should be the one whose absence costs least. |
+| **Fri** | 60 min easy, or off | 60–70% | |
+| **Sat** | Outdoor endurance 2–2.5 h | 60–72%, NP ≤72% | Volume. |
+| **Sun** | Outdoor 3–3.5 h Z2. **Final 45 min: 2 × 10 min @ 85–88%**, 5 min easy between | 60–72% base | **The durability session.** Sweet spot *after* 2.5 h trains fractional utilization directly — holding a high fraction of FTP when glycogen-depleted is the exact missing adaptation. It costs more than the same watts fresh; that's the point. Build 2×10 → 2×12 → 3×12 across the block. |
+
+**~10.5 h.**
+
+> **On the Wednesday sprints.** Ride them as actual standing starts: out of the
+> saddle, big gear, surge as hard as you can, hold form, let it fade across the 15 s.
+> Measured efforts run 550–920 W; peak will be over 1000 W. The **500–800 W** on the
+> workout is a deliberately wide range so no head unit treats it as a number to hold
+> — the instruction is *max*. Full recovery between (4+ min), and if the 4th is
+> materially down on the 1st, stop.
 >
-> **These seven band names are the document's only intensity vocabulary.** §6, §9, §10,
-> §11, §12 and §13 all defer here. If a session is described by a band name anywhere in
-> this document, it means the % range in this table and nothing else.
->
-> **The remaining gaps are deliberate**, and two things legitimately cross them:
->
-> - **Short efforts**, prescribed by their own protocol rather than by a band and
->   carrying no band HR expectation — §4's primers at 105–110%, §13 Block 3's
->   over-unders at 105%.
-> - **The Sunday durability blocks at 225–235 W (83–87%)**, which straddle the
->   tempo/sweet-spot boundary on purpose. Ridden after 2.5–3 h they cost what sweet
->   spot costs fresh, which is the entire point — so judge them by §6's HR guidance for
->   that session, not by either adjacent band. **They are not "tempo" in the §3 sense**,
->   despite older wording in §6 and §13 that called them that.
+> **This is the one absolute target in the plan.** It is neuromuscular, roughly 3×
+> FTP, and re-deriving it from FTP would be meaningless. It does not change when FTP
+> changes; re-anchor it against actual sprint power, if ever.
 
-### Hard ceilings for an easy ride
+### Variant B — Thursday dropped, Sunday is a hard group ride
 
-- **Average power 160–185 W**
-- **NP cap 195 W** — if NP exceeds this it was not an easy ride, regardless of feel
-- **Cumulative time above 230 W: ≤6 min** for the whole ride
-- No single effort above 270 W for more than 30 s
-- **Average HR ≤145, ceiling ≤153** except brief climbs
-- **Pw:Hr decoupling <5%** on any ride over 2 h. Computed from the Strava power and HR streams: watts-per-beat over the first half against the second half, `(first − second) / first`. **Use moving-only samples** — a group ride with a long café stop leaves HR elevated against zero power and inflates the second half. (9 Aug 2026 read +5.0% on raw streams with 92 min stopped, so right at the bar and probably flattered by the method.)
+| Day | Session | Target | Purpose |
+|---|---|---|---|
+| **Mon** | Off, or 40 min recovery | <60% | |
+| **Tue** | **Identical to Variant A.** 3 × 12 min @ 90–93% | 90–93% | The anchor session. It never moves. |
+| **Wed** | Same as Variant A | 60–70% base | |
+| **Thu** | 75 min easy + **5 × 1 min @ 95–102%**, 4 min easy between | 60–70% base | Openers, not a workout. Sharp legs at almost no fatigue cost. |
+| **Fri** | 45–60 min easy, or off | <65% | |
+| **Sat** | **90 min – 2 h, easy only** | 60–68%, NP ≤72% | Deliberately shorter and easier than Variant A. Do not pre-fatigue Sunday. |
+| **Sun** | **Hard group ride, 3–4 h** | — | This *is* the second quality effort, not a compromise. Threshold-and-above in variable terrain is good durability work — it's just uncontrolled, so it gets accounted for rather than ignored. |
+| **Mon after** | **Full day off.** | — | |
 
-The NP cap is what catches trash miles. They show up as a respectable average hiding 40 min of surging: average looks fine, NP is 210, and you've paid threshold-day recovery costs for tempo-day stimulus.
+**~9.5–10 h.**
 
-Rolling terrain is not an excuse. Soft-pedal descents, spin the risers, use the small ring.
+### Choosing between them
 
-### Reading HR against these zones
+**Default is keep Thursday. Cutoff is Wednesday 21:00.** These rides happen 1–2×
+a month, so Variant A runs three weeks out of four; a default-drop posture would
+cost 2–3 sweet spot sessions a month to insure against a ride that usually doesn't
+happen.
 
-- **Threshold reps — the canonical HR ladder.** This is the *only* statement of it; §6 and §10 defer here. The session should **climb** toward LTHR, not sit at it from rep 1:
+- Drop Thursday **only** if a hard Sunday is confirmed or ≥60% likely.
+- **Genuinely 50/50:** keep Thursday but drop the 10-min block. If Sunday goes hard
+  you've paid a little extra fatigue instead of a lot; if it stays Z2 you've lost
+  10 min of sweet spot, which is noise.
+- **Group ride lands Saturday:** Saturday is the hard day, Sunday is 2–3 h pure Z2,
+  no blocks.
+- **Group ride appears Thursday night:** ride it, skip Thursday's structure, make
+  Sunday pure Z2.
+- **Both happen anyway** (Thursday kept, Sunday unexpectedly hard): that's three
+  quality efforts, survivable about once a month. Next week, cut Tuesday to 2×12 and
+  make Thursday easy. Pay the debt immediately.
 
-  | Rep | Avg HR | % LTHR | Last 2 min |
-  |---|---|---|---|
-  | 1 | **155–161** | 91–95% | 160–164 |
-  | 2 | **160–166** | 94–98% | 164–168 |
-  | 3 (final) | **162–168** | 95–99% | 166–170 |
+### When a group ride was a hard day
 
-  **The ladder applies to the threshold band only — 95–103%, reps of 15–30 min.** Do
-  not apply it to sweet spot or sub-threshold work. *(Scoped 13 Aug 2026.)*
+**It was a hard day if IF ≥ 0.80 or TSS ≥ 220.** Score it afterward, off what
+actually happened. If it was, the following Monday is off and that week gets one
+quality session instead of two.
 
-  Judge each rep on its **last 5 minutes**, not its average — the average drags in the climb-in, and §4's 2-min ramp-in depresses rep 1 by design. Rep 1 in the low 150s is correct, not a warning.
-
-  If a **threshold-band** session tops out at 155 in cool conditions when rested, the target is too low → raise FTP. **Every rep low, with little drift between them, is stronger evidence than a low final rep alone** — it says the intensity was wrong from the first minute rather than that the session merely didn't accumulate.
-
-- **Sweet spot and sub-threshold reps do not climb a ladder.** Use the flat bands in the
-  zone table above: **145–155** at 85–89%, **150–160** at 90–94%. HR tracks power
-  roughly proportionally, drifting up 2–5 bpm across the session. **Flat HR between the
-  last two reps of a deliberately repeatable session is the design working, not a
-  warning** — that is what "repeats weekly without digging a hole" looks like in the
-  data. Reading such a session against the threshold ladder manufactures a false
-  "raise FTP" signal; see §12.2 for the worked example.
-
-  *Reconciled 13 Aug 2026: this figure previously appeared four times with four values — 162–170 (zone table), 163–170 (here), 162–168 (§6), and "within 3–5 bpm of 170" (§10). 162–168 wins. The zone table's 162–170 stays, because that's the width of the **zone**, which is a different thing from where rep 3 should land.*
-- **Above 170 during threshold work** means you're over target, in heat, or fatigued — check §8.
-- **HR won't rise despite maximal RPE:** stop. See §14.
+During a ride that's going harder than planned, the tactical outs are: sit in on the
+last climb, skip the town-sign sprints, ride the final 30–40 min solo in Z2. That
+last part matters more than it sounds — 40 min easy after hard work meaningfully
+improves next-day quality.
 
 ---
 
-<a name="4-the-standard-warm-up"></a>
-## 4. The standard warm-up
+## Heat
 
-Use this before **every** quality session. It exists to solve the first-rep problem.
+Multiply the target by the factor. Applies to **tempo and above**; Z2 and recovery
+targets already sit below anything heat limits.
 
-**Why:** oxygen uptake kinetics are sluggish at session start — the aerobic system needs 2–3 min to reach steady state, so rep 1 runs disproportionately anaerobic and accumulates lactate you can't yet clear. Reps 2–3 feel better because rep 1 primed the system. Prior heavy exercise speeds VO2 kinetics and reduces the O2 deficit on subsequent efforts, so the fix is to pay that priming cost in the warm-up where it's cheap.
-
-**Protocol (~22 min):**
-
-1. 8 min ramping 130 → 190 W
-2. **3 × 1 min @ 285–295 W** (105–110% FTP), 2 min @ 140 W between — these are the priming efforts, they should feel firm but not maximal
-3. 5 min @ 150 W
-4. **Rep 1 ramp-in:** first 2 min of rep 1 at 10 W below target, then settle at target
-
-**Diagnostic rule:**
-- Rep 1 hard, reps 2–3 fine → **warm-up problem.** Normal. Don't change targets.
-- Reps 2 **and** 3 also RPE 9 → **target problem.** See §11.
-
----
-
-<a name="5-block-1-re-entry"></a>
-## 5. Block 1: re-entry (Aug 10 – Sep 13)
-
-**Target: CTL 48 → 58–60. Working FTP 270 W. 4 build weeks + 1 recovery/test week.**
-
-*Restructured 13 Aug 2026 for the Labor Day cycling trip — see §5.1. The block was
-Aug 10 – Sep 6 as 3 build + 1; it is now five weeks, and the September test moved from
-Sat 5 Sep to **Sat 12 Sep**.*
-
-### The CTL arithmetic (do this yourself in future blocks)
-
-CTL is a 42-day exponential average of daily TSS:
-
-> ΔCTL ≈ (average daily TSS − current CTL) × 0.487
-
-For ΔCTL = 12 over 28 days you need ~73 TSS/day → **~510 TSS/week**. At 10.5 h/week that's an average IF of ~0.70, achievable **only** with two real quality days. Not achievable on 9 h of pure Z2.
-
-**These are the corrected figures** — the amendment below is already applied, so the
-table and the amendment no longer disagree. Saturdays sit at 2 h and Sundays at
-3–3.25 h, the *bottom* of §6's ranges.
-
-| Week | Dates | Hours | TSS | Notes |
-|---|---|---|---|---|
-| 1 | Aug 10–16 | 10.5 | ~510 | Sunday tempo blocks 2×10 |
-| 2 | Aug 17–23 | 11 | ~520 | Tuesday 3×13; Sunday 2×12 |
-| 3 | Aug 24–30 | 11 | ~505 | Tuesday 3×15 + **bonus rep test** (moved from Thursday); Thursday 3×20+15 completes the sweet-spot TiZ target; Sunday trimmed to 2.5 h + 2×12 |
-| 4 | Aug 31 – Sep 6 | 11–12 | ~550–580 | Mon–Thu taper, Fri–Sun Massachusetts trip. **Shape decided 30 Aug — §5.1** |
-| 5 | Sep 7–13 | 6.5 | ~305 | Recovery + **20-min test Sat 12 Sep** |
-
-**The bonus rep test moved to Tuesday 25 Aug** *(13 Aug 2026, a consequence of the §10
-audit)*. It was on Thursday's sweet spot session, where it doesn't work: §10 now
-establishes that sweet spot is *designed* to leave one rep in hand, so one bonus rep
-proves nothing and you'd need **two** 20-min blocks to get a signal — an absurd session.
-Tuesday is the right host. 3×15 at 248 W hits the sub-threshold band's 45-min TiZ target
-exactly, and at that intensity **one** comfortable extra rep is the signal. Cheap, one
-rep, unambiguous.
-
-Thursday 27 Aug instead becomes **3×20 + 15 = 75 min TiZ**, which completes the
-sweet-spot progression against §11's target. Per §11 rule 1 duration comes first, and
-60 min (3×20) would have left the progression unfinished — so there was nothing
-legitimate to bonus-test anyway.
-
-Lands CTL at **58–60 at the test.** A ~2.5 CTL/week ramp across weeks 1–3 is defensible here because you're *regaining* June territory, not building novel load; week 4 adds ~3.5 more in an unusual shape.
-
-**Why those numbers (amendment, 11 Aug 2026, folded into the table above 13 Aug).** As originally written the table asked for 550 and 590 TSS in weeks 2–3. 590 TSS at 11.5 h requires an average IF of 0.716; the §6 session menu (two quality days, everything else capped Z2) delivers about 0.696. You can hit the hours target or the TSS target, not both. **Resolved in favour of hours**, per §0.5 constraint 2 — hence 510 and 545 above.
-
-Consequence, projected against actuals: **CTL ~56 at the September test rather than 57–59**, build-week ramp +3.5/week rather than +4.4, worst-case TSB −23.5 rather than −28.6. The 1.5 CTL is the price of not arriving at the test nineteen days into a re-entry block at TSB −29, five weeks after three weeks off sick.
-
-Note the trap in the block-average figure: including the recovery week, both versions report ~2.5–2.7 CTL/week and look compliant. **Judge the ramp on build weeks only** — the recovery week flatters it. If the September test comes in strong *and* week 3 felt comfortable, take the top of the ranges in Block 2.
-
-**Quality work defaults to indoors — but it's a default, not a rule.** With two fans and
-a room under 75°F you train at full targets while it's 90°F outside. That's an advantage
-of the setup and it should be the assumption whenever nothing argues otherwise. Weekends
-are outdoors and Z2, where heat matters least because you cap by power.
-
-**When I ask for a quality session outdoors, it goes outdoors.** Apply §8's derate and
-prescribe it properly; don't quietly move it back inside, and don't treat the request as
-something to talk me out of. §8 exists precisely so that outdoor quality work is a real
-option — a derated target costs the same as the indoor one, paid in thermal strain
-instead of watts. *(Reworded 13 Aug 2026 after Tue 18 Aug — requested outdoors, and
-moved back indoors without being asked. The stated reason was that heat would make the
-number hard to read, which was reasoning borrowed from an FTP argument that had already
-been withdrawn.)*
-
-Two things that genuinely do argue for indoors, and are worth raising rather than acting
-on unilaterally: reps longer than ~10 min need road that won't chop them up, and a
-session being compared like-for-like against the ones either side of it in a progression
-(§11) is cleaner in matched conditions.
-
-<a name="5-1-labor-day"></a>
-### 5.1 The Labor Day restructure (decided 13 Aug 2026)
-
-A cycling trip in flat/rolling Massachusetts, **Fri 4 – Sun 6 Sep**: one long tempo-ish
-ride of ~4 h and one or two medium 2.5–3 h rides. It collided with week 4 as originally
-written — a 6.5 h recovery week ending in the 20-min test on Sat 5 Sep.
-
-**The constraint that decides everything: a recovery week and a three-day riding trip
-cannot be the same week.** So recovery goes either before the trip or after it. There is
-no third option, and the choice is really about where Block 2 starts from.
-
-| | Test | CTL @ test | TSB @ test | Block 2 wk1 starts at |
-|---|---|---|---|---|
-| Recovery **before** — test Sat 29 Aug, 2 build weeks | 29 Aug | 54.1 | −3.3 | **TSB −13.9** |
-| **Recovery after — test Sat 12 Sep** ✅ | 12 Sep | **58.8** | −2.1 | **TSB +2.9** |
-
-**Chosen: recovery after.** You test 4.7 CTL higher and start the main threshold block
-rested rather than 14 TSB down. The cost is a one-week slip of the whole roadmap (§13),
-which §13's Block 5 buffer absorbs; reclaim it by running Block 3 as 2 build + 1 if
-you're ahead at that point.
-
-The trip is treated as **a load weekend, not an interruption** — three long aerobic days
-with tempo blocks is the §1 limiter's preferred stimulus, and per §0.5 constraint 1 the
-riding-with-friends part is a sub-goal in its own right.
-
-**Camp shape.** Flat and rolling removes the descents that normally hand you free
-recovery, so NP creep is the risk, not the climbing: §3's ceilings matter *more* here.
-
-| Day | Ride | Blocks |
-|---|---|---|
-| Fri | 2.5–3 h medium | 2×20 min @ 220–230 W mid-ride |
-| Sat | ~4 h, the long one | Z2 for 2.5–3 h, then 3×15 min @ 225–235 W in the final hour |
-| Sun | 2.5–3 h medium | 2×20 min @ 220–230 W, final 45 min ≤185 W |
-
-Ceilings outside the blocks: **NP ≤195 W, avg HR ≤145.** Early-September Massachusetts
-dew points usually run 60–68°F, so expect §8 to pull the blocks to ~221–225 W — check
-the morning of.
-
-#### Week 4's shape is decided on Sun 30 Aug, not now
-
-Weeks 2 and 3 are identical under every variant, so this waits for three more weeks of
-data. **Pre-committed rule, to be applied cold:**
-
-| Signals on Sun 30 Aug | Week 4 |
+| Dew point | Factor |
 |---|---|
-| §14.2 green, 7-day HRV within 5 of baseline, RHR flat, week 3 completed at target | **Tue 1 Sep sub-threshold 2×15, full 3-day trip** (~580 TSS) |
-| One repeat marker | **No Tuesday quality — Mon–Thu fully easy, full 3-day trip** (~547 TSS) |
-| Two repeat markers, or any §14 back-off trigger | **Real down week: ride 2 of the 3 days, third day pure Z2** (~390 TSS) |
+| <60°F | ×1.00 |
+| 60–65°F | ×0.98 |
+| 65–70°F | ×0.96 |
+| 70–75°F | ×0.94 |
+| >75°F | ×0.92, or move indoors |
 
-**Why a Tuesday quality session is on the table at all.** Without one, the last
-sub-threshold session is Tue 25 Aug and the next quality effort is the test on 12 Sep —
-a 17-day gap in the block's primary stimulus. The original 4-week structure had an
-11-day gap. Tuesday 1 Sep restores it to 11 without meaningfully denting the trip.
+A further ×0.98 if air temp is above 88°F. Indoors with two fans and a room under
+75°F: no adjustment. Indoors with poor airflow: treat as 70–75°F dew point — an
+unventilated apartment is often worse than the street.
 
-**Known cost:** projected TSB at the end of the trip is **−26 to −29**, the deepest of
-the plan so far. That is acceptable at the end of a camp with a full recovery week
-behind it — it would not be acceptable arriving at a test, which is precisely why the
-test moved to 12 Sep. It is only safe if Mon–Thu is genuinely easy and the trip's Z2 is
-genuinely Z2.
+**The derate is not a reduction in training stress.** The adjusted wattage costs what
+the unadjusted one costs indoors — same drift, same lactate. You pay the difference
+in thermal strain instead of watts.
 
----
+**Expect higher HR at the same %FTP in heat.** That's the cost being paid, not a
+signal. Don't chase watts back up to hit an HR band, and don't apply Z2 HR
+expectations to a summer outdoor ride at all — cap those by power.
 
-<a name="6-the-week-both-variants"></a>
-## 6. The week, both variants
+**Quality work defaults indoors** in this weather, where full targets are available
+at 90°F outside. It's a default, not a rule: **when I ask for a quality session
+outdoors, it goes outdoors.** Apply the derate and prescribe it properly. Two things
+genuinely argue for indoors and are worth raising rather than acting on: reps longer
+than ~10 min need road that won't chop them up, and a session being compared
+like-for-like against the ones either side of it is cleaner in matched conditions.
 
-**Design principle:** Tuesday is always on. Thursday and a hard Sunday are the swappable pair. Two quality efforts either way.
-
-### Variant A — Thursday KEPT (Sunday is Z2)
-
-| Day | Session | Target | Purpose |
-|---|---|---|---|
-| **Mon** | Off, or 40 min recovery | 140–165 W | Nothing. Genuinely nothing. |
-| **Tue** | **Sub-threshold.** Standard warm-up → **3 × 12 min @ 245–250 W**, 5 min @ 150 W between → 10 min CD. ~85 min, ~95 TSS | 245–250 W (**91–93%, sub-threshold band**), HR 150–160 by rep 3. **Not the §3 ladder** | Sustained work near MLSS. Targets lactate clearance and muscular endurance — the actual limiter. Deliberately sub-threshold so it repeats weekly without digging a hole. |
-| **Wed** | 70 min easy + **4 × 15 s standing starts, MAX — surge to 700 W+ and let it fade**, full recovery | 150–180 W base; sprints **not** power-targeted | Aerobic volume. Sprints cost nothing and keep neuromuscular recruitment alive so top end doesn't quietly decay. |
-| **Thu** | **Sweet spot.** Standard warm-up → **2 × 20 min @ 228–235 W**, 6 min easy between → **1 × 10 min @ 235 W** → CD. ~85 min, ~85 TSS | 228–235 W (85–87%), HR 145–155 | High aerobic load per unit of fatigue — the TSS engine of the week. Deliberately *not* threshold: it's the droppable session, so it should be the one whose absence costs least. |
-| **Fri** | 60 min easy, or off | 150–180 W | |
-| **Sat** | Outdoor endurance 2–2.5 h | avg 160–185, NP ≤195 | Volume. Ceilings in §9. |
-| **Sun** | Outdoor 3–3.5 h Z2. **Final 45 min: 2 × 10 min @ 225–235 W**, 5 min easy between | avg 160–185. Blocks are **83–87%** — a deliberate straddle, not a §3 band. Expect HR 5–10 bpm above what those watts cost fresh | **The durability session.** Sustained work *after* 2.5 h of accumulated fatigue trains fractional utilization directly — holding a high fraction of FTP when glycogen-depleted is the exact adaptation missing. Build 2×10 → 2×12 → 3×12 across the block. |
-
-**~10.5 h, ~510 TSS.**
-
-> **On the Wednesday sprints — corrected 13 Aug 2026, and this had been discussed but
-> never written down.** This row previously read "@ 350–400 W." That is 130–148% of FTP,
-> which is anaerobic/VO2 territory and **less than half of what you actually produce**:
-> measured 15 s efforts are 553 / 748 / **917** / 806 W (12 Aug 2026) and 479–570 W on
-> June race openers. A 380 W "sprint" trains nothing the Tuesday session doesn't already
-> cover, while the row's own stated purpose is neuromuscular recruitment.
->
-> **Ride them as actual standing starts:** out of the saddle, big gear, surge as hard as
-> you can, hold form, let it fade across the 15 s. Peak will be 1000 W+; the 15 s average
-> lands somewhere around **700–850 W**. Don't chase a number — the instruction is *max*.
-> Full recovery between (4+ min), and if the 4th is materially down on the 1st, stop:
-> quality gone, and there's no aerobic point to grinding out a fifth.
->
-> Workouts carry these as a **deliberately wide 400–1000 W range** rather than a point
-> target — wide enough that no trainer or head unit treats it as something to hold.
->
-> **This target is neuromuscular, not FTP-derived. It does not get recomputed when the
-> working FTP changes** — §12.1 item 5 does not apply to it. Re-anchor it against actual
-> sprint power instead, if ever.
-
-### Variant B — Thursday DROPPED (Sunday is a hard group ride)
-
-| Day | Session | Target | Purpose |
-|---|---|---|---|
-| **Mon** | Off, or 40 min recovery | 140–165 W | |
-| **Tue** | **Identical to Variant A.** Sub-threshold, 3 × 12 min @ 245–250 W | 245–250 W (91–93%) | Unchanged. This is the anchor session; it never moves. |
-| **Wed** | 70 min easy + 4 × 15 s standing starts, max | 150–180 W base | Same — see Variant A |
-| **Thu** | 75 min easy + **5 × 1 min @ 260–275 W**, 4 min easy between | 150–180 W base | Openers, not a workout. Keeps legs sharp at almost no fatigue cost. ~55 TSS vs ~85. |
-| **Fri** | 45–60 min easy, or off | 140–170 W | |
-| **Sat** | **90 min – 2 h, easy only** | avg 155–175, NP ≤185 | Deliberately shorter and easier than Variant A. Do not pre-fatigue Sunday. |
-| **Sun** | **Hard group ride, 3–4 h.** Rules in §9 | — | This *is* the second quality effort, not a compromise. Group riding at threshold-and-above in variable terrain is good durability and repeatability work — it's just uncontrolled, so it gets accounted for rather than ignored. |
-| **Mon after** | **Full day off. Non-negotiable.** | — | |
-
-**~9.5–10 h, ~490–540 TSS.**
-
----
-
-<a name="7-the-thursdaysunday-decision-rule"></a>
-## 7. The Thursday/Sunday decision rule
-
-**Default is KEEP Thursday. Cutoff is Wednesday 21:00.**
-
-- Drop Thursday **only** if a hard Sunday is confirmed or you rate it **≥60% likely**.
-- **Genuinely 50/50 at the cutoff:** keep Thursday but truncate to **2 × 15 min @ 228–232 W** (drop the 10-min block). If Sunday goes hard you've paid ~25% extra fatigue instead of 100%; if it stays Z2 you've lost 10 min of sweet spot, which is noise.
-- **Group ride lands Saturday:** Saturday becomes the hard day, Sunday becomes 2–3 h pure Z2 with no tempo blocks, same Wednesday cutoff applies.
-- **Group ride appears Thursday night with no warning:** ride it, skip Thursday's structure, treat it as the second quality day, make Sunday pure Z2.
-
-**Why default-keep:** these happen 1–2× per month, so you're in Variant A three weeks out of four. A default-drop posture would cost 2–3 sweet spot sessions a month to insure against a ride that usually doesn't happen.
-
-**When both happen anyway** (Thursday kept, Sunday unexpectedly hard): that's three quality efforts. Survivable roughly once a month. The following week, cut Tuesday to **2 × 12 min** and make Thursday easy regardless. Pay the debt immediately; don't let it accumulate.
-
----
-
-<a name="8-heat"></a>
-## 8. Heat
-
-### Target adjustment by dew point
-
-**Multiply the target by the factor.** The factor is the rule; the watt columns are
-worked examples. This applies to *any* power target — Tuesday's threshold reps,
-Sunday's tempo blocks, anything at tempo or above — not only the 248 W number.
-
-| Dew point | Factor | 248 W → | 230 W → |
-|---|---|---|---|
-| <60°F | **×1.00** | 248 W | 230 W |
-| 60–65°F | **×0.98** | 243 W | 225 W |
-| 65–70°F | **×0.96** | 238 W | 221 W |
-| 70–75°F | **×0.94** | 233 W | 216 W |
-| >75°F | **×0.92** or move indoors | 228 W | 212 W |
-
-Multiply by a further **0.98** if air temp exceeds 88°F.
-
-**Z2 and recovery targets are not adjusted.** They already sit well below anything heat
-limits, so §3's 160–185 W stands whatever the dew point does. The derate applies to
-tempo and above only.
-
-**The heat adjustment is not a reduction in training stress.** 233 W at 72°F dew costs
-what 248 W costs indoors with two fans: same drift, same lactate, same HR. You pay the
-difference in thermal strain instead of watts. Which is why the *heart rate* targets in
-§3 do not move with the derate — if the adjusted wattage isn't driving HR into the
-expected band, the adjustment has over-corrected and you ride up.
-
-> **Why a factor and not a lookup table.** The earlier version of this section gave only
-> a "248 W becomes…" column. It was misapplied twice in one session — once transcribed
-> with the two no-derate rows dropped, once applied to Sunday's 230 W blocks by
-> recomputing the percentages by hand and getting them wrong. A derived column only
-> works for the one base it was derived from.
-
-**Indoors with two fans, room <75°F: no adjustment.** Indoors with poor airflow: treat as 70–75°F dew point. An unventilated apartment is often worse than the street.
+**Don't make a project of heat acclimation.** Partial adaptation comes free from
+weekend riding and decays within ~2 weeks of stopping. Testing happens in cool
+weather.
 
 ### Reading power that looks low
 
-| Power | HR | RPE | Diagnosis | Action |
-|---|---|---|---|---|
-| Low | **High** | Normal for the power | Heat / dehydration | Not a fitness signal. Drop to adjusted target, finish. |
-| Low | Normal | **High** | Glycogen depletion or accumulated fatigue | Cut the set one rep short. Eat more. |
-| Low | **Low** despite genuine max effort | Very high | Deep fatigue, overreaching, or illness incubating | **Stop.** 2–3 days easy minimum. |
-| Low outdoors only, fine indoors | — | — | Power meter disagreement (ruled out — same PM) | n/a |
-
-**Memorize row 3.** Suppressed HR at maximal RPE is the classic parasympathetic overreaching signature and the one most amateurs push through.
-
-**On heat acclimation:** don't make a project of it. Partial adaptation comes free from weekend outdoor riding, and the plasma-volume benefit decays within ~2 weeks of stopping. Testing happens in November and December in cool weather.
+| HR | RPE | Diagnosis | Action |
+|---|---|---|---|
+| **High** | Normal for the power | Heat or dehydration | Not a fitness signal. Drop to the adjusted target and finish. |
+| Normal | **High** | Glycogen depletion or accumulated fatigue | Cut the set one rep short. Eat more. |
+| **Low** despite genuine max effort | Very high | Deep fatigue, overreaching, or illness incubating | **Stop.** See the hard stops below. |
 
 ---
 
-<a name="9-trash-miles"></a>
-## 9. Trash miles
+## Fuelling
 
-Ceilings are in §3. This section covers group rides.
+The Sunday session and the long weekend rides work *because* they land on depleted
+glycogen — but that state comes from the duration in front of them, not from
+under-eating. Riding them under-fuelled just means riding them badly.
 
-### During a ride that goes harder than planned
-
-- Budget: **25 minutes above 243 W (90% FTP — the sub-threshold floor)** before it's officially a hard day. Past that, stop managing it and ride — but it *is* your hard day and gets accounted for.
-- Tactical outs: sit in on the last climb, skip town-sign sprints, ride the final 30–40 min solo at ≤185 W. That last part matters more than it sounds — 40 min easy after hard work meaningfully improves next-day quality.
-
-### Scoring it afterward
-
-**It was a hard day if ANY of:**
-- IF ≥ 0.80
-- More than 20 min above 260 W (96% FTP — inside the threshold band)
-- TSS ≥ 220
-
-**This is the only definition of "hard day" in this document.** §15's "a hard group ride
-is IF 0.78–0.85, TSS 200–280" is a *forecast* of what such a ride typically produces —
-useful for planning a week in advance, and not a test. A ride at IF 0.79 / TSS 210 sits
-inside §15's expected range and is **not** a hard day. Score it here, after the fact,
-off what actually happened.
-
-### Consequences
-
-| Situation | Response |
+| Ride | Carbohydrate |
 |---|---|
-| Hard day, and you'd already done Thursday | Next Monday fully off, next Tuesday drops one rep, **no Thursday intensity next week** |
-| Hard day in Variant B as planned | Next Monday off, week proceeds normally |
-| Two hard group rides on consecutive weekends | Drop Thursday both weeks. That's the system working, not a failure. |
+| Easy, under ~90 min | Nothing needed |
+| Quality session, 60–90 min | 40–60 g/h — protects the last reps |
+| 90 min – 2.5 h | ~60 g/h |
+| 3–4 h, and camp days | **80–90 g/h.** Needs a glucose+fructose mix; single-source absorption tops out near 60 g/h |
+| After anything hard or long | ~80–90 g carb + ~25 g protein within the hour |
+
+**No caloric deficit during build blocks** — it compromises the exact adaptations
+being chased. Multi-day trips are where under-fuelling compounds; that's the one to
+watch.
 
 ---
 
-<a name="10-is-the-target-hard-enough"></a>
-## 10. Is the target hard enough? The bonus rep test
+## Progression
 
-Both 2026 progressions ended "feeling good." This is how that stops happening.
+**Within a block, progress duration. Between blocks, progress watts** — the test
+moves FTP, and every target in this document moves with it because they're all
+percentages.
 
-**On the final session of any progression, after the last prescribed rep, attempt one extra rep at the same power.**
+Add duration until the block's time-in-zone target is met, then hold it:
 
-| Outcome | Meaning | Action |
-|---|---|---|
-| Complete it without a large RPE jump | Target was **5–8 W too low** (10–15 W for VO2) | Raise it |
-| Fail before ~60–70% of its duration | Target was correct | This is what you want |
-| Can't start it | Target slightly high | Fine at the end of a progression |
-
-**Read that table against the band's expected reserve, not in the abstract.** *(Added
-13 Aug 2026.)* Each band is *designed* to leave a different amount in the tank, so
-"completed a bonus rep" means different things at different intensities:
-
-| Band | Reserve the session is designed to leave | Bonus rep says the target is low if… |
-|---|---|---|
-| Sweet spot (85–89%) | one more rep | you complete **two** extra reps |
-| Sub-threshold (90–94%) | one more rep, and you'd know it | you complete **one** extra rep comfortably |
-| Threshold (95–103%) | nothing | you can **start** one at all |
-| VO2 (111–122%) | nothing | you complete one |
-
-Completing a single bonus rep after a sweet spot session is **on target** — it is the
-per-session check below being met, not evidence of an easy session. Misreading exactly
-that cost a re-anchor on 13 Aug 2026 (§12.2).
-
-### Per-session checks (no bonus rep needed)
-
-| Work type | Final rep should feel like |
+| Band | Time-in-zone target per session |
 |---|---|
-| Sweet spot (85–89%) | RPE 7. Could do one more rep, maybe two. |
-| Sub-threshold (90–94%) | RPE 7–8. Could do exactly one more, and it would be a grind. |
-| Threshold (95–103%, 15–30 min) | RPE 8–9. HR per the §3 ladder (final rep 162–168). Counting down the last 3–4 min. |
-| VO2 (111–122%, 3–5 min) | Just barely finish. Completion in doubt during the last 45 s. |
+| Sweet spot (85–88%) | 75 min |
+| Sub-threshold (89–94%) | 45–60 min |
+| Threshold (95–103%) | 60 min |
+| VO2 (110–120%) | 20–24 min |
 
-**The gap between sweet spot and sub-threshold is one RPE point and ~15 W.** They are
-easy to confuse and they are not the same session. If you can't tell which one you
-just rode, check the power against §3 before drawing any conclusion from the feel.
+**TiZ is counted per band and bands are not interchangeable** — 60 min at 91% is not
+60 min at 98%. Don't add them together across blocks.
 
-**These are mid-progression figures. The top session is different.** *(Reconciled 13
-Aug 2026.)* §1 error 2 says a completed progression should "end at the edge," which
-appears to contradict the reserve in the table above. It doesn't — they describe
-different sessions:
+**Never add duration and intensity in the same week.**
 
-- **Mid-progression**, at less than target TiZ, every band leaves the reserve listed
-  above. A week-1 sweet spot session at RPE 7 with a rep in hand is correct.
-- **The top session** — full TiZ for the band, per §11 — should end at the edge
-  *for its band*: sweet spot at RPE 8 with nothing comfortable left, threshold at
-  RPE 9. That is the session §12 rule 3 and the bonus rep are asking about.
-
-**Only the top session is a test result.** Applying either to a week-1 session is how
-2026's mistake gets made in reverse — chasing a re-anchor off a session that was never
-designed to be at the edge yet.
-
-**Aerobic triviality check:** if first rep and last rep are the same power, same HR, and same RPE, the session stressed nothing. Real sessions decouple.
+There is deliberately no rule for bumping a target off how a session felt. RPE
+resolves to about ±1, which isn't enough precision to move a number on. Sessions
+feeling easy or hard is context for the weekly review, not a trigger. **The test is
+the instrument.**
 
 ---
 
-<a name="11-reps-vs-watts"></a>
-## 11. Reps vs. watts: the decision rule
+## Re-anchoring FTP
 
-1. **Add duration first**, until the block's time-in-zone target is met. **TiZ is
-   counted per §3 band, and the bands are not interchangeable currency** — 60 min at
-   91% is not 60 min at 98%:
-   - Sweet spot (85–89%): **75 min** · Sub-threshold (90–94%): **45–60 min** ·
-     Threshold (95–103%): **60 min** · VO2 (111–122%): **20–24 min**
-   - *Block 1 accumulates sub-threshold TiZ (Tuesday tops out at 3×15 = 45 min).
-     Block 2 onward accumulates threshold TiZ. Don't add them together.*
-2. **Once at target TiZ, complete it twice consecutively with final-rep RPE ≤ the band's target in §10 → raise watts by 2–3% (5–8 W at threshold), drop back to the lowest rep count, rebuild duration.**
-3. **Never raise reps and watts in the same session.**
-4. **Fail a new wattage twice — in cool conditions, in a non-fatigued week — drop back 5 W.** Once is noise. Twice is data.
+**Test at the end of every block's recovery week.** Take intervals.icu's number —
+it computes eFTP from the power-duration curve and I don't need to recompute it by
+hand. Then:
 
-You executed step 1 correctly in 2026 and then stopped. **Step 2 is the spiral you missed**, and it's why seven months produced no watts.
+1. Update **`ftp` and `indoor_ftp` together** in sport settings.
+   `IntervalsClient.update_sport_settings(id, ftp=..., indoor_ftp=...)`; get the id
+   from `athlete()["sportSettings"]`. If they diverge, the same `%` workout means
+   different watts indoors and out, and the CTL series quietly mixes both.
+2. Log the change and its evidence in `plan/decisions.md`.
 
----
+That's the whole checklist, because nothing else in this document is derived from
+the number.
 
-<a name="12-re-anchoring-ftp"></a>
-## 12. Re-anchoring FTP
+**Between tests, the working FTP does not move.** Not off a session that felt easy,
+not off a high eFTP reading on one ride. intervals.icu does not auto-update FTP from
+eFTP, so the number only ever changes when I change it — keep it that way.
 
-Raise working FTP whenever **any** of these fires — not only at scheduled tests:
+**If a test comes in below the current FTP:** lower it, unless the test was hot, run
+in a fatigued week, or post-illness — in which case retest within 10 days rather than
+carrying a number neither of us believes.
 
-1. **Scheduled test** at the end of each block's recovery week (every 4–5 weeks). Always happens.
-2. **eFTP exceeds working FTP by ≥5 W on two separate rides within 3 weeks** → adopt the **lower** of the two eFTPs as the new working FTP.
-   - **How to get it.** intervals.icu doesn't serve a per-activity eFTP for Strava-sourced rides, but it *does* serve the per-activity mean-maximal power curve at the athlete level (`/athlete/{id}/activity-power-curves`, takes `oldest`/`newest`). eFTP ≈ **0.95 × best 20-min power** — calibrated against the one known point in §0.3, where 279 W for 18 min was reported as 265 W eFTP, exactly ×0.95.
-   - **Only counts on a ride that contained a near-maximal effort.** A steady Z2 ride has a *flat* power curve and will produce a respectable-looking 20-min number that means nothing. Sanity-check that the 20-min power is near the best in the window before treating it as a data point.
-3. **A session designed to be hard isn't hard.** You complete the **top** session of a
-   progression at an RPE **two or more points below its §10 band target**, with HR
-   below that band's §3 range → raise FTP by 5 W immediately. Don't wait for the test.
-   - *Restated 13 Aug 2026. It previously read "at RPE ≤ 7 with HR below LTHR," which
-     is unusable: sweet spot is **specified** at RPE 7 with HR far below LTHR, so the
-     rule fired on every correctly-executed sweet spot session. It must be read against
-     what the band was designed to feel like. Both halves matter — the session must be
-     the top of a progression **and** underperform its own band.*
-4. **Never lower** working FTP off a single hot, tired, or post-illness session. Lower only after two failed sessions in cool conditions during a non-overreached week.
-
-**Rule 3 is the one that would have saved 2026. If a session designed to be hard isn't hard, that is a test result.**
-
-### 12.1 The re-anchor checklist — do all of it, in one sitting
-
-Re-anchoring is the plan's highest-value habit, and this document makes it expensive:
-roughly **40 absolute watt figures across §3, §4, §6, §8 and §9 are derived from the
-working FTP**. Miss one and a stale target sits there still looking authoritative —
-which is error 1 of 2026 happening again in miniature.
-
-So when the working FTP changes, change all of these, and tick them off:
-
-| # | Site | What changes |
-|---|---|---|
-| 1 | **Header** | Working FTP line |
-| 2 | **§3 zone table** | All **seven** rows. The **% column is the source of truth**; recompute the watt column from it |
-| 3 | §3 ceilings | NP cap (72% FTP), the 85% and 100% spot limits (230 W and 270 W at 270) |
-| 4 | §4 warm-up | Primer efforts (105–110%) |
-| 5 | §6 both variants | Every session target in both tables — **except the Wednesday sprints, which are neuromuscular and not FTP-derived** |
-| 6 | §8 | Worked-example columns only — **the factors never change** |
-| 7 | §9 | The 90% budget figure (243 W at 270) and the 96% hard-day threshold (260 W at 270) |
-| 8 | **intervals.icu** | Sport settings FTP, so its modelled TSS tracks reality. `IntervalsClient.update_sport_settings(id, ftp=..., indoor_ftp=...)` — get the id from `athlete()["sportSettings"]`. **Set `indoor_ftp` too**, or indoor rides keep scoring off the old number |
-
-**The percentages are canonical; the watts are generated.** If a watt figure and its
-percentage ever disagree, the percentage wins and the watt figure is a stale artifact.
-
-Do not re-anchor piecemeal between tests. Either the number changed or it didn't.
-
-<a name="12-2-re-anchor-log"></a>
-### 12.2 Re-anchor log
-
-**13 Aug 2026 — proposed 270 → 275 W under rule 3. REJECTED. FTP stays 270.**
-
-Worth recording because the argument was wrong in an instructive way, and the same
-false positive will recur every week of this block if the reasoning isn't written down.
-
-**The claim.** Week 1's two quality sessions both came in at RPE 7 with HR well under
-§3's ladder:
-
-| Session | Prescribed | Actual W | Actual HR | RPE |
-|---|---|---|---|---|
-| Tue 11 Aug, 3×12 | 245–250 W | 245 / 245 / 246 | 147 / 151 / 151 | 7 |
-| Thu 13 Aug, 2×20 + 10 | 228–235 W | 229 / 228 / **240** | 141 / 144 / 146 | 7 |
-
-**Why it doesn't hold.**
-
-1. **The sessions are specified sub-threshold.** §6 says of Tuesday, verbatim,
-   "deliberately sub-threshold so it repeats weekly without digging a hole." 245 W is
-   90.7% FTP and 3×12 is 36 min of TiZ against §11's 45–60 min **sub-threshold** target
-   — week 1 of a progression that tops out at 3×15, i.e. 45 min. **RPE 7 is the design.**
-2. **The ladder was applied outside its domain.** §10 defines it for reps of 15–30 min
-   at 95–103%. Tuesday was 12 min at 91%. §3 itself invited the error by illustrating
-   the ladder with "3×12 @ 248 W" — now corrected, and a separate sub-threshold band
-   added.
-3. **HR was proportional, not suppressed.** Against the anchors this plan already
-   trusts:
-
-   | Effort | % FTP | HR | % LTHR |
-   |---|---|---|---|
-   | Jan 52-min max | 100% | 170 | 100% |
-   | Aug 18-min max | 103% | 179 | 105% |
-   | Tue 3×12 rep 3 | 91% | 151 | 89% |
-   | Thu 2×20 | 84% | 141–144 | 83–85% |
-
-   Four points, one line. That is a consistent athlete, not one whose targets are 12 W
-   light.
-4. **§10's own sweet-spot criterion was met, not exceeded.** "Could do one more rep but
-   not two." One more 20-min block was reported available. That is the definition of a
-   correctly-targeted session, and it was read backwards as evidence of an easy one.
-
-**What survives.** Thursday's final block was ridden at 240 W — 8 W over target — at
-RPE 7. That is mild, one-session evidence that the sweet spot target sits at the low
-end. Not enough to move an anchor. **The instrument for this is the bonus-rep test on
-Thu 27 Aug and the 20-min test on Sat 12 Sep**; both are already scheduled, and §1's
-278–282 hypothesis is still open and still unresolved by anything in week 1.
-
-**The general lesson, which is the point of this entry.** §12 rule 3 says a session
-designed to be hard that isn't hard is a test result. Its force depends entirely on the
-session having been *designed to be hard*. Applied to a session designed to be
-moderate, it manufactures exactly the over-eager re-anchor that rule 4 guards against
-in the other direction. **Check the session's intended RPE before reading its actual
-RPE as a signal.**
-
-### Test schedule
-
-| When | Test | Why |
-|---|---|---|
-| **Sat 12 Sep** (end Block 1) | 20-min max, indoor, cool, after 2 easy days. FTP ≈ 0.95 × 20-min power | Cheap, low recovery cost, re-anchors before the main threshold block. *Moved from 5 Sep — §5.1* |
-| **Late Oct** (end Block 2) | **Alpe du Zwift**, same protocol as January + **4-min max** on a separate day that week | Alpe is the best anchor — directly comparable to January. The 4-min shows whether the ratio is moving toward 0.78 |
-| **Late Nov** (end Block 3) | 20-min max | Cheap check before the final push |
-| **Late Dec / early Jan** (end Block 5) | **Alpe du Zwift** — the 288 W attempt | Same protocol, same setup, cool. At 288 W it takes ~47–48 min, still solidly FTP territory |
-
-Alpe du Zwift as the recurring anchor is a genuine asset — a repeatable ~50-min max effort in controlled conditions with a January reference. Same fans, same fueling, same time of day, every time.
+Testing every 4–5 weeks is what makes "progress duration within a block" safe. The
+2026 failure was that pattern running for seven months unbounded.
 
 ---
 
-<a name="13-block-roadmap"></a>
-## 13. Block roadmap through December
+## Load, recovery, and backing off
 
-| Block | Dates | Structure | Target | Rationale |
-|---|---|---|---|---|
-| **1. Re-entry** | Aug 10 – **Sep 13** | **4 build + 1 recovery/test** | CTL 48 → 58–60. Sub-threshold and sweet spot. Sunday durability introduced. **Week 4 is the Labor Day trip — §5.1.** | Can't build on CTL 48. Heat is at its worst now, so this is the block where "accumulate aerobic load indoors" costs least. Ends with the re-anchor test that fixes the core error. |
-| **2. Threshold / muscular endurance** | **Sep 14 – Oct 18** | 4 build + 1 recovery/test | CTL 65–70. **The main event.** Long threshold (**§3 threshold band**): 2×20 → 2×25 → 3×20 → 2×30 at 96–102% of the *new* FTP. **This is the block where the §3 HR ladder starts applying** — Block 1's Tuesdays are sub-threshold and never should have been read against it. Sunday durability blocks grow to 3×15 at 83–87% after 3 h. | This is the limiter, so it gets the most weeks and the freshest legs. Progress in **watts** off the September number. Weather turns cool mid-block — attribute part of the power bump to conditions. |
-| **3. Over-unders + ceiling check** | **Oct 19 – Nov 15** | 3 build + 1 recovery/test | CTL 68–72. Over-unders (e.g. 3×12 min alternating 2 min @ 105% / 2 min @ 92%). **One VO2 session per 10–14 days, maintenance only.** | After 5 weeks of steady-state threshold, lactate-shuttling work returns more than more of the same. Retest 4-min max: if it held near 365 W while FTP climbed, the plan is working. If it's below 350 W, add a VO2 session per fortnight in Block 4. |
-| **4. Peak threshold** | **Nov 16 – Dec 13** | 3 build + 1 recovery/test | CTL 70–75. Longest intervals of the year: 2×30, 3×20 @ 100–103%. Durability in the cold. | Cool weather means the year's best absolute power. This is where 288 gets built. Same content as Block 2, higher watts, longer reps. |
-| **5. Sharpen, test, planned transition** | **Dec 14 – Jan 3** | 2 sharpen + 1 test/taper | The 288 attempt on Alpe du Zwift. Then **2 weeks deliberately unstructured.** | Buffer absorbs one missed test or one bad cold. The planned transition directly addresses what happened after June — the next disengagement is on the calendar, so it can't ambush you. |
+**The default is to progress.** Most weeks, do the next week.
+
+**Prefer a recovery week every 4th week.** Push to a 5th when the calendar demands
+it — a trip, a race, a block that's going well. Don't run six build weeks without
+one.
+
+**When to cut load or pull the recovery week forward:** some combination of
+motivation dropping off, HRV trending down against its own baseline, and RHR
+drifting up. Not any one of them alone — night-to-night HRV spread is wide enough
+that single readings mean nothing, and a 20-point drop after a big Sunday is the
+system working. Two of the three moving together is worth acting on. This is
+deliberately a judgement call and not a rule; the weekly review is where it gets
+made, and repeating a week is the cheapest available intervention.
+
+**Two hard stops, which are not judgement calls:**
+
+1. **HR won't rise during intervals at maximal RPE.** Stop, several days easy
+   minimum. Suppressed HR at maximal effort is the classic parasympathetic
+   overreaching signature and the one most amateurs push through.
+2. **Sore throat, swollen glands, or fever.** Stop entirely.
+
+**One question, every week, asked before the week is written:**
+
+> *If I deleted this week's hard sessions right now — disappointed, neutral, or
+> relieved?*
+
+"Relieved" two weeks running means cut to one quality session, whatever the numbers
+say. The physiological markers detect accumulated fatigue; none of them can detect a
+fading *reason* to train, and that is what actually ended the last block. Log answers
+in `plan/check-ins.md`.
+
+**Any week with three quality efforts is followed by a week with one.**
 
 ---
 
-<a name="14-progress-repeat-back-off"></a>
-## 14. Progress / repeat / back off
+## Elsewhere
 
-### Progress to the next week — all of:
-- Completed all prescribed work at target watts
-- Final rep RPE ≤ 8
-- Resting HR within 2 bpm of baseline
-- **7-day HRV mean within 5 of the 30-day baseline** (see §14.1)
-- Z2 power at normal Z2 HR
-- You want to train — **green on the §14.2 check-in**
-
-### Repeat the week — any two:
-- Completed 80–100% of the work but final reps hit RPE 9–10
-- RHR elevated 3–5 bpm for 2+ consecutive mornings
-- **7-day HRV mean 5–12 below baseline**
-- Z2 requires higher HR than normal for the same power
-- Sleep quality declining
-- Mild reluctance to start sessions — **amber on §14.2**
-
-Repeating a week is not failure. It's the cheapest available intervention. Expect to use it 2–3 times before December.
-
-### The default, when you match none of the three
-
-**Progress.** Evaluate in order: any back-off trigger → back off. Otherwise two or more
-repeat markers → repeat. Otherwise **progress**, including with one marker showing.
-
-This closes a real gap: "progress" demands *all six* of its conditions and "repeat"
-demands *any two* of its own, so exactly one marker — with nothing else wrong — matched
-none of the three states and left no instruction. That was the live situation on 13 Aug
-2026 (7-day HRV −7.1 against baseline, RHR flat, check-in green, both quality sessions
-completed at target).
-
-**One marker is a note to watch, not an intervention.** §14.1 already says a single
-signal drifting is weak evidence. Don't spend a week of training on it.
-
-### Back off — one full easy week (5–6 h, all Z2, zero intensity) — any one:
-- Failed to complete two quality sessions in a week
-- RHR up >5 bpm for 3+ mornings
-- **7-day HRV mean >12 below baseline for 3+ days**
-- **HR suppressed during intervals at maximal RPE** (can't drive HR up) — the serious one
-- Waking unrefreshed after 8 h for 3+ nights
-- Motivation gone for 3+ consecutive days — **red on §14.2**
-- Any sore throat, swollen glands, or fever — stop entirely
-
-<a name="14-1-hrv"></a>
-### 14.1 Reading HRV
-
-HRV is available in intervals.icu as of Aug 2026 (§15). It is genuinely useful and genuinely noisy, and the second part is what ruins people.
-
-**Single nights are noise.** Over Jul–Aug 2026 the spread was **51–100, SD ~14**. A 20-point overnight drop after a big Sunday is the system working, not a warning: 9 Aug (212 TSS) produced HRV 65, then 62, then a rebound to 91 within 48 h. Reacting to that single reading would have cost a week of training for nothing.
-
-**Use the 7-day rolling mean against a 30-day baseline.** Recompute the baseline at each block boundary — it should drift *upward* as CTL rises, and a baseline that flattens or falls while CTL climbs is itself a signal.
-
-**Current baseline: ~80** (Jul–Aug 2026).
-
-| 7-day rolling mean vs baseline | Read |
+| | |
 |---|---|
-| Within 5 (≥75) | Normal |
-| 5–12 below (68–75) | One "repeat the week" marker |
-| >12 below (<68) for 3+ days | Back off |
+| Current block, its weeks and its test | [`plan/block-1.md`](plan/block-1.md) |
+| Blocks 2–5 and the test schedule | [`plan/roadmap.md`](plan/roadmap.md) |
+| Re-anchor history, power anchors, the evidence behind LTHR and the diagnosis | [`plan/decisions.md`](plan/decisions.md) |
+| Weekly check-in answers | [`plan/check-ins.md`](plan/check-ins.md) |
 
-**Weight HRV and RHR together.** Either drifting alone is weak evidence. Both moving the wrong way at once — HRV down *and* RHR up 4+ — is a much stronger signal than the sum of its parts, and should trigger a back-off even if neither has individually crossed its threshold.
-
-<a name="14-2-check-in"></a>
-### 14.2 The weekly desire-to-train check-in
-
-§2 diagnosed the 2026 collapse as a **goal-vacuum failure, not an overload failure** — motivation drained after the June fondo and nothing caught it. RHR and HRV would not have flagged it, because nothing was physiologically wrong. So the subjective side gets asked explicitly, every week, rather than left to notice itself.
-
-**Asked cold, before the week is written and before I've seen it** (§0.1 rule 9).
-
-1. **Counterfactual.** "If I deleted this week's two quality sessions right now, what's your honest first reaction — disappointed, neutral, or relieved?"
-2. **Initiation friction.** "How many sessions this week did you have to talk yourself into, start late, or cut short?"
-3. **History anchor.** "Does your appetite right now feel more like May 2026, or more like June–July 2026?"
-4. **Off-bike engagement.** "Outside actual training time, are you thinking about riding at all — routes, racing, the plan?"
-
-| Pattern | Action |
-|---|---|
-| **Green** — disappointed / 0–1 / May / yes | Progress as planned |
-| **Amber** — neutral / 2 / in-between / occasionally | Counts as one "repeat the week" marker. Two amber weeks running → repeat the week regardless of what the physiology says |
-| **Red** — relieved / 3+ / June–July / not really | **Overrides green physiology.** Cut to one quality day next week even if RHR, HRV, power and RPE all look fine |
-
-**Why "relieved" outranks the numbers.** The physiological markers lag, and they measure the wrong thing. RHR and HRV detect accumulated fatigue; neither can detect a fading *reason* to train. Through May–June 2026 the numbers were fine — right up until the calendar emptied and eight months of structure stopped inside a fortnight. Question 1 is the load-bearing one; the other three exist to catch it drifting before it arrives.
-
-### Check-in log
-
-Keep this appended to. The point is the trend, not any single row — two amber weeks running matters far more than one amber week.
-
-| Week | Date | Q1 cancel | Q2 friction | Q3 anchor | Q4 off-bike | Verdict | 7d HRV vs base | 7d RHR | Action |
-|---|---|---|---|---|---|---|---|---|---|
-| B1 wk1 | 12 Aug 26 | Disappointed | 0–1 | May | Yes, regularly | **Green** | 75.9 vs 80.1 (−4.3) | 43.9 | Progress as planned |
-| B1 wk2 | 13 Aug 26 | "already did them, felt great" | 0–1 | May | Yes, regularly | **Green** | 72.1 vs 79.3 (−7.2) | 45.1 | Progress. Sat cut to 75 min, Sun extended to 4 h for a group ride |
-
-*Wk1 caveat: not asked cold — the week had already been seen and argued with, which primes Q1. Treat as a soft baseline. The HRV −4.3 is an echo of the 9 Aug 212 TSS day (65, 62, rebounding 91, 81), not a trend.*
-
-### Two structural circuit-breakers, non-negotiable
-1. **Every 4th week is a recovery week**, even if you feel excellent. Especially then.
-2. **Any week containing three quality efforts is followed by a week with one.**
-
-The failure mode to guard against isn't a hard Tuesday. It's slow accumulation over six weeks that leaves you flat in October with no event on the calendar to hold you.
+CTL and TSS arithmetic — ramp rates, back-solving load — is in
+[`docs/reading-data.md`](docs/reading-data.md), not here.
 
 ---
 
-<a name="15-assumptions"></a>
-## 15. Assumptions
+## Assumptions
 
 **Confirmed:**
-- Indoor and outdoor power meter are the same unit — no cross-source correction needed
-- LTHR 170 bpm from the January 52-min max effort
-- Max HR ~194 working figure
-- **HRV is available** in intervals.icu, recorded nightly alongside RHR, sleep score and sleep duration. Baseline ~80 as of Aug 2026. Night-to-night spread is wide (SD ~14, range 51–100 over a two-week window), so read a 3-day trend, never a single morning.
-- **Per-session detail IS retrievable — resolved 13 Aug 2026.** The earlier version of this bullet said it wasn't, and that was wrong. It's true that intervals.icu won't serve Strava-sourced activity detail (those records return only an id plus `"STRAVA activities are not available via the API"`, and `activity_intervals()` 422s) — but **the id in that stub is the Strava activity id**, so the detail comes straight from the Strava API and joins back on. Strava is now authorized in this repo.
-  - **Available automatically:** per-session average and normalized power, average/max HR, and **per-lap splits** — on a structured workout the laps *are* the reps, so actual watts and HR per rep are readable without manual entry.
-  - **Still manual:** RPE. No API carries it, and it's load-bearing for §10, §11 and §12 rule 3. **This is the one number to ask for.**
-  - **Per-activity TSS** is absent from the stub. Recover it either by computing `(NP/FTP)² × h × 100` from Strava's NP, or by back-solving the CTL series (`TSS = (CTL_t − CTL_t−1)/K + CTL_t−1`, `K = 1−e^(−1/42)`). Back-solving reproduced the 9 Aug ride at 211 TSS against the 212 recorded in §14.1, so the method is sound; the two estimates run ~10% apart because intervals.icu smooths NP differently and models on its own configured FTP.
 
-- **intervals.icu sport settings — RECONCILED 14 Aug 2026. No longer a discrepancy.**
-  Was FTP 268 / LTHR 182 / max HR 200; now **FTP 270, indoor FTP 270, LTHR 170, max HR
-  196**. The 12 bpm LTHR error was the serious one — it shifted every HR zone upward, so
-  a rep this plan reads as 89% of LTHR displayed there as 83%, i.e. easier than it was.
-  Its zone colours are now trustworthy, though §3's table remains canonical.
-  - *Max HR is set to 196, the figure tested years ago (§0.3). The highest HR in 12
-    months of files is 193, so 196 is likely 2–3 bpm generous — harmless, since nothing
-    in this plan is prescribed off max HR.*
-  - *`indoor_ftp` is a separate field and is easy to miss. If it's left stale, indoor
-    rides — which is most quality work in this block — keep scoring against the old
-    number while outdoor rides use the new one, and the CTL series quietly mixes both.*
-
-  **Resolved 14 Aug 2026 against the full activity history: 170 is right and 182 is an
-  artifact.** Audited every ride in the store back to Aug 2025.
-
-  | Evidence | Reading | Implied LTHR |
-  |---|---|---|
-  | **Highest HR ever recorded**, any ride | **193** | max HR ~194 confirmed; intervals.icu's 200 has never been seen |
-  | Jan 2026 ADZ, last 20 min of a 52-min max | 170 | **170** — textbook protocol, the strongest single point |
-  | Apr 2026 FTP test, 15 min @ 279 W | 173 | 163–170 |
-  | Aug 2026 climb, 18 min @ 279 W (hot) | 179 | 169–175, inflated by heat |
-  | Jun 2026 fondo, 16.6 min @ 283 W | 175 | 165–172 |
-  | Sep 2025 Empirical test, 30 min @ 262 W | 164 | 158–164 |
-
-  **Nothing in 12 months supports 182.** The longest he has *ever* averaged above 175 is
-  7.4 minutes (182 bpm, Jun 2026). Hardest 30-min efforts sit at 164–167. If LTHR were
-  182 those efforts would run at 185+.
-
-  **Where 182 came from:** 182 ÷ 200 = exactly 0.91. It's intervals.icu's default
-  LTHR-as-%-of-max formula, applied to a max HR of 200 that is itself 7 bpm above
-  anything ever recorded. A derived default off a wrong input — not a measurement.
-
-  **Sanity check on 170:** 170/193 = 88% of max, squarely inside the normal 85–92%
-  band. 182 would be 94%, implausibly high. The sub-hour efforts (15–18 min at 173–179)
-  sit just above 170 exactly as they should.
-
-  **Confidence: high, with 170 possibly 1–3 bpm generous.** The Sep 2025 30-min effort
-  is the only point hinting lower, and it's 11 months old at lower fitness. LTHR is far
-  more stable than FTP, so a 7-month-old measurement is not a concern the way a
-  7-month-old FTP is. **Forward test: the 12 Sep 20-min max should average 175–180 if
-  LTHR is 170.** Below 172 would mean 170 is a couple of bpm high; above 183 would
-  reopen the question.
-
-- **The intensity vocabulary was audited end-to-end on 13 Aug 2026.** "Threshold" had
-  meant 91–100% (§3), 91–93% (§6 Tuesday), 95–102% (§10), 96–102% (§13 Block 2) and
-  100–103% (§13 Block 4) in different places, and **90% belonged to no zone at all**
-  while the plan's anchor session sat at 91%. §3 now defines seven bands and every
-  other section defers to it. The sub-threshold band (90–94%) is new; no session target
-  changed. See §3 and §12.2.
+- Indoor and outdoor power meter are the same unit. No cross-source correction.
+- LTHR 170 bpm, from the January 52-min max and consistent with 12 months of files
+  (evidence in `plan/decisions.md`). Possibly 1–3 bpm generous. Forward test: the
+  block test should average 175–180 if 170 is right.
+- Max HR ~194 working figure. Nothing in this plan is prescribed off it.
+- **HRV and RHR** are in intervals.icu nightly. Spread is wide (SD ~14) — read a
+  trend, never a single morning.
+- **Per-session detail is retrievable.** intervals.icu won't serve Strava-sourced
+  activity detail, but the id in its stub is the Strava activity id, so laps come
+  straight from Strava and join back. On a structured workout the laps *are* the
+  reps, so per-rep watts and HR are readable without asking me.
+- **RPE is the one thing no API carries** — ask for it, and treat it as ±1.
 
 **Still assumed:**
-1. The January 52-min Alpe effort was a genuine max → FTP was ~270–273 W then. Everything anchors here.
-2. Three weeks off sick cost ~5–8% at threshold, largely recoverable in 3–4 weeks. Ordinary respiratory illness, fully resolved, no cardiac symptoms. **If there was fever plus chest involvement, this plan waits for medical clearance.**
-3. The August 18-min effort was heat-degraded ~5–7%, so 265 W eFTP understates you.
-4. "8–12 h/week" means 10–11 typically achievable, 12 occasionally. The plan needs 10.5 average.
-5. Readiness signals use HRV, RHR, sleep score and subjective markers. Interval splits are now pulled automatically via the Strava join (see Confirmed); **RPE is still reported manually** and remains the binding constraint on §12 rule 3.
-6. A hard group ride is 3–4 h, IF 0.78–0.85, TSS 200–280. **This is a forecast for planning a week ahead, not a test.** Whether a ride *was* a hard day is decided after the fact by §9's scoring, which is the only definition. A ride can land inside this range and still not be a hard day.
-7. Weight stays 72 kg with no caloric restriction. **Don't diet during a build block** — it compromises the exact adaptations being chased.
-8. No strength training, by preference. Given an aerobic limiter, adequate muscle mass, and age 27, this is a third-order concern for this goal in this window. Worth revisiting next off-season.
+
+1. The January 52-min effort was a genuine max. Everything anchors there.
+2. Three weeks off sick cost ~5–8% at threshold, largely recoverable in 3–4 weeks.
+   Ordinary respiratory illness, fully resolved. **If there had been fever plus chest
+   involvement, this plan waits for medical clearance.**
+3. The August 18-min effort was hot and came two weeks off the couch — intervals read
+   it as 265 W eFTP, so true FTP is plausibly higher than the working number. The
+   block test settles it; there's no point being more precise than that in advance.
+4. "8–12 h/week" means 10–11 typically, 12 occasionally. The plan needs ~10.5.
+5. Weight stays 72 kg with no restriction during build blocks.
+6. No strength training, by preference. Given an aerobic limiter, adequate muscle
+   mass and age 27, it's a third-order concern in this window. Revisit next
+   off-season.

@@ -20,13 +20,29 @@ Run from the repo root with `pixi run python <script>.py`.
 
 ## Before writing
 
-1. If `plan.md` exists, read it. It defines targets, zones, the week structure and
-   the rules the prescription must satisfy. If it carries instructions for whoever
-   plans from it, follow those over anything here.
+1. If `plan.md` exists, read it, plus `plan/block-*.md` for the block you're
+   scheduling into. It defines targets, zones, the week structure and the rules the
+   prescription must satisfy. If it carries instructions for whoever plans from it,
+   follow those over anything here.
 2. Call `client.events(oldest=..., newest=...)` over the target range to see what's
    already on the calendar. Don't clobber completed or pre-existing sessions.
-3. Check `client.athlete()["icu_ftp"]`. If it's `None`, use absolute watts —
-   percentage targets won't resolve.
+3. Check `client.athlete()["icu_ftp"]` is set. Percentage targets won't resolve
+   without it.
+
+## Percentages, not watts
+
+Write every power target as `%FTP` (`- 12m 90%`, `- 20m 85-88%`). intervals.icu
+resolves it against sport settings at display time, so a scheduled block stays
+correct through a re-anchor instead of silently going stale.
+
+Two consequences worth knowing:
+
+- **`ftp` and `indoor_ftp` are separate fields.** If they diverge, the same workout
+  means different watts indoors and out. Check both.
+- **Some targets genuinely aren't a fraction of FTP** — neuromuscular sprints are
+  ~3× FTP and don't scale with it. Those get an absolute range, deliberately wide so
+  no head unit treats it as a number to hold, and they don't change at a re-anchor.
+  The plan should say which targets these are.
 
 ## Writing
 
