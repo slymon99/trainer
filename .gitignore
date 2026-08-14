@@ -6,7 +6,11 @@
 # Not secret (the repo is private) — just regenerable and bulky. data/ is
 # rebuilt by `pixi run sync`, and __marimo__/ is a cache of notebook cell
 # outputs that churns on every run.
-plan.md
+#
+# plan.md is deliberately NOT here — it's the athlete's brief and its history
+# is worth tracking. It holds weight, HR and HRV, which is fine while this repo
+# is private. If it is ever made public, untrack plan.md first, and note that
+# rewriting history is the only way to remove it from past commits.
 data/
 *.private.md
 __marimo__/
