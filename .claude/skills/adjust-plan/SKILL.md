@@ -13,7 +13,7 @@ lifecycle split into `plan/`:
 | `plan.md` | The standing brief — athlete, zones, the week, decision rules | **Always** |
 | `plan/block-1.md` (etc.) | The current block's weeks, trips, test date | Planning or reviewing a week |
 | `plan/roadmap.md` | Later blocks, CTL targets, the test schedule | Changing block structure or timeline |
-| `plan/decisions.md` | Re-anchor history, past corrections and why | Re-anchoring, or when a rule looks wrong |
+| `plan/decisions.md` | Re-anchor history, power anchors, the evidence behind the plan's key numbers | Re-anchoring, or checking whether the diagnosis still holds |
 | `plan/check-ins.md` | Weekly subjective check-in answers | Running the check-in |
 
 It's free-form: read it and work with the structure the athlete already chose. Don't
@@ -43,16 +43,17 @@ invent an athlete profile to fill gaps.
   say so explicitly when you do. A block feeling easy is not sufficient reason —
   that's the specific failure mode such a protocol exists to prevent. Record it in
   `plan/decisions.md`.
-- **Prefer deleting a rule to adding one that qualifies it.** This plan has already
-  been through one round of accretion where dated amendments, reconciliations and
-  scope notes grew to outweigh the rules themselves and started contradicting them.
-  If a rule needs a caveat to survive contact with a real week, the rule is probably
-  wrong. Put the reasoning in `plan/decisions.md`, not inline.
+- **Edit the plan to be currently correct — don't append.** Rewrite the rule, don't
+  add a dated amendment beside it or a note saying what it used to say. A plan that
+  accumulates its own edit history gets long, and the amendments start contradicting
+  the rules they qualify. If a rule needs a caveat to survive contact with a real
+  week, the rule is probably wrong: delete it rather than qualifying it.
 - **Don't write a rule that runs on RPE alone.** It resolves to about ±1, which
   isn't enough precision to change a week of training on.
 - **Update the plan's assumptions section** whenever one is confirmed or refuted.
-- When the underlying diagnosis changes, say plainly what new evidence changed it.
-  A plan whose rationale silently mutates can't be evaluated later.
+- When the underlying diagnosis changes, say plainly in your summary what new
+  evidence changed it, and update `plan/decisions.md` so the plan's stated rationale
+  matches what's actually believed.
 - Keep it internally consistent: if weekly hours drop, the load arithmetic and the
   block roadmap must both be redone, not just the week table.
 

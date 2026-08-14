@@ -61,9 +61,7 @@ screen. Append the answer to `plan/check-ins.md` if that file exists.
 
 **Check what a session was designed to feel like before reading how it felt as a
 signal.** A session prescribed as sub-threshold, coming in at a moderate RPE with HR
-proportional to power, is the design working — not evidence the target is soft. The
-plan may not carry a rule for this; the misread is on you either way. `plan/decisions.md`
-has the worked example.
+proportional to power, is the design working — not evidence the target is soft.
 
 ## Reporting
 

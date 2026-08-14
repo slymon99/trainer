@@ -129,7 +129,7 @@ plan.md              the standing brief — read before every prescription
 plan/
   block-1.md         the current block; expires when the block does
   roadmap.md         later blocks and the test schedule
-  decisions.md       why rules are what they are; re-anchor history
+  decisions.md       re-anchor history and the evidence behind the key numbers
   check-ins.md       weekly subjective check-in log
 .env                 your credentials (gitignored)
 ```

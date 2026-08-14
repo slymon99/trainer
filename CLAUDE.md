@@ -18,9 +18,13 @@ and may carry its own instructions for whoever plans from it — follow those ov
 anything here. If it doesn't exist, say so rather than inventing an athlete profile.
 
 `plan/` holds the parts with a different lifecycle — `block-*.md` (current block),
-`roadmap.md`, `decisions.md` (why rules are what they are), `check-ins.md`. Read the
-block file when planning a week; read `decisions.md` when re-anchoring FTP or when a
-rule looks wrong.
+`roadmap.md`, `decisions.md` (re-anchor history and the evidence behind the plan's
+key numbers), `check-ins.md`. Read the block file when planning a week; read
+`decisions.md` when re-anchoring FTP.
+
+**Keep these documents currently correct rather than appending to them.** When a rule
+changes, rewrite it — don't leave a dated amendment beside it explaining what it used
+to say.
 
 **Prescribe in `%FTP`, never absolute watts.** intervals.icu resolves percentages
 against sport settings, so re-anchoring updates every scheduled workout at once. A

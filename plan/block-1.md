@@ -24,13 +24,11 @@ flatters it.
 A cycling trip in flat/rolling Massachusetts: one long ride of ~4 h and one or two
 medium 2.5–3 h rides.
 
-A recovery week and a three-day riding trip cannot be the same week, so recovery
-goes either before the trip or after it. There's no third option, and the choice is
-really about where Block 2 starts from. **Chosen: recovery after.** Testing Sat
-12 Sep rather than Sat 5 Sep means arriving at the test several CTL points higher
-*and* starting the main threshold block rested rather than deep in the hole. The
-cost is a one-week slip of the whole roadmap, which Block 5's buffer absorbs;
-reclaim it by running Block 3 as 2 build + 1 if you're ahead at that point.
+A recovery week and a three-day riding trip cannot be the same week, so **recovery
+comes after the trip** and the test is Sat 12 Sep. That arrives at the test several
+CTL points higher and starts the main threshold block rested rather than deep in the
+hole. It costs a week against the roadmap, which Block 5's buffer absorbs; reclaim it
+by running Block 3 as 2 build + 1 if you're ahead at that point.
 
 The trip is **a load weekend, not an interruption** — three long aerobic days with
 tempo blocks is the limiter's preferred stimulus, and the riding-with-friends part

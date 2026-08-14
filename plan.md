@@ -153,8 +153,8 @@ Rolling terrain isn't an excuse — soft-pedal the descents, use the small ring.
   that's what "repeats weekly without digging a hole" looks like in the data, not a
   sign the target is soft.
 - **Check what a session was designed to feel like before reading how it felt as a
-  signal.** A moderate session feeling moderate is the design working. Misreading
-  that cost a re-anchor argument in August 2026 — see `plan/decisions.md`.
+  signal.** A moderate session feeling moderate is the design working, not evidence
+  the target is too low.
 - **HR won't rise despite maximal RPE:** stop. See the hard stops below.
 
 ---
@@ -347,11 +347,10 @@ Add duration until the block's time-in-zone target is met, then hold it:
 
 **Never add duration and intensity in the same week.**
 
-There is deliberately no rule here for bumping a target off how a session felt. RPE
-resolves to about ±1, which isn't enough to move a number on, and the attempt to do
-it anyway is what produced a bad re-anchor argument in August 2026. Sessions feeling
-easy or hard is context for the weekly review, not a trigger. **The test is the
-instrument.**
+There is deliberately no rule for bumping a target off how a session felt. RPE
+resolves to about ±1, which isn't enough precision to move a number on. Sessions
+feeling easy or hard is context for the weekly review, not a trigger. **The test is
+the instrument.**
 
 ---
 
@@ -426,7 +425,7 @@ in `plan/check-ins.md`.
 |---|---|
 | Current block, its weeks and its test | [`plan/block-1.md`](plan/block-1.md) |
 | Blocks 2–5 and the test schedule | [`plan/roadmap.md`](plan/roadmap.md) |
-| Re-anchor history, past corrections, why rules are the way they are | [`plan/decisions.md`](plan/decisions.md) |
+| Re-anchor history, power anchors, the evidence behind LTHR and the diagnosis | [`plan/decisions.md`](plan/decisions.md) |
 | Weekly check-in answers | [`plan/check-ins.md`](plan/check-ins.md) |
 
 CTL and TSS arithmetic — ramp rates, back-solving load — is in
@@ -439,9 +438,9 @@ CTL and TSS arithmetic — ramp rates, back-solving load — is in
 **Confirmed:**
 
 - Indoor and outdoor power meter are the same unit. No cross-source correction.
-- LTHR 170 bpm, from the January 52-min max. Audited against 12 months of files in
-  `plan/decisions.md`; intervals.icu's old 182 was a derived default, not a
-  measurement. Forward test: the block test should average 175–180 if 170 is right.
+- LTHR 170 bpm, from the January 52-min max and consistent with 12 months of files
+  (evidence in `plan/decisions.md`). Possibly 1–3 bpm generous. Forward test: the
+  block test should average 175–180 if 170 is right.
 - Max HR ~194 working figure. Nothing in this plan is prescribed off it.
 - **HRV and RHR** are in intervals.icu nightly. Spread is wide (SD ~14) — read a
   trend, never a single morning.
