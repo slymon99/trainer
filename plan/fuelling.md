@@ -145,8 +145,10 @@ That is a well-built lunch for someone who didn't ride 85 minutes at sub-thresho
 this morning. Four changes turn it into one that works:
 
 1. **Grain base, not greens.** Rice, wild rice, farro, quinoa. Ask for double base.
-2. **Double the protein.** Every time, every day. This is where most of the daily
-   140 g gets made.
+2. **Double the protein on quality and weekend days.** A single serving is enough on
+   easy and rest days — breakfast and dinner already carry ~110 g between them, and
+   doubling at lunch as well crowds out the carbohydrate inside the same calories.
+   The daily 140 g floor holds either way; this is about where it comes from.
 3. **Add a carb-dense topping** — sweet potato, corn, chickpeas, lentils, plantain,
    a side pita.
 4. **Leave the dressing and the avocado alone.** Fat isn't the problem here.
