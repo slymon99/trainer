@@ -100,3 +100,17 @@ class IntervalsClient:
     def delete_events(self, ids: list[int] | None = None, external_ids: list[str] | None = None):
         doomed = [{"id": i} for i in (ids or [])] + [{"external_id": e} for e in (external_ids or [])]
         return self._put(f"/api/v1/athlete/{self.athlete_id}/events/bulk-delete", doomed)
+
+    def update_sport_settings(self, settings_id: int, **fields):
+        """Patch one sport-settings row — `ftp`, `lthr`, `max_hr`, `indoor_ftp`, zones.
+
+        Get the id from `athlete()["sportSettings"]`; each row covers a set of
+        activity types. Only the fields you pass are changed.
+
+        These values drive every zone intervals.icu displays and the TSS it models,
+        so they should track `plan.md` rather than drift from it — a stale FTP here
+        silently rescales the load history.
+        """
+        return self._put(
+            f"/api/v1/athlete/{self.athlete_id}/sport-settings/{settings_id}", fields
+        )
