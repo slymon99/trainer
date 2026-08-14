@@ -34,9 +34,17 @@ creates a new event.
    description through the shell turns `\n` escapes into literal backslash-n, and
    intervals.icu then parses the whole workout as a single step. A 210-minute
    session silently became 160 minutes that way.
-2. **Check whether `athlete()["icu_ftp"]` is set before using `%` targets.** If it's
-   `None`, percentages don't resolve and the workout is meaningless. Use absolute
-   watts in that case.
+2. **`%` targets resolve against *sport settings* FTP, not `athlete()["icu_ftp"]`.**
+   The athlete-level `icu_ftp` is often `None` while cycling sport settings carry a
+   perfectly good `ftp` — percentages still resolve, and intervals.icu returns a
+   normal `icu_training_load`. Check the sport-settings row for the activity type:
+
+   ```python
+   [s for s in client.athlete()["sportSettings"] if "Ride" in s["types"]]
+   ```
+
+   Set `indoor_ftp` alongside `ftp`. If they diverge, the same `%` workout means
+   different watts indoors and out, and the CTL series quietly mixes both.
 
 ## Deleting and finding
 

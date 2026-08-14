@@ -26,8 +26,8 @@ Run from the repo root with `pixi run python <script>.py`.
    follow those over anything here.
 2. Call `client.events(oldest=..., newest=...)` over the target range to see what's
    already on the calendar. Don't clobber completed or pre-existing sessions.
-3. Check `client.athlete()["icu_ftp"]` is set. Percentage targets won't resolve
-   without it.
+3. Check the **sport settings** `ftp` for the activity type — that's what `%` targets
+   resolve against. Athlete-level `icu_ftp` is often `None` and doesn't matter.
 
 ## Percentages, not watts
 
