@@ -10,10 +10,14 @@ indoor aerobic load. CTL target is in [`roadmap.md`](roadmap.md).
 | Week | Dates | Shape |
 |---|---|---|
 | 1 | Aug 10–16 | Sunday blocks 2×10 |
-| 2 | Aug 17–23 | Tuesday 3×13; Sunday 2×12 |
-| 3 | Aug 24–30 | Tuesday 3×15 — hits the sub-threshold TiZ target. Thursday 3×20 + 15 completes the sweet spot progression. Sunday trimmed to 2.5 h + 2×12 |
-| 4 | Aug 31 – Sep 6 | Mon–Thu easy, Fri–Sun Massachusetts trip. **Shape decided Sun 30 Aug** |
-| 5 | Sep 7–13 | Recovery + **20-min test Sat 12 Sep** |
+| 2 | Aug 17–23 | Tuesday 3×13; Sunday 2×12. **Lifting starts Tue 18 Aug** — re-entry phase, deliberately light |
+| 3 | Aug 24–30 | Tuesday 3×15 — hits the sub-threshold TiZ target. Thursday 3×20 + 15 completes the sweet spot progression. Sunday trimmed to 2.5 h + 2×12. Lifting still re-entry load |
+| 4 | Aug 31 – Sep 6 | Mon–Thu easy, Fri–Sun Massachusetts trip. **Shape decided Sun 30 Aug.** Lift Tue 1 Sep only; **none on the trip** |
+| 5 | Sep 7–13 | Recovery + **20-min test Sat 12 Sep**. Lift Tue 8 Sep only, two sets; **nothing after Wed 9 Sep** |
+
+Lifting is new this block and its progression runs past the block boundary — phases,
+session and back-off ladder in [`strength.md`](strength.md). It stays at re-entry load
+for all of Block 1: the load only starts moving once the block test is behind it.
 
 A ramp of this size is defensible here because it's *regaining* June territory, not
 building novel load. Judge it on build weeks only — averaging the recovery week in

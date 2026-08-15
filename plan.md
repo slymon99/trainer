@@ -52,7 +52,8 @@ a group ride is uncertain.
 - Sleep 8 h, low stress, good life load. Weight stable and staying there: **this is
   a watts goal, not a weight goal.**
 - **8–12 h/week available, built around 10–11.** 5–6 days. Longest ride 4–5 h on one
-  weekend day.
+  weekend day. **Plus ~1 h of gym**, which sits on top of the riding hours rather
+  than displacing them, on days already committed to training.
 - **Weekdays indoor** (smart trainer), **weekends outdoor**. Same power meter both,
   so the numbers are directly comparable.
 - NYC, rolling terrain. 1 h to a 4–6 min climb, 2 h to a 20 min climb.
@@ -67,7 +68,10 @@ a group ride is uncertain.
 2. **Burnout is the main risk.** I fell out of structured training after my June
    race. Given a choice between more load and more sustainability, choose
    sustainability.
-3. **No strength training.** Not interested. Don't prescribe it.
+3. **Strength training is in, and subordinate.** Two lifts a week, stacked onto the
+   days that are already hard — never onto Monday, Friday or the weekend. It is not
+   allowed to cost Tuesday or Sunday. Protocol, progression and the back-off ladder
+   are in [`plan/strength.md`](plan/strength.md).
 4. **No trash miles.** Easy rides must be genuinely easy.
 5. **Sharpening can wait.** Almost no VO2 work through December is deliberate.
 
@@ -194,14 +198,14 @@ quality efforts either way.
 | Day | Session | Target | Purpose |
 |---|---|---|---|
 | **Mon** | Off, or 40 min recovery | <60% | Nothing. Genuinely nothing. |
-| **Tue** | **Sub-threshold.** Warm-up → **3 × 12 min @ 90–93%**, 5 min @ 55% between → 10 min CD. ~85 min | 90–93% | Sustained work near MLSS — lactate clearance and muscular endurance, the actual limiter. Deliberately sub-threshold so it repeats weekly without digging a hole. |
+| **Tue** | **Sub-threshold.** Warm-up → **3 × 12 min @ 90–93%**, 5 min @ 55% between → 10 min CD. ~85 min. **+ Lift A (heavy), ≥3 h later** | 90–93% | Sustained work near MLSS — lactate clearance and muscular endurance, the actual limiter. Deliberately sub-threshold so it repeats weekly without digging a hole. |
 | **Wed** | 70 min easy + **4 × 15 s standing starts, MAX**, full recovery between | 60–70% base; sprints **500–800 W** | Aerobic volume. Sprints cost nothing and keep neuromuscular recruitment alive so top end doesn't quietly decay. |
-| **Thu** | **Sweet spot.** Warm-up → **2 × 20 min @ 85–88%**, 6 min easy between → **1 × 10 min @ 85–88%** → CD. ~85 min | 85–88% | High aerobic load per unit of fatigue — the TSS engine of the week. Deliberately *not* threshold: it's the droppable session, so it should be the one whose absence costs least. |
+| **Thu** | **Sweet spot.** Warm-up → **2 × 20 min @ 85–88%**, 6 min easy between → **1 × 10 min @ 85–88%** → CD. ~85 min. **+ Lift B (light), ≥3 h later** | 85–88% | High aerobic load per unit of fatigue — the TSS engine of the week. Deliberately *not* threshold: it's the droppable session, so it should be the one whose absence costs least. |
 | **Fri** | 60 min easy, or off | 60–70% | |
 | **Sat** | Outdoor endurance 2–2.5 h | 60–72%, NP ≤72% | Volume. |
 | **Sun** | Outdoor 3–3.5 h Z2. **Final 45 min: 2 × 10 min @ 85–88%**, 5 min easy between | 60–72% base | **The durability session.** Sweet spot *after* 2.5 h trains fractional utilization directly — holding a high fraction of FTP when glycogen-depleted is the exact missing adaptation. It costs more than the same watts fresh; that's the point. Build 2×10 → 2×12 → 3×12 across the block. |
 
-**~10.5 h.**
+**~10.5 h riding, plus ~1 h gym.**
 
 > **On the Wednesday sprints.** Ride them as actual standing starts: out of the
 > saddle, big gear, surge as hard as you can, hold form, let it fade across the 15 s.
@@ -219,15 +223,15 @@ quality efforts either way.
 | Day | Session | Target | Purpose |
 |---|---|---|---|
 | **Mon** | Off, or 40 min recovery | <60% | |
-| **Tue** | **Identical to Variant A.** 3 × 12 min @ 90–93% | 90–93% | The anchor session. It never moves. |
+| **Tue** | **Identical to Variant A**, Lift A included. 3 × 12 min @ 90–93% | 90–93% | The anchor session. It never moves. |
 | **Wed** | Same as Variant A | 60–70% base | |
-| **Thu** | 75 min easy + **5 × 1 min @ 95–102%**, 4 min easy between | 60–70% base | Openers, not a workout. Sharp legs at almost no fatigue cost. |
+| **Thu** | 75 min easy + **5 × 1 min @ 95–102%**, 4 min easy between. **No lift** | 60–70% base | Openers, not a workout. Sharp legs at almost no fatigue cost — which is also why Lift B goes when Thursday's structure goes. |
 | **Fri** | 45–60 min easy, or off | <65% | |
 | **Sat** | **90 min – 2 h, easy only** | 60–68%, NP ≤72% | Deliberately shorter and easier than Variant A. Do not pre-fatigue Sunday. |
 | **Sun** | **Hard group ride, 3–4 h** | — | This *is* the second quality effort, not a compromise. Threshold-and-above in variable terrain is good durability work — it's just uncontrolled, so it gets accounted for rather than ignored. |
 | **Mon after** | **Full day off.** | — | |
 
-**~9.5–10 h.**
+**~9.5–10 h riding, plus ~35 min gym.**
 
 ### Choosing between them
 
@@ -245,14 +249,14 @@ happen.
 - **Group ride appears Thursday night:** ride it, skip Thursday's structure, make
   Sunday pure Z2.
 - **Both happen anyway** (Thursday kept, Sunday unexpectedly hard): that's three
-  quality efforts, survivable about once a month. Next week, cut Tuesday to 2×12 and
-  make Thursday easy. Pay the debt immediately.
+  quality efforts, survivable about once a month. Next week, cut Tuesday to 2×12,
+  make Thursday easy, and lift Tuesday only. Pay the debt immediately.
 
 ### When a group ride was a hard day
 
 **It was a hard day if IF ≥ 0.80 or TSS ≥ 220.** Score it afterward, off what
-actually happened. If it was, the following Monday is off and that week gets one
-quality session instead of two.
+actually happened. If it was, the following Monday is off, that week gets one
+quality session instead of two, and one lift instead of two.
 
 During a ride that's going harder than planned, the tactical outs are: sit in on the
 last climb, skip the town-sign sprints, ride the final 30–40 min solo in Z2. That
@@ -321,6 +325,11 @@ under-eating. Riding them under-fuelled just means riding them badly.
 | 3–4 h, and camp days | **80–90 g/h.** Needs a glucose+fructose mix; single-source absorption tops out near 60 g/h |
 | After anything hard or long | ~80–90 g carb + ~25 g protein within the hour |
 
+**Protein 1.6–1.8 g/kg/day — 115–130 g** — now that there's lifting to recover from,
+with 25–40 g in the hour after a lift. On a lift day with a 3 h gap, eat carbohydrate
+between the ride and the gym; lifting on what's left after a sub-threshold session
+wastes the session.
+
 **No caloric deficit during build blocks** — it compromises the exact adaptations
 being chased. Multi-day trips are where under-fuelling compounds; that's the one to
 watch.
@@ -346,6 +355,10 @@ Add duration until the block's time-in-zone target is met, then hold it:
 60 min at 98%. Don't add them together across blocks.
 
 **Never add duration and intensity in the same week.**
+
+Lifting progresses on its own clock — the rep bracket is fixed by the phase and the
+load moves inside it, which is the same shape one level down. It spans blocks rather
+than resetting with them, so it lives in [`plan/strength.md`](plan/strength.md).
 
 There is deliberately no rule for bumping a target off how a session felt. RPE
 resolves to about ±1, which isn't enough precision to move a number on. Sessions
@@ -424,6 +437,7 @@ in `plan/check-ins.md`.
 | | |
 |---|---|
 | Current block, its weeks and its test | [`plan/block-1.md`](plan/block-1.md) |
+| Lifting: phases, session, progression, back-off | [`plan/strength.md`](plan/strength.md) |
 | Blocks 2–5 and the test schedule | [`plan/roadmap.md`](plan/roadmap.md) |
 | Re-anchor history, power anchors, the evidence behind LTHR and the diagnosis | [`plan/decisions.md`](plan/decisions.md) |
 | Weekly check-in answers | [`plan/check-ins.md`](plan/check-ins.md) |
@@ -461,6 +475,9 @@ CTL and TSS arithmetic — ramp rates, back-solving load — is in
    block test settles it; there's no point being more precise than that in advance.
 4. "8–12 h/week" means 10–11 typically, 12 occasionally. The plan needs ~10.5.
 5. Weight stays 72 kg with no restriction during build blocks.
-6. No strength training, by preference. Given an aerobic limiter, adequate muscle
-   mass and age 27, it's a third-order concern in this window. Revisit next
-   off-season.
+6. Lifting from 18 Aug contributes **~0 W to the December test** and is in for bone
+   density, injury resilience and next season — graded on watts in this window it
+   would fail, which is why it's scheduled subordinate to the bike rather than
+   alongside it. Full gym, prior barbell experience but rusty; if squat technique
+   isn't actually solid under load, the re-entry phase doubles and Block 2 starts
+   lighter. Everything else in [`plan/strength.md`](plan/strength.md).
