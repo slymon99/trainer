@@ -36,7 +36,21 @@ def check_strava() -> bool:
     return True
 
 
-CHECKS = {"intervals": check_intervals, "strava": check_strava}
+def check_hevy() -> bool:
+    from trainer import HevyClient
+
+    client = HevyClient()
+    me = client.user()
+    count = client.workout_count()
+    print(f"hevy           OK — {me.get('name')} (id {me.get('id')})")
+    print(f"               {count} workouts logged")
+    for w in client.workouts(limit=3):
+        sets = sum(len(e.get("sets") or []) for e in w.get("exercises") or [])
+        print(f"               {w['start_time'][:10]}  {w['title'][:30]:<30} {sets:3} sets")
+    return True
+
+
+CHECKS = {"intervals": check_intervals, "strava": check_strava, "hevy": check_hevy}
 
 
 def main():

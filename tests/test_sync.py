@@ -18,7 +18,7 @@ import requests
 from trainer.http import RateLimitExceeded
 from trainer.store import Store
 from trainer.strava import Budget
-from trainer.sync import Sync
+from trainer.sync import HEVY_LOOKBACK, Sync
 
 TODAY = date(2026, 8, 13)
 
@@ -357,3 +357,157 @@ def test_activities_outside_the_window_are_left_alone(store):
     sync_activities(store, iv)
 
     assert store.ids("iv_activities") == {"old", "a1"}
+
+
+# --- Hevy -------------------------------------------------------------------
+#
+# Hevy is the one source that will *tell* you a session was deleted. Its list
+# endpoint can only ever show what still exists, so without the events feed a
+# session deleted in the app would sit in the warehouse forever, inflating
+# every volume figure that reads it. These pin that path down, plus the
+# flattening — Hevy nests sets inside exercises inside the workout, and the
+# merge key is assembled during that descent.
+
+
+class FakeHevy:
+    """Stands in for HevyClient, serving a mutable workout list and its events.
+
+    `events` is set by the test to whatever Hevy would report since the last
+    sync; the list endpoint independently reflects `workouts`, exactly as the
+    real pair of endpoints do.
+    """
+
+    def __init__(self, workouts=(), events=()):
+        self.workouts_held = list(workouts)
+        self.events = list(events)
+        self.since: list[str] = []
+
+    def workouts(self, limit=None, since=None):
+        self.since.append(since)
+        return [w for w in self.workouts_held if not since or w["start_time"] >= since]
+
+    def workout_events(self, since):
+        return self.events
+
+    def exercise_templates(self):
+        return [{"id": "T1", "title": "Back Squat (Barbell)", "type": "weight_reps"}]
+
+
+def session(id_, day, sets=((100.0, 5),), warmups=1):
+    """One workout payload, nested the way Hevy nests it."""
+    entries = [
+        {"index": i, "type": "warmup", "weight_kg": 40.0, "reps": 8}
+        for i in range(warmups)
+    ]
+    entries += [
+        {"index": warmups + i, "type": "normal", "weight_kg": w, "reps": r, "rpe": 8.0}
+        for i, (w, r) in enumerate(sets)
+    ]
+    return {
+        "id": id_,
+        "title": "Tue — Heavy",
+        "start_time": f"{day}T18:00:00Z",
+        "end_time": f"{day}T18:45:00Z",
+        "exercises": [
+            {
+                "index": 0,
+                "title": "Back Squat (Barbell)",
+                "exercise_template_id": "T1",
+                "sets": entries,
+            }
+        ],
+    }
+
+
+def sync_lifts(store, hv):
+    Sync(store, today=TODAY, hv=hv).hevy()
+
+
+def test_sets_flatten_to_one_row_each(store):
+    hv = FakeHevy([session("w1", "2026-08-11", sets=((100.0, 5), (102.5, 5)))])
+
+    sync_lifts(store, hv)
+
+    assert store.sql(
+        "SELECT set_index, set_type, weight_kg, reps, volume_kg FROM hevy_sets ORDER BY set_index"
+    ).fetchall() == [
+        (0, "warmup", 40.0, 8, 320.0),
+        (1, "normal", 100.0, 5, 500.0),
+        (2, "normal", 102.5, 5, 512.5),
+    ]
+
+
+def test_warmups_are_excluded_from_session_volume(store):
+    """Warm-ups scale with the working weight, so counting them would score a
+    heavier session as more work than it was."""
+    hv = FakeHevy([session("w1", "2026-08-11", sets=((100.0, 5), (100.0, 5)))])
+
+    sync_lifts(store, hv)
+
+    assert store.sql(
+        "SELECT set_count, working_set_count, volume_kg FROM hevy_workouts"
+    ).fetchall() == [(3, 2, 1000.0)]
+
+
+def test_session_deleted_in_the_app_disappears(store):
+    """The whole reason the events feed is called at all."""
+    hv = FakeHevy([session("w1", "2026-08-11"), session("w2", "2026-08-12")])
+    sync_lifts(store, hv)
+    assert store.ids("hevy_workouts") == {"w1", "w2"}
+
+    hv.workouts_held = [w for w in hv.workouts_held if w["id"] != "w2"]
+    hv.events = [{"type": "deleted", "id": "w2", "deleted_at": "2026-08-13T09:00:00Z"}]
+    sync_lifts(store, hv)
+
+    assert store.ids("hevy_workouts") == {"w1"}
+    assert store.ids("hevy_sets", column="workout_id") == {"w1"}
+
+
+def test_deleting_an_old_session_widens_the_window_to_reach_it(store):
+    """A deletion outside the rolling lookback is the case a plain re-read misses.
+
+    The events feed gives only an id, so the date has to come from what's held
+    locally — that lookup is what drags the replace range back far enough.
+    """
+    old = str(TODAY - timedelta(days=200))
+    hv = FakeHevy([session("w1", old), session("w2", "2026-08-12")])
+    sync_lifts(store, hv)
+
+    hv.workouts_held = [w for w in hv.workouts_held if w["id"] != "w1"]
+    hv.events = [{"type": "deleted", "id": "w1", "deleted_at": "2026-08-13T09:00:00Z"}]
+    sync_lifts(store, hv)
+
+    assert store.ids("hevy_workouts") == {"w2"}
+
+
+def test_an_edited_session_refreshes_its_sets(store):
+    """Correcting a mis-logged weight in the app has to land here too."""
+    hv = FakeHevy([session("w1", "2026-08-11", sets=((100.0, 5),))])
+    sync_lifts(store, hv)
+
+    hv.workouts_held = [session("w1", "2026-08-11", sets=((90.0, 8),))]
+    hv.events = [{"type": "updated", "workout": hv.workouts_held[0]}]
+    sync_lifts(store, hv)
+
+    assert store.sql(
+        "SELECT weight_kg, reps FROM hevy_sets WHERE set_type = 'normal'"
+    ).fetchall() == [(90.0, 8)]
+
+
+def test_a_quiet_sync_does_not_reach_back_past_the_lookback(store):
+    """Nothing changed, so the window stays cheap — one page, not the season."""
+    hv = FakeHevy([session("w1", "2026-08-12")])
+    sync_lifts(store, hv)
+    sync_lifts(store, hv)
+
+    assert hv.since[-1] >= str(TODAY - timedelta(days=HEVY_LOOKBACK + 1))
+
+
+def test_templates_are_fetched_once(store):
+    """451 rows over five requests, and they only change on a custom exercise."""
+    hv = FakeHevy()
+    sync = Sync(store, today=TODAY, hv=hv)
+
+    assert sync.hevy_templates() == 1
+    assert sync.hevy_templates() == 0
+    assert sync.hevy_templates(refresh=True) == 1

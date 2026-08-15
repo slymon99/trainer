@@ -69,13 +69,17 @@ intervals.icu ids and Strava ids join without casting.
 | `strava_activities` | one row per activity | what was **done** — measured power and HR |
 | `strava_laps` | one row per lap | per-rep actuals |
 | `strava_streams` | one row per sample | per-second data (opt-in) |
+| `hevy_workouts` | one row per gym session | duration, set counts, total volume |
+| `hevy_sets` | one row per set | weight, reps, RPE — where lifting progression is judged |
+| `hevy_exercise_templates` | one row per exercise | Hevy's catalogue, for resolving names to ids |
 
-Two views do the joins for you:
+Three views do the joins for you:
 
 | View | What it is |
 |---|---|
 | `activities` | `iv_activities` + `strava_activities` on id — the whole picture of one ride |
 | `planned_vs_actual` | `iv_events` left-joined to `activities` on intervals.icu's own `paired_activity_id` |
+| `lift_sets` | `hevy_sets` + session title + muscle group, with an Epley 1RM estimate |
 
 `pixi run sql --schema <table>` lists columns; `trainer/tables.py` is the
 definitive schema, including which API field each column came from.
@@ -94,6 +98,9 @@ definitive schema, including which API field each column came from.
   works through.
 - **`iv_athlete` is a daily snapshot**, not current state. Reviewing an old
   block needs the FTP that was configured *then*, and that number changes.
+- **Hevy volume figures exclude warm-ups.** They scale with the working weight,
+  so counting them scores a heavier session as more work than it was. Hevy
+  timestamps also carry no UTC offset — see [hevy.md](hevy.md).
 
 ## How the sync decides what to fetch
 
@@ -105,6 +112,8 @@ definitive schema, including which API field each column came from.
 | `strava` | watermark − 7d → today | the list endpoint; one request per 200 rides |
 | `details` | anything `WHERE NOT has_detail` | one request each — this is what the quota bites on |
 | `streams` | opt-in, `--streams N` | one request and ~10k rows per activity |
+| `lifts` | watermark − 30d → today, widened by Hevy's events feed | sessions get edited and deleted in the app after the fact |
+| `exercises` | once, unless `--refresh` | the catalogue only changes when a custom exercise is added |
 
 The two APIs are budgeted differently on purpose. **intervals.icu is not
 meaningfully rate limited** — a year of calendar is one request — so its windows
