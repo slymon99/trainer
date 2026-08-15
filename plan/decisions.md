@@ -55,6 +55,37 @@ FTP, so an old measurement here isn't the concern an old FTP is. Forward test: t
 12 Sep 20-min max should average 175–180. Below 172 means 170 is a couple high; above
 183 reopens the question.
 
+## Strength training, added 15 Aug 2026
+
+The plan was written with "no strength training, not interested" as constraint 3 and
+a matching assumption that it was a third-order concern to revisit next off-season.
+Reversed by the athlete on **Sat 15 Aug 2026**, committing to **one session a week**.
+
+**Nothing about the diagnosis changed.** The limiter is still fractional utilization
+and still aerobic, and the December target is still unaffected by anything that
+happens in a gym. What changed is the reason for doing it: burnout is constraint 2,
+the last block ended from an empty calendar rather than from overload, and a second
+training habit is insurance against exactly that failure. The physiological case is
+weak in this window and stays weak; the behavioural case is the whole argument.
+
+**Placement: Tuesday, after the sub-threshold ride.** Preserves the easy days, which
+is the plan's central principle. Friday was rejected — soreness would land on
+Sunday's durability blocks. Saturday was rejected under both variants for the same
+reason.
+
+**Sizing: capped at ~45 min, one session, explicitly subordinate.** The failure mode
+is a third quality day appearing by accident, so the plan carries a hard rule that
+the gym shrinks before the bike does.
+
+**First session, Sat 15 Aug**, off-schedule to start the habit the day it was asked
+for. Core, mobility, light upper body only, no loaded legs — it sat the day before a
+4 h group ride, and unaccustomed eccentric work peaks at 24–48 h. Logged on
+intervals.icu as a `WeightTraining` event with the sets in the description; it
+carries no TSS, so the CTL series stays a cycling-only number.
+
+**What would reverse this:** Thursday's sweet spot or Sunday's blocks coming in under
+target with the gym a plausible cause. Reviewed at the Block 2 boundary.
+
 ## The diagnosis, and what would refute it
 
 **Fractional utilization is the limiter.** Don't read the ratio as "4-min power is

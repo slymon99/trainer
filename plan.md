@@ -67,7 +67,10 @@ a group ride is uncertain.
 2. **Burnout is the main risk.** I fell out of structured training after my June
    race. Given a choice between more load and more sustainability, choose
    sustainability.
-3. **No strength training.** Not interested. Don't prescribe it.
+3. **One gym session a week, Tuesday, after the ride.** ~45 min, started 15 Aug
+   2026. It's a habit, not a watts lever, and it has no claim on this block's
+   outcome — see *Strength*. Don't prescribe a second session; don't move it onto
+   an easy day.
 4. **No trash miles.** Easy rides must be genuinely easy.
 5. **Sharpening can wait.** Almost no VO2 work through December is deliberate.
 
@@ -194,7 +197,7 @@ quality efforts either way.
 | Day | Session | Target | Purpose |
 |---|---|---|---|
 | **Mon** | Off, or 40 min recovery | <60% | Nothing. Genuinely nothing. |
-| **Tue** | **Sub-threshold.** Warm-up → **3 × 12 min @ 90–93%**, 5 min @ 55% between → 10 min CD. ~85 min | 90–93% | Sustained work near MLSS — lactate clearance and muscular endurance, the actual limiter. Deliberately sub-threshold so it repeats weekly without digging a hole. |
+| **Tue** | **Sub-threshold.** Warm-up → **3 × 12 min @ 90–93%**, 5 min @ 55% between → 10 min CD. ~85 min. **Gym after** (see *Strength*) | 90–93% | Sustained work near MLSS — lactate clearance and muscular endurance, the actual limiter. Deliberately sub-threshold so it repeats weekly without digging a hole. |
 | **Wed** | 70 min easy + **4 × 15 s standing starts, MAX**, full recovery between | 60–70% base; sprints **500–800 W** | Aerobic volume. Sprints cost nothing and keep neuromuscular recruitment alive so top end doesn't quietly decay. |
 | **Thu** | **Sweet spot.** Warm-up → **2 × 20 min @ 85–88%**, 6 min easy between → **1 × 10 min @ 85–88%** → CD. ~85 min | 85–88% | High aerobic load per unit of fatigue — the TSS engine of the week. Deliberately *not* threshold: it's the droppable session, so it should be the one whose absence costs least. |
 | **Fri** | 60 min easy, or off | 60–70% | |
@@ -219,7 +222,7 @@ quality efforts either way.
 | Day | Session | Target | Purpose |
 |---|---|---|---|
 | **Mon** | Off, or 40 min recovery | <60% | |
-| **Tue** | **Identical to Variant A.** 3 × 12 min @ 90–93% | 90–93% | The anchor session. It never moves. |
+| **Tue** | **Identical to Variant A**, gym included. 3 × 12 min @ 90–93% | 90–93% | The anchor session. It never moves. |
 | **Wed** | Same as Variant A | 60–70% base | |
 | **Thu** | 75 min easy + **5 × 1 min @ 95–102%**, 4 min easy between | 60–70% base | Openers, not a workout. Sharp legs at almost no fatigue cost. |
 | **Fri** | 45–60 min easy, or off | <65% | |
@@ -258,6 +261,50 @@ During a ride that's going harder than planned, the tactical outs are: sit in on
 last climb, skip the town-sign sprints, ride the final 30–40 min solo in Z2. That
 last part matters more than it sounds — 40 min easy after hard work meaningfully
 improves next-day quality.
+
+---
+
+## Strength
+
+**One session a week, Tuesday, after the sub-threshold ride. ~45 min.** Added
+15 Aug 2026; this plan originally said no strength training at all.
+
+**It is not a watts lever and isn't prescribed as one.** The limiter is fractional
+utilization, which is aerobic — nothing available in a gym addresses it inside this
+window, and none of the December target depends on this. It's here for bone density,
+connective-tissue resilience, and mostly for a training habit with a second leg to
+stand on. The last block didn't end from overload; it ended when the calendar
+emptied. A routine that still works in a week off the bike is worth the recovery it
+costs. The 45 min sits outside the 8–12 h riding budget, not inside it.
+
+**Why Tuesday.** Stack it on a day that's already hard so the easy days stay
+genuinely easy — the same principle that governs everything else here. Soreness then
+lands on Wednesday's easy ride and has largely cleared by Thursday. Friday looks like
+the obvious alternative and is the trap: it puts soreness straight into Sunday's
+durability session, the most valuable session of the week.
+
+**Ramping in.** Unaccustomed eccentric loading — the lowering half of a squat, lunge
+or RDL — causes muscle damage whose soreness and force loss peak 24–48 h later. The
+response is eccentric-specific, and it fades fast with repeated exposure, so almost
+the whole cost is in the first few weeks. Handle it by starting far too light, not by
+scheduling around it:
+
+| Session | Legs |
+|---|---|
+| **15 Aug** (done) | None. Core, mobility, light upper body — the day before a 4 h group ride. |
+| **Tue 18 Aug** | First loaded legs, trivial dose: **1 × 8 goblet squat, 1 × 8 RDL**, light enough to feel pointless. |
+| **Tue 25 Aug onward** | Go to **2 × 8** *only if* Thu 20 Aug came in on target. Otherwise repeat the trivial dose. |
+| Later | Add load only when a session leaves no soreness at all. Never add load and volume in the same week — the same rule the bike runs on. |
+
+Every set stops **3–4 reps short of failure**, permanently. This isn't a hypertrophy
+programme and failure work buys nothing here.
+
+**Never the day before a hard group ride, and never within 48 h of a test.**
+
+**Hard rule: the gym shrinks before the bike does.** If Tuesday's ride, Thursday's
+sweet spot or Sunday's blocks come in under target and the gym is a plausible cause,
+cut the gym — first to legs-free, then to nothing. Don't let it become a third
+quality day by accident; that's exactly what the two-hard-days rule exists to prevent.
 
 ---
 
@@ -461,6 +508,9 @@ CTL and TSS arithmetic — ramp rates, back-solving load — is in
    block test settles it; there's no point being more precise than that in advance.
 4. "8–12 h/week" means 10–11 typically, 12 occasionally. The plan needs ~10.5.
 5. Weight stays 72 kg with no restriction during build blocks.
-6. No strength training, by preference. Given an aerobic limiter, adequate muscle
-   mass and age 27, it's a third-order concern in this window. Revisit next
-   off-season.
+6. **45 min of gym a week doesn't cost the bike anything.** It's small against
+   10–11 h and it's placed where recovery is cheapest, but week 1 of it is 15 Aug
+   2026 and it is genuinely untested here. Forward test: Thursday's sweet spot and
+   Sunday's blocks shouldn't move. If they do, the gym shrinks (see *Strength*).
+   Separately, strength work is still assumed to contribute **no watts by
+   December** — that's not a hedge, it's the reason it's capped where it is.
