@@ -100,16 +100,31 @@ definitive schema, including which API field each column came from.
 | Step | Window | Why |
 |---|---|---|
 | `wellness` | watermark − 45d → today | intervals.icu revises CTL/ATL backwards as activities land |
-| `events` | today − 90d → today + 120d | the calendar is edited and deleted, so it's re-read whole |
-| `activities` | watermark − 7d → today | catches anything that landed late |
+| `events` | today − 365d → today + 240d | the calendar is edited and deleted, so it's re-read whole |
+| `activities` | watermark − 365d → today | same: an activity can be deleted or re-categorised long after the ride |
 | `strava` | watermark − 7d → today | the list endpoint; one request per 200 rides |
 | `details` | anything `WHERE NOT has_detail` | one request each — this is what the quota bites on |
 | `streams` | opt-in, `--streams N` | one request and ~10k rows per activity |
 
-Windows that get re-read whole (`wellness`, `events`) are written with a
-**replace range**: held rows in the window are dropped before the merge, so a
-workout deleted from the calendar disappears here too. Everything else is a
-plain upsert on the key.
+The two APIs are budgeted differently on purpose. **intervals.icu is not
+meaningfully rate limited** — a year of calendar is one request — so its windows
+are set by how far back data can still *change*, not by what we can afford. Only
+the Strava steps economise.
+
+Windows that get re-read whole (`wellness`, `events`, `activities`) are written
+with a **replace range**: held rows in the window are dropped before the merge,
+so a workout deleted from the calendar disappears here too. Everything else is a
+plain upsert on the key, which can add and update but never notice a deletion.
+
+Two consequences worth knowing:
+
+- **The window runs back from the watermark, not from today.** A season pulled
+  in with `--since` sits outside it and is never revisited — which is what keeps
+  the replace range from eating the backfill, but also means edits to it won't
+  land. Re-run with the same `--since` to refresh that far back.
+- **Events beyond the window are frozen.** +240d covers a block written to the
+  calendar months ahead; anything further out won't appear locally until it
+  comes into range.
 
 Useful flags:
 

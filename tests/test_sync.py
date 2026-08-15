@@ -1,11 +1,16 @@
-"""Sync behaviour that costs API budget to get wrong.
+"""Sync behaviour that costs API budget — or silent staleness — to get wrong.
 
 Strava allows 100 requests per 15 minutes, so these drive the sync with a fake
 client that counts calls, rather than the real one.
+
+intervals.icu isn't the budget problem; *stale* is. Its steps re-read their
+window whole so that an edited or deleted workout stops being true here too,
+and the tests below pin that down — a merge-only sync passes every assertion
+about edits and fails every assertion about deletions.
 """
 
 import json
-from datetime import date
+from datetime import date, timedelta
 
 import pytest
 import requests
@@ -60,6 +65,49 @@ def detail(activity_id: str, day: str, laps: int = 2) -> dict:
             }
             for i in range(1, laps + 1)
         ],
+    }
+
+
+class FakeIntervals:
+    """Stands in for IntervalsClient, serving whatever the calendar says today.
+
+    Rows outside the requested window are withheld, exactly as the real API
+    does — which is what makes the window constants testable.
+    """
+
+    def __init__(self, events=(), activities=()):
+        self.rows = {"events": list(events), "activities": list(activities)}
+        self.windows: list[tuple[str, str]] = []
+
+    def _serve(self, kind, oldest, newest):
+        self.windows.append((oldest, newest))
+        return [r for r in self.rows[kind] if oldest <= r["start_date_local"][:10] <= newest]
+
+    def events(self, oldest, newest):
+        return self._serve("events", oldest, newest)
+
+    def activities(self, oldest, newest):
+        return self._serve("activities", oldest, newest)
+
+
+def workout(id_, day, name="3x12 threshold", description="3x12min @ 95% FTP", load=60):
+    return {
+        "id": id_,
+        "start_date_local": f"{day}T06:00:00",
+        "category": "WORKOUT",
+        "name": name,
+        "description": description,
+        "icu_training_load": load,
+    }
+
+
+def ride(id_, day, name="Morning ride", load=60):
+    return {
+        "id": id_,
+        "start_date_local": f"{day}T06:00:00",
+        "name": name,
+        "type": "Ride",
+        "icu_training_load": load,
     }
 
 
@@ -204,3 +252,108 @@ def test_summaries_do_not_overwrite_fetched_detail(store, tmp_path):
         "3x12 threshold",
         2,
     )
+
+
+# --- intervals.icu staleness ------------------------------------------------
+#
+# The calendar is the prescription: if it drifts from what intervals.icu holds,
+# every review reads the wrong plan. These drive two syncs against one fake and
+# change the calendar in between.
+
+
+def sync_events(store, iv):
+    Sync(store, today=TODAY, iv=iv).events()
+
+
+def sync_activities(store, iv):
+    Sync(store, today=TODAY, iv=iv).activities()
+
+
+def test_edited_workout_refreshes(store):
+    iv = FakeIntervals(events=[workout("e1", "2026-08-14")])
+    sync_events(store, iv)
+
+    iv.rows["events"] = [
+        workout("e1", "2026-08-14", name="4x12 threshold", description="4x12min @ 98%", load=85)
+    ]
+    sync_events(store, iv)
+
+    assert store.sql("SELECT name, description, icu_training_load FROM iv_events").fetchall() == [
+        ("4x12 threshold", "4x12min @ 98%", 85)
+    ]
+
+
+def test_workout_deleted_from_the_calendar_disappears(store):
+    iv = FakeIntervals(events=[workout("e1", "2026-08-14"), workout("e2", "2026-08-16")])
+    sync_events(store, iv)
+
+    iv.rows["events"] = [workout("e1", "2026-08-14")]
+    sync_events(store, iv)
+
+    assert store.ids("iv_events") == {"e1"}
+
+
+def test_workout_moved_to_another_day_is_not_duplicated(store):
+    """A merge on id alone would leave the old date behind as a second row."""
+    iv = FakeIntervals(events=[workout("e1", "2026-08-18")])
+    sync_events(store, iv)
+
+    iv.rows["events"] = [workout("e1", "2026-08-20")]
+    sync_events(store, iv)
+
+    assert store.sql("SELECT id, date FROM iv_events").fetchall() == [("e1", date(2026, 8, 20))]
+
+
+def test_calendar_window_covers_a_block_pushed_months_ahead(store):
+    """Blocks get written to the calendar well in advance; the sync must see them."""
+    far = str(TODAY + timedelta(days=200))
+    iv = FakeIntervals(events=[workout("e1", far)])
+
+    sync_events(store, iv)
+
+    assert store.ids("iv_events") == {"e1"}
+
+
+def test_activity_deleted_from_intervals_disappears(store):
+    """intervals.icu never says 'deleted' — not finding it again is the signal."""
+    iv = FakeIntervals(activities=[ride("a1", "2026-08-11"), ride("a2", "2026-08-12")])
+    sync_activities(store, iv)
+
+    iv.rows["activities"] = [ride("a1", "2026-08-11")]
+    sync_activities(store, iv)
+
+    assert store.ids("iv_activities") == {"a1"}
+
+
+def test_activity_edited_long_after_the_fact_refreshes(store):
+    """Re-categorising an old ride changes its load, and the edit can come months later.
+
+    The fresh ride matters: it pushes the watermark to today, so a short
+    lookback would put the edited one out of reach.
+    """
+    old = str(TODAY - timedelta(days=90))
+    iv = FakeIntervals(activities=[ride("a1", old), ride("a2", str(TODAY))])
+    sync_activities(store, iv)
+
+    iv.rows["activities"][0] = ride("a1", old, name="Renamed", load=140)
+    sync_activities(store, iv)
+
+    assert store.sql(
+        "SELECT name, icu_training_load FROM iv_activities WHERE id = 'a1'"
+    ).fetchall() == [("Renamed", 140)]
+
+
+def test_activities_outside_the_window_are_left_alone(store):
+    """The replace range must not eat the backfill it never asked the API for.
+
+    The window runs back from the watermark, so a season pulled in with
+    `--since` sits outside it and has to survive untouched.
+    """
+    ancient = ride("old", str(TODAY - timedelta(days=800)))
+    recent = ride("a1", "2026-08-12")
+    store.write("iv_activities", [ancient, recent])
+    iv = FakeIntervals(activities=[recent])
+
+    sync_activities(store, iv)
+
+    assert store.ids("iv_activities") == {"old", "a1"}
