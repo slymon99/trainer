@@ -1,4 +1,4 @@
-"""Incremental pull from intervals.icu and Strava into the local warehouse.
+"""Incremental pull from intervals.icu, Strava and Hevy into the local warehouse.
 
     pixi run sync                      # bring everything up to date
     pixi run sync --since 2025-09-01   # backfill further back
@@ -19,6 +19,7 @@ from pathlib import Path
 import requests
 
 from trainer.config import ROOT
+from trainer.hevy import HevyClient
 from trainer.http import RateLimitExceeded
 from trainer.intervals import IntervalsClient
 from trainer.store import Store
@@ -44,6 +45,11 @@ ACTIVITIES_LOOKBACK = 365
 FIRST_RUN_DAYS = 365
 # Stop this far short of Strava's wall, leaving room for an interactive query.
 BUDGET_RESERVE = 5
+# Hevy pages 10 workouts at a time, so a re-read costs one request per ten
+# sessions — at one or two gym sessions a week this window is a request or
+# three. Edits and deletions *older* than it are caught by the events feed,
+# which widens the window rather than being bounded by it.
+HEVY_LOOKBACK = 30
 
 RAW = ROOT / "data" / "strava"
 STREAM_KEYS = [
@@ -68,6 +74,7 @@ class Sync:
         since: date | None = None,
         iv: IntervalsClient | None = None,
         st: StravaClient | None = None,
+        hv: HevyClient | None = None,
         raw: Path = RAW,
     ):
         self.store = store
@@ -76,6 +83,7 @@ class Sync:
         self.raw = raw
         self._iv = iv
         self._st = st
+        self._hv = hv
         self.pending: list[str] = []
 
     # Clients are built on demand so a wellness-only sync doesn't require
@@ -91,6 +99,12 @@ class Sync:
         if self._st is None:
             self._st = StravaClient()
         return self._st
+
+    @property
+    def hv(self) -> HevyClient:
+        if self._hv is None:
+            self._hv = HevyClient()
+        return self._hv
 
     def start_for(self, table: str, lookback: int) -> date:
         """Where to resume: back from the watermark, or `--since` if given.
@@ -138,6 +152,55 @@ class Sync:
             for s in settings
         ]
         return self.store.write("iv_athlete", snapshot)
+
+    def hevy(self) -> int:
+        """Gym sessions and their sets, re-read whole over a rolling window.
+
+        Both tables are written from the same payload — Hevy nests the sets
+        inside the workout, so one walk fills both — and with the same replace
+        range, so a session deleted in the app disappears from both here.
+        """
+        start = min(self.start_for("hevy_workouts", HEVY_LOOKBACK), self._hevy_changed())
+        workouts = self.hv.workouts(since=f"{start}T00:00:00Z")
+        self.store.write("hevy_sets", _hevy_set_rows(workouts), replace_range=(start, self.today))
+        return self.store.write("hevy_workouts", workouts, replace_range=(start, self.today))
+
+    def hevy_templates(self, refresh: bool = False) -> int:
+        """The exercise catalogue. Static enough to fetch once and leave alone —
+        five requests, and it only changes when a custom exercise is added."""
+        if not refresh and self.store.count("hevy_exercise_templates"):
+            return 0
+        return self.store.write("hevy_exercise_templates", self.hv.exercise_templates())
+
+    def _hevy_changed(self) -> date:
+        """Date of the oldest session edited or deleted since the last sync.
+
+        Re-reading the list endpoint can only ever show what still exists, so a
+        session deleted in the app would linger locally forever. The events feed
+        is the one place a deletion is reported; this turns it into a wider
+        replace range, which is what actually removes the row. Returns
+        `self.today` when nothing changed, so it never widens the window.
+        """
+        # Read as an epoch rather than a timestamp: handing a TIMESTAMPTZ back
+        # to Python makes DuckDB reach for pytz, and rendering it with strftime
+        # silently converts to local time while still stamping a 'Z' on it.
+        row = self.store.sql("SELECT epoch(max(_synced_at)) FROM hevy_workouts").fetchone()
+        last = row[0] if row else None
+        if last is None:
+            return self.today  # nothing held yet — the lookback governs
+        stamp = datetime.fromtimestamp(last, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        touched = [self.today]
+        for event in self.hv.workout_events(since=stamp):
+            if event.get("type") == "deleted":
+                # Only the id is given, so the date has to come from what we hold.
+                held = self.store.sql(
+                    "SELECT date FROM hevy_workouts WHERE id = ?", event.get("id")
+                ).fetchone()
+                if held and held[0]:
+                    touched.append(held[0])
+            elif started := (event.get("workout") or {}).get("start_time"):
+                touched.append(date.fromisoformat(started[:10]))
+        return min(touched)
 
     def strava_summaries(self) -> int:
         """Strava's own activity list — the index, one request per 200 rides.
@@ -286,6 +349,36 @@ class Sync:
         return row[0] if row else None
 
 
+def _hevy_set_rows(workouts: list[dict]) -> list[dict]:
+    """Flatten Hevy's nested workout payload into one row per set.
+
+    `index` is carried down from the payload where present and falls back to
+    position, because the pair (exercise_index, set_index) is the merge key —
+    a null there would collapse a whole session onto one row.
+    """
+    rows = []
+    for workout in workouts:
+        day = date.fromisoformat(workout["start_time"][:10])
+        for e_pos, exercise in enumerate(workout.get("exercises") or []):
+            e_index = exercise.get("index")
+            for s_pos, entry in enumerate(exercise.get("sets") or []):
+                s_index = entry.get("index")
+                rows.append(
+                    {
+                        **entry,
+                        "workout_id": workout["id"],
+                        "date": day,
+                        "exercise_index": e_pos if e_index is None else e_index,
+                        "set_index": s_pos if s_index is None else s_index,
+                        "exercise_title": exercise.get("title"),
+                        "exercise_template_id": exercise.get("exercise_template_id"),
+                        "supersets_id": exercise.get("supersets_id"),
+                        "exercise_notes": exercise.get("notes"),
+                    }
+                )
+    return rows
+
+
 def _stream_rows(activity_id: str, payload: dict, day: date | None) -> list[dict]:
     """Transpose Strava's column-per-key streams into one row per sample."""
     offsets = (payload.get("time") or {}).get("data") or []
@@ -308,7 +401,17 @@ def _chunks(start: date, end: date, days: int = 365):
         cursor = stop + timedelta(days=1)
 
 
-STEPS = ("wellness", "events", "activities", "athlete", "strava", "details", "streams")
+STEPS = (
+    "wellness",
+    "events",
+    "activities",
+    "athlete",
+    "strava",
+    "details",
+    "streams",
+    "lifts",
+    "exercises",
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -350,6 +453,8 @@ def main(argv: list[str] | None = None) -> int:
         "strava": sync.strava_summaries,
         "details": lambda: sync.strava_details(args.details, refresh=args.refresh),
         "streams": lambda: sync.strava_streams(args.streams),
+        "lifts": sync.hevy,
+        "exercises": lambda: sync.hevy_templates(refresh=args.refresh),
     }
 
     stopped_early = False

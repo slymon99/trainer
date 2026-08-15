@@ -405,6 +405,123 @@ STRAVA_STREAMS = Table(
     ],
 )
 
+# --- Hevy ------------------------------------------------------------------
+
+
+def _workout_extras(payload: dict) -> dict:
+    """Roll the nested sets up to session level.
+
+    Counted here rather than left to a query because `hevy_sets` is the only
+    other place these numbers exist, and a session with zero logged sets — an
+    accidental start-and-abandon — should be visible without a join.
+    """
+    exercises = payload.get("exercises") or []
+    sets = [s for e in exercises for s in (e.get("sets") or [])]
+    working = [s for s in sets if s.get("type") != "warmup"]
+    return {
+        "exercise_count": len(exercises),
+        "set_count": len(sets),
+        # The load figure lifters actually track. Warm-ups are excluded: they
+        # scale with the working weight, so counting them double-counts a
+        # heavier session as more work than it was.
+        "working_set_count": len(working),
+        "volume_kg": sum(
+            (s.get("weight_kg") or 0) * (s.get("reps") or 0) for s in working
+        )
+        or None,
+    }
+
+
+HEVY_WORKOUTS = Table(
+    name="hevy_workouts",
+    doc=(
+        "One row per completed gym session. The per-set detail lives in "
+        "hevy_sets, joined on id = workout_id."
+    ),
+    key=("id",),
+    derive=_workout_extras,
+    columns=[
+        ("id", STR),
+        # Hevy timestamps are UTC with no offset, so this is the UTC date. For
+        # an evening session that is the local date too, except after ~23:00
+        # British Summer Time — rare enough to name rather than model.
+        ("date", DATE, "start_time"),
+        ("start_time", TSZ),
+        ("end_time", TSZ),
+        ("title", STR),
+        ("description", STR),
+        # Set when the session was started from a routine — the link back to
+        # what was prescribed, and the only one Hevy gives.
+        ("routine_id", STR),
+        ("exercise_count", INT),
+        ("set_count", INT),
+        ("working_set_count", INT),
+        ("volume_kg", FLOAT),
+        ("created_at", TSZ),
+        ("updated_at", TSZ),
+    ],
+)
+
+
+def _set_extras(payload: dict) -> dict:
+    weight, reps = payload.get("weight_kg"), payload.get("reps")
+    return {"volume_kg": (weight * reps) if weight and reps else None}
+
+
+HEVY_SETS = Table(
+    name="hevy_sets",
+    doc=(
+        "One row per set — the grain progression is actually judged at. "
+        "Flattened out of the workout payload by the sync; Hevy nests it."
+    ),
+    key=("workout_id", "exercise_index", "set_index"),
+    derive=_set_extras,
+    columns=[
+        ("workout_id", STR),
+        ("date", DATE),
+        ("exercise_index", INT),
+        ("set_index", INT),
+        ("exercise_title", STR),
+        # Stable across renames, and what a routine push references. Join to
+        # hevy_exercise_templates.
+        ("exercise_template_id", STR),
+        ("supersets_id", INT),
+        ("exercise_notes", STR),
+        # 'normal', 'warmup', 'dropset' or 'failure'. Filter warm-ups out of
+        # any volume or intensity figure.
+        ("set_type", STR, "type"),
+        ("weight_kg", FLOAT),
+        ("reps", INT),
+        ("rpe", FLOAT),
+        ("duration_seconds", INT),
+        ("distance_meters", FLOAT),
+        ("custom_metric", FLOAT),
+        ("volume_kg", FLOAT),
+    ],
+)
+
+HEVY_EXERCISE_TEMPLATES = Table(
+    name="hevy_exercise_templates",
+    doc=(
+        "Hevy's exercise catalogue — ~450 built-ins plus any custom ones. "
+        "Reference data: no date, refreshed whole."
+    ),
+    key=("id",),
+    date_column=None,
+    partitioned=False,
+    columns=[
+        ("id", STR),
+        ("title", STR),
+        # 'weight_reps', 'reps_only', 'bodyweight_reps', 'duration', ...
+        # Decides which set fields are meaningful.
+        ("type", STR),
+        ("primary_muscle_group", STR),
+        ("secondary_muscle_groups", STR),
+        ("equipment_category", STR, "equipment"),
+        ("is_custom", BOOL),
+    ],
+)
+
 TABLES: dict[str, Table] = {
     t.name: t
     for t in (
@@ -415,6 +532,9 @@ TABLES: dict[str, Table] = {
         STRAVA_ACTIVITIES,
         STRAVA_LAPS,
         STRAVA_STREAMS,
+        HEVY_WORKOUTS,
+        HEVY_SETS,
+        HEVY_EXERCISE_TEMPLATES,
     )
 }
 

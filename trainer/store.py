@@ -64,6 +64,31 @@ VIEWS = {
         FROM iv_activities i
         FULL OUTER JOIN strava_activities s ON s.id = i.id
     """,
+    "lift_sets": """
+        -- Every logged set with its exercise metadata and an estimated 1RM.
+        -- Epley: 1RM ≈ w × (1 + reps/30). That's a model, not a measurement,
+        -- and it drifts high past about 12 reps — NULL there rather than
+        -- quietly wrong. Warm-ups are kept; filter on set_type yourself.
+        SELECT
+            s.date,
+            s.workout_id,
+            w.title                     AS session,
+            s.exercise_title,
+            s.exercise_template_id,
+            t.primary_muscle_group,
+            t.equipment_category,
+            s.set_index,
+            s.set_type,
+            s.weight_kg,
+            s.reps,
+            s.rpe,
+            s.volume_kg,
+            CASE WHEN s.weight_kg > 0 AND s.reps BETWEEN 1 AND 12
+                 THEN round(s.weight_kg * (1 + s.reps / 30.0), 1) END AS est_1rm_kg
+        FROM hevy_sets s
+        LEFT JOIN hevy_workouts w ON w.id = s.workout_id
+        LEFT JOIN hevy_exercise_templates t ON t.id = s.exercise_template_id
+    """,
     "planned_vs_actual": """
         -- The prescription next to what was done, on intervals.icu's own
         -- pairing. Planned sessions with no activity show NULL actuals.

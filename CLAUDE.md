@@ -1,7 +1,7 @@
 # trainer
 
-Thin clients over intervals.icu and Strava, plus skills that use them to review
-training, write workouts, and revise a plan.
+Thin clients over intervals.icu, Strava and Hevy, plus skills that use them to
+review training, write workouts, and revise a plan.
 
 ## Ground rules
 
@@ -32,6 +32,11 @@ watt number written into a plan or a workout goes stale silently — that is the
 documented root cause of this athlete's 2026 plateau. Neuromuscular targets
 (sprints) are the one exception and the plan names them.
 
+**Lifting has no `%FTP`.** Hevy routines take absolute kilograms and the API offers
+no %1RM, so the same staleness trap is unavoidable in the tool. Keep the
+prescription relative in `plan.md` — sets, reps, reps in reserve — and resolve to
+kilograms at push time from anchors in `plan/decisions.md`. See `docs/hevy.md`.
+
 **Don't invent data.** If a number is missing, state the assumption and what
 changes if it's wrong.
 
@@ -52,6 +57,7 @@ changes if it's wrong.
 - `docs/data-store.md` — the local tables, how to query and sync them
 - `docs/reading-data.md` — fields, sources, rate limits
 - `docs/intervals-workouts.md` — workout-text syntax, calendar API
+- `docs/hevy.md` — the strength log: routines, sets, and why loads go stale there
 
 Skills in `.claude/skills/` should stay thin and link to these docs rather than
 restating them.
