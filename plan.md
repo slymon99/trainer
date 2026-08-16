@@ -53,6 +53,13 @@ a group ride is uncertain.
   a watts goal, not a weight goal.**
 - **8–12 h/week available, built around 10–11.** 5–6 days. Longest ride 4–5 h on one
   weekend day.
+- **The long weekend ride is usually a shared ride** (often with my fiancée), so it
+  carries frequent stops — elapsed:moving runs ~1.3–1.4 and that isn't going to
+  change. Trigger mid-ride blocks off **kJ accumulated** rather than elapsed hours,
+  and place them inside a continuous stretch; the stops cluster rather than spread,
+  so 30–60 min windows are always available. Depletion survives a stop — muscle
+  glycogen barely resynthesises in 20 min — so this costs the durability session much
+  less than the elapsed time suggests. Fuel against riding time, not elapsed.
 - **Weekdays indoor** (smart trainer), **weekends outdoor**. Same power meter both,
   so the numbers are directly comparable.
 - NYC, rolling terrain. 1 h to a 4–6 min climb, 2 h to a 20 min climb.
