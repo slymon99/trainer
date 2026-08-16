@@ -55,11 +55,10 @@ a group ride is uncertain.
   weekend day.
 - **The long weekend ride is usually a shared ride** (often with my fiancée), so it
   carries frequent stops — elapsed:moving runs ~1.3–1.4 and that isn't going to
-  change. Trigger mid-ride blocks off **kJ accumulated** rather than elapsed hours,
-  and place them inside a continuous stretch; the stops cluster rather than spread,
-  so 30–60 min windows are always available. Depletion survives a stop — muscle
-  glycogen barely resynthesises in 20 min — so this costs the durability session much
-  less than the elapsed time suggests. Fuel against riding time, not elapsed.
+  change. **Prescribe it in riding hours**, which is what the Garmin shows. It costs
+  the durability session little: muscle glycogen barely resynthesises across a 20 min
+  stop, so the depletion the blocks depend on survives. The stops cluster rather than
+  spread, so 30–60 min continuous windows are always available to put a block in.
 - **Weekdays indoor** (smart trainer), **weekends outdoor**. Same power meter both,
   so the numbers are directly comparable.
 - NYC, rolling terrain. 1 h to a 4–6 min climb, 2 h to a 20 min climb.
@@ -209,7 +208,7 @@ quality efforts either way.
 | **Thu** | **Sweet spot.** Warm-up → **2 × 20 min @ 85–88%**, 6 min easy between → **1 × 10 min @ 85–88%** → CD. ~85 min | 85–88% | High aerobic load per unit of fatigue — the TSS engine of the week. Deliberately *not* threshold: it's the droppable session, so it should be the one whose absence costs least. |
 | **Fri** | 60 min easy, or off. **Light gym slot** (upper/core, no legs) | 60–70% | |
 | **Sat** | Outdoor endurance 2–2.5 h | 60–72%, NP ≤72% | Volume. |
-| **Sun** | Outdoor 3–3.5 h Z2. **Final 45 min: 2 × 10 min @ 85–88%**, 5 min easy between | 60–72% base | **The durability session.** Sweet spot *after* 2.5 h trains fractional utilization directly — holding a high fraction of FTP when glycogen-depleted is the exact missing adaptation. It costs more than the same watts fresh; that's the point. Build 2×10 → 2×12 → 3×12 across the block. |
+| **Sun** | Outdoor 3–3.5 h Z2. **Blocks start at 2.5 h of riding: 2 × 10 min @ 85–88%**, 5 min easy between, then Z2 to the end | 60–72% base | **The durability session.** Sweet spot on depleted legs trains fractional utilization directly — holding a high fraction of FTP when glycogen-depleted is the exact missing adaptation. It costs more than the same watts fresh; that's the point. Build 2×10 → 2×12 → 3×12 across the block. |
 
 **~10.5 h.**
 
@@ -223,6 +222,23 @@ quality efforts either way.
 > **This is the one absolute target in the plan.** It is neuromuscular, roughly 3×
 > FTP, and re-deriving it from FTP would be meaningless. It does not change when FTP
 > changes; re-anchor it against actual sprint power, if ever.
+
+> **On the Sunday blocks.** **2.5 h is riding time, not elapsed** — this ride stops
+> enough that the two differ by an hour or more, and depletion tracks the riding.
+>
+> **The trigger is fixed; the ride length isn't.** On a 4 h Sunday the blocks land in
+> the middle and the rest is Z2 — that's the intent, not a leftover. Easy riding after
+> hard work is worth having, and a fixed depletion point is what makes one Sunday
+> comparable to the next.
+>
+> **Put them inside a continuous stretch.** After a long stop, ride 10–15 min steady
+> before starting — a block begun off a cold stop comes out ragged. The stops cluster
+> rather than spread, so a 30–60 min window is always available. If a stop falls
+> between blocks it **is** the recovery; don't add 5 min of easy spinning on top of it.
+>
+> **Ride them on a steady gradient or false flat**, not a pitchy climb, and if you
+> coast below tempo mid-block add that time back — a 10-min rep with 90 s of
+> descending in it is an 8.5-min rep.
 
 ### Variant B — Thursday dropped, Sunday is a hard group ride
 
@@ -383,8 +399,12 @@ weather.
 ## Fuelling
 
 The Sunday session and the long weekend rides work *because* they land on depleted
-glycogen — but that state comes from the duration in front of them, not from
+glycogen — but that state comes from the work in front of them, not from
 under-eating. Riding them under-fuelled just means riding them badly.
+
+**Rates below are per hour of riding, not elapsed.** On the long weekend ride those
+differ by ~35%, and pacing carbs off the wall clock is how a 4 h ride ends up a
+quarter short.
 
 | Ride | Carbohydrate |
 |---|---|
@@ -417,6 +437,12 @@ Add duration until the block's time-in-zone target is met, then hold it:
 
 **TiZ is counted per band and bands are not interchangeable** — 60 min at 91% is not
 60 min at 98%. Don't add them together across blocks.
+
+**TiZ is counted on the indoor quality sessions only.** A band three points wide isn't
+holdable on open road: 16 Aug delivered 3 min of raw in-band time across 28 min of
+well-ridden outdoor blocks. Judge the Sunday blocks on average power and on not
+fading instead, and hit the TiZ targets on Tuesday and Thursday where the trainer
+holds the number for you.
 
 **Never add duration and intensity in the same week.**
 
@@ -534,7 +560,13 @@ CTL and TSS arithmetic — ramp rates, back-solving load — is in
    block test settles it; there's no point being more precise than that in advance.
 4. "8–12 h/week" means 10–11 typically, 12 occasionally. The plan needs ~10.5.
 5. Weight stays 72 kg with no restriction during build blocks.
-6. **One gym session a week costs the bike little enough to ignore.** It's small
+6. **2.5 h of riding is enough depletion for the Sunday blocks to bite.** Riding
+   hours are a duration proxy for work done, so a soft social pace and a solid solo
+   Z2 pace count the same when they aren't — 2.5 h at 160 W is ~15% less work than
+   2.5 h at 185 W. Accepted as close enough. Forward test: the blocks should keep
+   costing visibly more than the same watts fresh. If a Sunday's blocks feel fresh,
+   check the ride's average power before touching the rep length.
+7. **One gym session a week costs the bike little enough to ignore.** It's small
    against 10–11 h and placed where recovery is cheapest, but 15 Aug 2026 was week
    1 and it's untested here. Forward test: Thursday's sweet spot and Sunday's
    blocks shouldn't move. Strength work is separately assumed to add **no watts by
