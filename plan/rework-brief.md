@@ -13,7 +13,11 @@
 3. **The Wachusett climb is 40 miles from the house.** The segment is 1,200 ft
    over 5 mi, ~4.5% average, a little rolling. It is unavoidably ~2.5 h into the
    ride. Riding solo on the climb is available; a flat-out effort is socially fine.
-4. **A PR on Wachusett is a goal in its own right**, not just a test byproduct.
+4. **Wachusett is a performance goal in its own right** — and not just beating his
+   own time. The goal is to go **as high up the Strava segment leaderboard as he
+   can**. Build the day around it alongside the test, rather than treating a fast
+   climb as something the test produces incidentally. His own 2025 time is not a
+   meaningful target and will fall regardless; the leaderboard is the target.
 
 ## The restructure the athlete wants, and why
 
@@ -66,6 +70,13 @@ at the base; a real stop at the bottom; a compressed warm-up (the primers matter
 2.5 h easy leaves you warm but not primed); and an early start to get the coolest
 dew point available.
 
+This now serves both goals rather than one. Leaderboard times are set on fresh legs
+with a run-up, so the 40-mile approach is a handicap worth perhaps 3–6% — 40 to 70
+seconds on a ~21-min climb — and it is the same handicap the test is paying. Anything
+that buys it back buys back both. Conditions and equipment are also worth a line here
+in a way they wouldn't be for a pure test: at ~22 km/h on 4.5%, aerodynamic drag is
+roughly a sixth of total power, so wind direction and position are not noise.
+
 **3. Rework the September block and the roadmap.** Sep 7–24 is ~2.5 weeks, opens
 the day after a travel day, and ends into ten days off. It cannot be a normal
 4-week threshold block. Decide what it is for — probably a threshold *introduction*
@@ -84,8 +95,10 @@ be made at that test, on the evidence it produces.
 - Two quality sessions a week, not three. Thursday/Sunday swap intact.
 - The gym floor is one session a week and is non-negotiable — it survives both the
   trip and the vacation, and the vacation gym makes that easy.
-- Ten days fully off is a feature, not a failure: burnout is the plan's stated
-  primary risk and this is a real break in a plan that otherwise runs to January.
+- The vacation is a fixed constraint, not a training decision — a holiday where a
+  bike mostly won't be available. Plan around it: don't cram load into the days
+  before it to compensate, don't ramp hard the week after it, and don't write it
+  up as a deliberate rest block.
 - Don't test in the first week back from the vacation — plasma volume and power
   are down for one to two weeks and would anchor the number low.
 - Don't invent data. Flag assumptions and what changes if they're wrong.
@@ -97,9 +110,27 @@ be made at that test, on the evidence it produces.
   for a much better TSB. Verify this rather than taking it on trust.
 - Ten days off decays CTL by ×0.79 (42-day constant).
 - 2025 Wachusett ride: 197 W over the segment, 30.0 min, HR 154 — a social ride,
-  and the only Wachusett file in three years. That is the PR reference.
-- Modelled segment times, calibrated against that file: 250 W → 24.9 min,
-  275 W → 23.1, 300 W → 21.6.
+  and the only Wachusett file in three years.
+- **The leaderboard itself is not in the store and the Strava API no longer serves
+  segment leaderboards.** Find the segment id and read the target times off Strava
+  by hand, then re-check the model below against the segment's real distance and
+  grade rather than the figures quoted here.
+- Modelled segment times, for converting a target time into a target power:
+
+  | Power | Time |
+  |---|---|
+  | 197 W | 29.8 min *(model check: he actually rode 30.0)* |
+  | 250 W | 24.9 min |
+  | 275 W | 23.1 min |
+  | 300 W | 21.6 min |
+  | 325 W | 20.3 min |
+  | 350 W | 19.3 min |
+
+  Assumes 81 kg all-in, CdA 0.32, Crr 0.005, no wind, and treats the segment as a
+  uniform 4.5% — it is described as rolling, which costs time at a given average
+  power. It reproduces the 2025 file to within 1%, but that validates it at 197 W;
+  the extrapolation upward leans increasingly on the assumed CdA. Treat the high
+  end as ±1 min.
 - Working FTP 270 W since January. LTHR 170.
 
 ## Deliverables
@@ -111,6 +142,8 @@ be made at that test, on the evidence it produces.
   and explicitly provisional after.
 - [`decisions.md`](decisions.md) — the Wachusett PR reference and the modelled
   times; a row for the 5 Sep re-anchor when it happens.
+- The Strava segment id and the leaderboard times it needs to beat, read off
+  Strava by hand — the target power for 5 Sep falls out of those, not out of `%FTP`.
 - The intervals.icu calendar, once the shape is agreed.
 - Keep these documents currently correct — rewrite rules, don't append amendments.
 
