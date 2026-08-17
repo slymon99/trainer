@@ -117,13 +117,21 @@ rolling resistance still dominate. Time saved on a ~21.5-min effort, scaled from
 saying plainly when the week is written: the optimisations more than cover the cost of
 riding there.
 
-**4. The Saturday is a five-hour day inside a recovery week.** Forty miles out, the
-climb, forty miles home is ~200–230 TSS on the Saturday of a week that is supposed to
-be down — and driving to the base has been declined, so this needs solving in the plan
-rather than in the logistics. Options to cost: a shorter route home, a genuinely
-minimal rest of the week around it, or accepting that this week is a recovery week
-with one large day in it and adjusting the label rather than the ride. Whatever is
-chosen, say what it does to the test's freshness and to the CTL projection below.
+**4. The Saturday is a five-hour day inside a recovery week — decided, not open.**
+Forty miles out, the climb, forty miles home is ~200–230 TSS on the Saturday of a week
+that is supposed to be down. **Accepted: the week has one big day in it and that is
+fine.** Take the rest of the week down a little further to make room — it is already
+fairly light, so this is trimming rather than restructuring, and the residual detail is
+how much comes off Fri 4 and Sun 6 without leaving the week pointless.
+
+One thing to resolve inside that: **the heavy gym day is Tue 1 Sep**, the only legal
+slot for loaded legs. It clears the test by four days, but it is also the largest
+single stressor in an otherwise light week. Decide whether it stays heavy or drops to
+the light template, and say why. The one-session-a-week floor holds either way.
+
+Don't conflate the two costs here. Trimming the rest of the week is worth a fraction of
+a CTL point and perhaps a watt on the test. The 2–4% the approach takes off the climb is
+the larger number, and it has been separately accepted as the price of riding there.
 
 **5. Rework the September block and the roadmap.** Sep 7–24 is ~2.5 weeks, opens
 the day after a travel day, and ends into ten days off. It cannot be a normal
@@ -155,6 +163,10 @@ be made at that test, on the evidence it produces.
   it as duration rather than a third quality day.
 - Don't test in the first week back from the vacation — plasma volume and power
   are down for one to two weeks and would anchor the number low.
+- **A watt on a test or a point of CTL is worth less than setting the next block up
+  properly.** Stated explicitly by the athlete when accepting the five-hour Saturday,
+  and it generalises — where this rework faces a choice between protecting a number
+  and protecting the structure behind it, protect the structure.
 - Don't invent data. Flag assumptions and what changes if they're wrong.
 
 ## Reference numbers already established
