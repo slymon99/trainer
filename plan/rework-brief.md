@@ -15,9 +15,12 @@
    ride. Riding solo on the climb is available; a flat-out effort is socially fine.
 4. **Wachusett is a performance goal in its own right** — and not just beating his
    own time. The goal is to go **as high up the Strava segment leaderboard as he
-   can**. Build the day around it alongside the test, rather than treating a fast
-   climb as something the test produces incidentally. His own 2025 time is not a
-   meaningful target and will fall regardless; the leaderboard is the target.
+   can**. His own 2025 time is not a meaningful target and will fall regardless;
+   the leaderboard is the target. **But it is bounded: he is riding to the climb,
+   not driving to it.** Driving to the base would be worth more than every other
+   optimisation combined — it removes the entire approach cost and hands back a
+   clean test — and it has been considered and declined. Pursue the leaderboard
+   *within* the ride; don't re-propose reshaping the day's logistics around it.
 
 ## The restructure the athlete wants, and why
 
@@ -70,14 +73,59 @@ at the base; a real stop at the bottom; a compressed warm-up (the primers matter
 2.5 h easy leaves you warm but not primed); and an early start to get the coolest
 dew point available.
 
-This now serves both goals rather than one. Leaderboard times are set on fresh legs
-with a run-up, so the 40-mile approach is a handicap worth perhaps 3–6% — 40 to 70
-seconds on a ~21-min climb — and it is the same handicap the test is paying. Anything
-that buys it back buys back both. Conditions and equipment are also worth a line here
-in a way they wouldn't be for a pure test: at ~22 km/h on 4.5%, aerodynamic drag is
-roughly a sixth of total power, so wind direction and position are not noise.
+This serves both goals rather than one. Leaderboard times are set on fresh legs with
+a run-up, so the approach is a handicap, and it is the same handicap the test is
+paying — anything that buys it back buys back both.
 
-**3. Rework the September block and the roadmap.** Sep 7–24 is ~2.5 weeks, opens
+**How big is that handicap? Smaller than durability-literature figures suggest, because
+this preload is fuelled and genuinely easy.** At recovery pace — say 150 W for 2.5 h,
+~1,350 kJ — metabolic demand is ~682 W at 22% efficiency, of which roughly 45% comes
+from carbohydrate at that intensity: **~63 g/h of CHO oxidation**. Absorbing 70–80 g/h
+of the 90 taken in leaves **endogenous glycogen use near zero**, so he arrives at the
+base essentially glycogen-neutral. The 5–8% decrements in the durability literature are
+built on depletion that mostly doesn't happen here.
+
+What remains is smaller and different in kind: some peripheral and neuromuscular
+fatigue from 2.5 h of pedalling even when fully fuelled, and — probably the larger
+residual — **fluid loss and thermal strain**. Estimate **2–4%**, low end if the
+approach is genuinely ridden at recovery pace rather than drifting to Z2-top. Two
+things would blow it up: dehydration across 2.5 h, and a gut not rehearsed for 225 g
+of carbohydrate. **Confirm he has actually trained 90 g/h before prescribing it.**
+
+Cutting the other way: the plan's own diagnosis is that durability is his specific
+weakness, so he may sit at the worse end of that range. Which is the argument for
+having the number at all — the 5 Sep climb against a fresh indoor 20-min would be the
+first real measurement of it he owns.
+
+### The optimisation levers, ranked
+
+Equipment and conditions earn a place here in a way they wouldn't for a pure test.
+At ~22 km/h on 4.5%, drag is **~15.5% of total power** (45 W of ~291 W), so weight and
+rolling resistance still dominate. Time saved on a ~21.5-min effort, scaled from 300 W:
+
+| Lever | Saving | |
+|---|---|---|
+| **Pacing the rollers** | 10–15 s | Push the steep sections, ease the flat and false-flat. Free, and the largest single item. |
+| **Tyres and pressure** (Crr .005 → .004) | ~16 s | The cheapest watts available. |
+| **Drop ~1.5 kg at the base** | ~14 s | He is stopping anyway — leave tools, pump, second bottle. Gravity is 246 of the 291 W. |
+| **Drops rather than hoods** | ~13 s | CdA 0.32 → 0.29. |
+| **Skinsuit rather than jersey** | ~7 s | |
+| **Shaved legs** | ~7 s | ~7 W at 40 km/h scales to ~2 W at 22 km/h. |
+| **Aero socks** | ~1.5 s | Negligible at this speed. Wear them; don't count them. |
+
+**Roughly 50–80 s all in, which is larger than the 2–4% approach handicap.** Worth
+saying plainly when the week is written: the optimisations more than cover the cost of
+riding there.
+
+**4. The Saturday is a five-hour day inside a recovery week.** Forty miles out, the
+climb, forty miles home is ~200–230 TSS on the Saturday of a week that is supposed to
+be down — and driving to the base has been declined, so this needs solving in the plan
+rather than in the logistics. Options to cost: a shorter route home, a genuinely
+minimal rest of the week around it, or accepting that this week is a recovery week
+with one large day in it and adjusting the label rather than the ride. Whatever is
+chosen, say what it does to the test's freshness and to the CTL projection below.
+
+**5. Rework the September block and the roadmap.** Sep 7–24 is ~2.5 weeks, opens
 the day after a travel day, and ends into ten days off. It cannot be a normal
 4-week threshold block. Decide what it is for — probably a threshold *introduction*
 at the new FTP, run as the same week twice with no progression, since there isn't
@@ -96,9 +144,15 @@ be made at that test, on the evidence it produces.
 - The gym floor is one session a week and is non-negotiable — it survives both the
   trip and the vacation, and the vacation gym makes that easy.
 - The vacation is a fixed constraint, not a training decision — a holiday where a
-  bike mostly won't be available. Plan around it: don't cram load into the days
-  before it to compensate, don't ramp hard the week after it, and don't write it
-  up as a deliberate rest block.
+  bike mostly won't be available. Don't write it up as a deliberate rest block, and
+  don't ramp hard the week straight after it.
+- **Don't taper into the vacation, and don't spike into it either.** Sep 21–24 is a
+  normal hard end-of-block. The case for cramming is real but small: extra load over
+  a short horizon buys roughly ΣTSS/42 of CTL, so an additional 100 TSS is ~2.4 CTL,
+  and the ten days decay it by ×0.79 to **~1.9 CTL on 5 Oct**. That is the entire
+  prize, against a sharp load spike immediately before travel — a good way to arrive
+  ill, on a holiday with a lot of hiking in it. If there is appetite for more, take
+  it as duration rather than a third quality day.
 - Don't test in the first week back from the vacation — plasma volume and power
   are down for one to two weeks and would anchor the number low.
 - Don't invent data. Flag assumptions and what changes if they're wrong.
