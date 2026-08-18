@@ -7,9 +7,10 @@ One question, every week:
 
 **Relieved two weeks running → cut to one quality session**, whatever HRV, RHR and power
 say. The physiological markers detect accumulated fatigue; none of them detects a fading
-reason to train, and that is what ended the last block. Through May–June 2026 the numbers
-were fine right up until the calendar emptied and eight months of structure stopped
-inside a fortnight.
+reason to train. **What ended the last block was a week off after 4 July and then two
+weeks ill** — the weeks of 13 and 20 Jul came in at 1.0 h and 2.8 h of riding. But
+structure didn't resume until 10 Aug, two weeks after the illness had cleared, and that
+tail is the part this question exists to catch.
 
 **The point of this file is the trend.** A single neutral week is noise. Ask the question
 whenever in the week it fits.

@@ -205,7 +205,8 @@ this plan is chasing and currently has no instrument for.
 ## Load
 
 Weekly TSS ran 352 → 382 → 483 across weeks 1–3 of the original shape. CTL was 52.5 on
-18 Aug against a June peak of 62.1, so this is still re-entry rather than novel
+18 Aug against a pre-illness peak of 65.1 (6 Jul) and an all-time peak of 68.8
+(28 Mar), so this is still re-entry rather than novel
 territory by CTL, though weekly TSS passed June's best in week 1.
 
 **TSB was −17.6 on 18 Aug and the cost of this block is duration, not peak.** Rungs 5

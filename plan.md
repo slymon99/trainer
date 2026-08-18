@@ -43,14 +43,15 @@ is uncertain.
 
 - 27M, 72 kg, 5'10". Structured training since Oct 2025 — **this is year 2**.
 - **8–12 h/week, built around 10–11.** 5–6 days. Longest ride 4–5 h on one weekend day.
+  This is a commitment, not a description of last year — see *Assumptions*.
 - **Weekdays indoor** (smart trainer), **weekends outdoor**. Same power meter both.
 - NYC, rolling terrain. Sleep 8 h, low stress, weight stable and staying there —
   **this is a watts goal, not a weight goal.**
 
 **Constraints, in priority order:**
 
-1. **Hard group rides with friends are a sub-goal, not a cost.** 1–2 a month, often
-   unplanned. Keeping them may delay 288 W; I'd rather delay it than cut them.
+1. **Hard group rides with friends are a sub-goal, not a cost.** About one a month,
+   occasionally two, often unplanned. Keeping them may delay 288 W; I'd rather delay it than cut them.
 2. **Burnout is the main risk.** Given a choice between more load and more
    sustainability, choose sustainability.
 3. **Gym is a second goal, not a support act.** At least one session a week. It won't
@@ -405,10 +406,19 @@ one thing no API carries, and it resolves to ±1.
 **Still assumed:**
 
 1. The January 52-min effort was a genuine max. Everything anchors there.
-2. Three weeks off sick cost ~5–8% at threshold, largely recoverable in 3–4 weeks.
+2. **A week off after 4 July, then two weeks ill** — the weeks of 13 and 20 Jul came in
+   at 1.0 h and 2.8 h of riding against 7–10 h either side. Some light riding and a run,
+   but a genuine three-week interruption. Assumed to have cost ~5–8% at threshold,
+   largely recoverable in 3–4 weeks. Ordinary respiratory illness, fully resolved.
 3. The August 18-min effort was hot and came two weeks off the couch — intervals read
    it as 265 W eFTP, so true FTP is plausibly higher than 270. The block test settles it.
-4. "8–12 h/week" means 10–11 typically. The plan needs ~10.5.
+4. **The plan needs ~10.5 h/week, and that is its largest single assumption.** Measured
+   weekly hours Jan–May 2026 ran 7–8.5 in a typical build week, with five weeks out of
+   twenty-two above 10 h — the best stretch being 10.5, 9.9, 11.3 across late Apr and
+   May. So 10–11 sustained sits at the top of the demonstrated range rather than inside
+   it. **Forward test: four consecutive weeks above 10 h by the end of Block 1.** If
+   hours settle nearer 7.5, 288 W by December doesn't arrive, and what needs re-cutting
+   is the roadmap, not the week.
 5. Weight stays 72 kg with no restriction during build blocks.
 6. **One gym session a week costs the bike little enough to ignore**, and strength adds
    **no watts by December** — the target is built without it, so a pleasant surprise

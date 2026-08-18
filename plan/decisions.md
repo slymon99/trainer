@@ -123,7 +123,9 @@ months and a fitness step apart, and the plan's own thesis is that the January n
 stale by April. At a true FTP of 278–282 the ratio is 76–77% — low-normal rather than below
 the range. The direction is right; the number is softer than it looks.
 
-**Also underweight: chronic aerobic load.** Peak CTL 63 on 8–12 h/week available.
+**Also underweight: chronic aerobic load.** All-time peak CTL is **68.8 (28 Mar 2026)**,
+with 65.1 on 6 Jul immediately before the three-week interruption. Modest for the hours
+available, though less so than the 63 previously recorded here.
 
 **Direct measurement of the limiter, 16 Aug 2026.** Durability blocks at 82–88% after 3 h
 ran HR **154–158**, against 141–146 for the same percentages fresh three days earlier. A
