@@ -57,6 +57,35 @@ called "sweet spot" (85–88%) is upper tempo everywhere else, and what it calle
 "sub-threshold" (89–94%) is what Coggan and Cusick both call sweet spot. Cusick prescribes
 SST at 88–93%. The plan now uses four numbers — 85 / 90 / 97, plus easy — and no bands.
 
+**Venue is not part of what a rung is.** Scoring only indoor sessions was written into
+Block 1 on 18 Aug and dropped on 19 Aug. It makes the ladder a record of trainer
+availability rather than of work completed, and it buckets an outdoor rung held at target
+with one abandoned halfway. What indoors actually buys is measurement precision — erg holds
+the number exactly, and matched conditions make consecutive rungs comparable — so it stays
+the default for a rung under comparison. The conventions for scoring an outdoor one are in
+[`../plan.md`](../plan.md) → *Rungs ridden outdoors*.
+
+**Why fragmentation is the axis, and why the recovery length matters less than it feels
+like.** Sweet spot at 90% sits below critical power, in the heavy domain. W′ — the finite
+work capacity that recovery intervals reconstitute — is spent above CP and restored below
+it, so at 90% it is barely being drawn down in the first place. The prescribed 5 min at 55%
+is therefore not replacing much, which is the mechanism behind the plan's claim that the
+ladder's fragmentation steps cost almost nothing metabolically and are central and
+psychological instead.
+
+Two consequences the plan now runs on. **A longer stop is a smaller gift than it feels
+like** — hence the 20% extension rather than treating a cafe stop as a free reset. And
+**1×50 is not much harder than 2×25 metabolically**: same total work, same substrate, same
+lactate. The gap is thermal drift with no interruption, and fifty minutes of unbroken
+concentration. That means the way to prepare for rung 5 is to ride rung 4 properly and fix
+cooling, fuelling and pacing — not to rehearse a long continuous effort in advance.
+
+**Sourcing caveat.** The ladder shape comes from Cusick, and Cusick's own published
+sweet-spot progressions run the same way — 2×15 → 2×20 → 3×15 → 3×20 and up, building
+toward 60–80 min per SST session — but the specific claim above is reasoning from the
+critical-power literature rather than a quotation from him or from Coggan. Neither has been
+found stating it directly.
+
 ## Why LTHR is 170
 
 intervals.icu derives LTHR as 91% of max HR by default, which gives 182 from a max HR of

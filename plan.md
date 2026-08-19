@@ -140,6 +140,7 @@ gets **8 min**.
 2. **A rung only counts if it was completed at target** — every rep at the number ±2%,
    the last rep intact. Otherwise it doesn't count and you ride it again. This is the
    whole point: it stops the ladder drifting away from what was actually ridden.
+   **Where it was ridden is not a criterion** — see *Rungs ridden outdoors*.
 3. **One repeat, normally.** Repeating a rung twice means something is wrong — look at
    fuelling, sleep, and the check-in before looking at the target.
 4. **The repeat is the back-off.** Repeating is not failure, it is the cheapest
@@ -157,6 +158,34 @@ spot rungs 6–9 are all 60 min in band, threshold rungs 5–7 all 60. Past that
 only thing progressing is fragmentation, and Cusick is explicit that this is a
 **central and psychological** adaptation rather than a physiological one — there is no
 metabolic difference between 4×15 and 1×60, and that is exactly why 1×60 is harder.
+
+**Why the recovery is short, and why lengthening it buys less than it feels like.** Sweet
+spot at 90% sits *below* critical power. W′, the finite capacity that recovery intervals
+reconstitute, is barely being drawn down in the first place — so the 5 min at 55% isn't
+replacing much, and a longer rest doesn't hand back much either. Evidence in
+[`plan/decisions.md`](plan/decisions.md).
+
+### Rungs ridden outdoors
+
+**A rung counts wherever it was ridden.** What it has to satisfy is the prescription, not
+the venue: the target ±2%, the last rep intact. Outdoors that needs three conventions, and
+with them the rung scores exactly as an indoor one does.
+
+- **The target is the heat-derated number**, per *Heat*. Derated watts cost what the
+  underated watts cost indoors, so a rep held at 86% on a humid day **is** the rung, not a
+  soft version of it.
+- **Judge the rep on average power over pedalling time.** Descents over ~45 s that can't be
+  loaded don't count: stop the clock and add the time back, capped at **5 min per rep**.
+  Past that cap the road chopped the session and it isn't the rung. Never coast inside a
+  rep, and cap the surges over risers at ~110% — repeated over-threshold punches turn a
+  sweet spot rep into over-unders, a different and more expensive session.
+- **A stop longer than 15 min resets the rep that follows it.** The prescribed recovery is
+  short on purpose and a cafe stop is not it. **Extend every rep after such a stop by 20%**
+  and the session costs about what it was meant to. Under 15 min, ignore it.
+
+**Record the venue in the block's rung log.** Indoors stays the default for a rung being
+read like-for-like against the ones either side of it — a preference about measurement,
+not a condition on scoring.
 
 **The Sunday durability blocks are not rungs.** They're depleted, outdoors, and capped
 by the length of the ride. They use the **tempo target** and progress on their own slow

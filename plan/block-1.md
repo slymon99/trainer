@@ -18,17 +18,18 @@ on. It also puts the test on recovered legs instead of at the end of a five-day 
 
 ## The rung log
 
-Kept current. A rung counts only if it was completed at 90% ±2% with the last rep
-intact; otherwise it gets ridden again and the log says so.
+Kept current. A rung counts only if it was completed at target ±2% — 90%, or the
+heat-derated equivalent outdoors — with the last rep intact; otherwise it gets ridden
+again and the log says so.
 
-| Date | Rung | Session | Result |
-|---|---|---|---|
-| Tue 11 Aug | — | 3×12 @ 91% | 245/245/246 W, HR 147/151/151. Pre-ladder |
-| Thu 13 Aug | — | 2×20+10 @ 84–89% | 229/228/240 W, HR 141/144/146. Pre-ladder |
-| **Tue 18 Aug** | **3** | 3×15 @ 90% | |
-| Thu 20 Aug | **4** | 2×25 @ 90% | |
-| Tue 25 Aug | **5** | 1×50 @ 90% | |
-| Thu 27 Aug | **6** | 4×15 @ 90% | |
+| Date | Rung | Session | Where | Result |
+|---|---|---|---|---|
+| Tue 11 Aug | — | 3×12 @ 91% | Indoor | 245/245/246 W, HR 147/151/151. Pre-ladder |
+| Thu 13 Aug | — | 2×20+10 @ 84–89% | Indoor | 229/228/240 W, HR 141/144/146. Pre-ladder |
+| **Tue 18 Aug** | **3** | 3×15 @ 90% | Indoor | |
+| Thu 20 Aug | **4** | 25 + 30 @ derated 90% | **Outdoor** | Cafe stop between reps — see *Week 2 as ridden* |
+| Tue 25 Aug | **5** | 1×50 @ 90% | Indoor | |
+| Thu 27 Aug | **6** | 4×15 @ 90% | Indoor | |
 
 **Why the ladder enters at rung 3 rather than rung 1.** This is not new ground. Between
 January and May the same ladder was climbed to rung 4 — 2×20 three times (24 Jan,
@@ -41,6 +42,37 @@ a month off structure is one deliberate step back from where that progression st
 in band since 14 Jan, and rungs 6–9 are all 60 min in band, where the only thing still
 progressing is fragmentation. That is the part of the ladder the 2026 plateau never
 reached, and it is the reason this block is worth running.
+
+## Week 2 as ridden
+
+**Wed 19 Aug missed** — the 70 min easy plus 4 × 15 s standing starts, lost to time. About
+45–55 TSS back in the week's budget, and that is what pays for Thursday going outdoors and
+long. It does not pay for anything on top of that. **The sprints move to Friday 21**, where
+they cost almost nothing metabolically and are the only neuromuscular work in the week;
+Friday's NP ≤72% cap is unaffected by four 15-second efforts. Drop them if Friday's legs
+are heavy — they are the cheapest thing in the week to lose, and hour four on Saturday
+still outranks them.
+
+**Thu 20 Aug is rung 4, ridden outdoors with friends.** Under *Rungs ridden outdoors* in
+[`../plan.md`](../plan.md) it scores like any other rung. Shape:
+
+- Standard 22-min warm-up, primers included — outdoors they matter more, not less.
+- **1×25 at the heat-derated target.** Dew point 65–75°F puts the factor at ×0.96–0.94, so
+  **85–86%**, and that number costs what 90% costs indoors.
+- Cafe stop. **The stop is the recovery** — no 5 min of spinning on top of it. Then
+  **10–12 min of steady Z2 rising into the band** before rep 2, because a rep begun cold off
+  a stop comes out ragged. Same reason Part 3 on Saturday gets its twelve minutes.
+- **1×30 at the same target.** The +20% is the long-stop rule: a cafe stop resets the rep
+  that follows it, so rep 2 has to be longer to cost what rep 2 of a 2×25 costs.
+- Everything else on the ride genuinely easy, total ride under ~3 h. Don't sit in the
+  draft during reps — the draft drops the power and you surge to chase it.
+
+**If the stop turns out to be under 15 minutes, ride 25 + 25** and the rung is the rung as
+written. The 30 is compensation for a real reset, not an upgrade.
+
+**55 min in band rather than 50 costs about 6 TSS**, which the missed Wednesday covers
+several times over. If the ride runs past 3 h, Friday drops to 90 min — the block already
+allows that, and Saturday's hour four is the priority it exists to protect.
 
 ## The Sunday blocks are not rungs
 
@@ -81,8 +113,9 @@ than "easy". Letting it sag to 58% costs the session at hour four. NP still capp
 **Part 1 carries no intervals, deliberately.** Hill repeats on the local 3-min climb are
 the obvious thing to put there and the wrong thing: 18–24 min at 90% in hour one is paid
 for out of hour four, and hour four is the only place this weekend where depleted-legs
-tempo is available. They would also score nothing — **the ladder counts indoor sessions
-only**, and rungs 3 and 4 are ridden Tue 18 and Thu 20, which the travel doesn't touch.
+tempo is available. They would also score nothing, because 3-min repeats are not the shape
+of any rung — and rungs 3 and 4 are ridden Tue 18 and Thu 20 regardless, which the travel
+doesn't touch.
 
 **Twelve minutes of steady Z2 before the first block**, because Part 3 starts off a stop
 and a block begun cold comes out ragged. If a long stop falls between the two blocks it
