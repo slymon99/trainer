@@ -29,7 +29,8 @@ row here.
 
 ## Why the plan runs on ladders
 
-Adopted 18 Aug 2026, from Tim Cusick's *Building Fatigue Resistance* (WKO4). The
+Adopted 18 Aug 2026, from Tim Cusick's *Building Fatigue Resistance* (WKO4), the
+deck itself kept in [`sources/`](sources/wko4-fatigue-resistance.md). The
 governing principle — progress time-in-zone first, let watts follow at the test — was
 already the plan's stated philosophy. What was missing was an actual progression to
 follow, and the evidence that it was missing is this:
