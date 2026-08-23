@@ -118,8 +118,8 @@ when FTP moves.
 ## The ladders
 
 **Every quality session is one rung.** Adapted from Tim Cusick, *Building Fatigue
-Resistance* (WKO4). Recovery between reps is **5 min at 55%**, except threshold, which
-gets **8 min**.
+Resistance* (WKO4), archived in [`plan/sources/`](plan/sources/wko4-fatigue-resistance.md).
+Recovery between reps is **5 min at 55%**, except threshold, which gets **8 min**.
 
 | # | Tempo @ 85% | Sweet spot @ 90% | Threshold @ 97% |
 |---|---|---|---|
