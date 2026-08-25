@@ -12,7 +12,7 @@ on. It also puts the test on recovered legs instead of at the end of a five-day 
 |---|---|---|
 | 1 | Aug 10–16 | Pre-ladder. 3×12 @ 91% Tue, 2×20+10 @ 85% Thu, first durability blocks Sunday |
 | 2 | Aug 17–23 | **Rungs 3 and 4.** Sat–Sun away from home — Saturday carries the durability blocks |
-| 3 | Aug 24–30 | **Rungs 5 and 6.** The two hardest sessions of the block |
+| 3 | Aug 24–30 | **Rungs 5 and 9.** The two hardest sessions of the block; the ladder finishes here |
 | 4 | Aug 31 – Sep 6 | **Recovery, no rungs.** Travel Thu 3; **Wachusett test Sat 5**; re-anchor Sun 6 |
 | — | Mon 7 Sep | Labor Day. Easy 90 min, then drive home. Block ends here. |
 
@@ -27,8 +27,8 @@ intact; otherwise it gets ridden again and the log says so.
 | Thu 13 Aug | — | 2×20+10 @ 84–89% | 229/228/240 W, HR 141/144/146. Pre-ladder |
 | **Tue 18 Aug** | **3** | 3×15 @ 90% | |
 | Thu 20 Aug | **4** | 2×25 @ 90% | |
-| Tue 25 Aug | **5** | 1×50 @ 90% | |
-| Thu 27 Aug | **6** | 4×15 @ 90% | |
+| **Tue 25 Aug** | **5** | 1×50 @ 90% | **249 W × 55 min, HR 152.** Ridden long and 2% over. Counts. |
+| Thu 27 Aug | **9** | 1×60 @ 90% | Closes the ladder — see below |
 
 **Why the ladder enters at rung 3 rather than rung 1.** This is not new ground. Between
 January and May the same ladder was climbed to rung 4 — 2×20 three times (24 Jan,
@@ -36,11 +36,30 @@ January and May the same ladder was climbed to rung 4 — 2×20 three times (24 
 is 88–90% of LTHR and comfortable. Sixteen weeks for two rungs. Entering at rung 3 after
 a month off structure is one deliberate step back from where that progression stalled.
 
-**Where the block actually goes somewhere new is rungs 5 and 6.** Nothing above 2×25 at
-90% has ever been ridden. Rung 5 (1×50) is the first continuous effort past 32 minutes
-in band since 14 Jan, and rungs 6–9 are all 60 min in band, where the only thing still
+**Thu 27 Aug goes to rung 9, not rung 6.** Rungs 6, 7 and 8 (4×15, 3×20, 2×30) are all
+60 min in band, and by the ladder's own fragmentation logic all three are *easier* than
+the 1×55 continuous ridden on 25 Aug. Taking them in order would put a softer session on
+Thursday than Tuesday, which is what "never skip a rung" exists to prevent, not to cause.
+1×60 is a real +5 min progression on Tuesday, it is a named rung rather than an invented
+shape, and at 60 min in band it is about 10 TSS lighter than the 2×35 that was the other
+candidate. `plan.md` rule 6 applies: the block ends at the test, not the last rung — and
+this one now ends with the ladder finished.
+
+**Ride it at 243 W and let it drift to 248 if the last 15 min are light. Don't chase
+249.** Thursday's job from here is to arrive on 5 Sep able to produce a genuine max.
+
+**Where the block goes somewhere new is week 3.** Nothing above 2×25 at 90% had ever been
+ridden. Rung 5 (1×50, ridden as 1×55) is the first continuous effort past 32 minutes in
+band since 14 Jan, and rungs 6–9 are all 60 min in band, where the only thing still
 progressing is fragmentation. That is the part of the ladder the 2026 plateau never
-reached, and it is the reason this block is worth running.
+reached, and it is the reason this block was worth running.
+
+**The 25 Aug result is also the clearest evidence yet that 270 W is stale.** 249 W is 92%
+of the working FTP and the session held 152 bpm — 89% of LTHR — flat for 55 minutes, and
+he finished feeling good. The "90%" rungs are landing nearer 85–87% of what he can
+actually do. `plan.md` is still right that the number doesn't move until the test, but it
+means the last two rungs read harder on paper than they were, and the 5 Sep re-anchor
+should move materially.
 
 ## The Sunday blocks are not rungs
 
@@ -104,7 +123,7 @@ put it.
 
 Sunday's hike is a lot of eccentric loading on the descents, and easy blood flow the day
 after beats a second consecutive zero-bike day. Capped at <60% and deliberately tiny:
-week 3 carries rungs 5 and 6, the two hardest sessions of the block, and the week is
+week 3 carries the two hardest sessions of the block, and the week is
 already at its planned load without help from Monday. On a genuinely wrecked morning,
 take the day off instead.
 
@@ -123,7 +142,7 @@ it like any lifting programme.
 | Tue 8 Sep | Loaded legs resume |
 
 **Forward test:** soreness from Tue 25 lands on Wednesday's easy ride and should have
-cleared by Thursday's rung 6. If it hasn't, that's the first real evidence the gym is
+cleared by Thursday's rung. If it hasn't, that's the first real evidence the gym is
 costing the bike, and it belongs in the weekly review.
 
 ## The Massachusetts trip, Thu 3 – Mon 7 Sep
@@ -148,11 +167,14 @@ Strava segment **16244804**, "Wachusett Mtn from 140 Climb" — 8,362 m, 370 m o
 considered and declined; it is a fixed constraint, not an open optimisation.
 
 **The test and the leaderboard attempt are the same effort, and the instruction is
-max.** 270–285 W for ~24 min is roughly 17th–22nd; 291 W is around 11th. **Those are
-leaderboard-derived watts, not a fraction of FTP** — the same exception the Wednesday
-sprints get. Modelled at 82 kg all-in, Crr .006, CdA .32; the model back-solves
-plausible masses for 10 of the 11 riders in 11th–22nd, so trust it to about ±10 W. Ride
-*toward* the number; don't pace for it.
+max.** **Target 285 W, band 278–293** — leaderboard-derived watts, not a fraction of FTP,
+the same exception the Wednesday sprints get. That is worth 21.5–22.8 min depending on
+which end of the calibration holds; a top-10 time near 23 min costs 261–282 W, so the
+target clears it with margin and **300 W is not required**. Full derivation, the
+watts-to-time table, the pacing shape and why bicarbonate is not a lever are in
+[`decisions.md`](decisions.md) → *Wachusett*. Read the 10th-place **time** off the board
+and convert it there; don't model rivals' watts. Ride *toward* the number; don't pace
+for it.
 
 **A ~24-min max is a better eFTP input than a 20-min** — it sits closer to 60-min
 power. So Wachusett is the block test, not a rehearsal for one.
@@ -209,11 +231,12 @@ Weekly TSS ran 352 → 382 → 483 across weeks 1–3 of the original shape. CTL
 (28 Mar), so this is still re-entry rather than novel
 territory by CTL, though weekly TSS passed June's best in week 1.
 
-**TSB was −17.6 on 18 Aug and the cost of this block is duration, not peak.** Rungs 5
-and 6 are the two hardest sessions in it and they land in week 3; nothing further gets
-added to week 3 without something coming out. Rung 6 (4×15 @ 90%, 60 min in band) is
-about 20 TSS *lighter* than the session it replaced (3×20+15 @ 85–88%, 75 min in band),
-which is the right direction for the week it sits in.
+**TSB was −17.6 on 18 Aug and the cost of this block is duration, not peak.** The two
+hardest sessions in it land in week 3; nothing further gets added to week 3 without
+something coming out. Rung 9 (1×60 @ 90%) is 60 min in band, the same as the rung 6 it
+replaces and about 20 TSS lighter than the session that originally held the slot
+(3×20+15 @ 85–88%, 75 min in band). That is why it is the right substitution and 2×35 @
+90% — 70 min in band, and not on the ladder at all — is not.
 
 **Markers on 16 Aug:** HRV 7d dipped to 72.1 (−8.0 vs the ~80 baseline) on 13 Aug and
 recovered to 79.0; RHR 7d drifted 42.6 → 45.0 over nine days. One marker moving, not

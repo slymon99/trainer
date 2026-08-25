@@ -25,6 +25,7 @@ row here.
 | Apr 2026 | **367 W / 4 min** | Completely empty at the end |
 | Jun 2026 | 283 W / 16.6 min | Gran fondo |
 | Aug 2026 | **279 W / 18 min**, avg HR 179 | Outdoor climb, 85°F at 74°F dew point, two weeks into riding after ~3 weeks off. intervals.icu read it as 265 W eFTP. Hot and undertrained, so plausibly an understatement. |
+| 25 Aug 2026 | **249 W / 55 min**, avg HR 152 | Indoor, submaximal — sweet spot rung 5 ridden long. 92% of the working FTP at 89% of LTHR, flat, and he finished feeling good. Compare 14 Jan: 246 W for 32 min at HR 162. Same relative power, 23 min longer, 10 bpm lower. |
 | Aug 2026 | **917 W / 15 s** (best of 553 / 748 / 917 / 806) | Standing starts, indoor. Anchors the Wednesday sprint range. |
 
 ## Why the plan runs on ladders
@@ -95,18 +96,69 @@ into the ride.
 - **2025 reference:** 197 W over the segment, 30.0 min, HR 154 — a social ride, and the
   only Wachusett file in three years. He also stopped *inside* the segment and lost 421 s
   of elapsed time.
-- **Leaderboard-derived targets:** 270–285 W ≈ 17th–22nd, 291 W ≈ 11th. Modelled at 82 kg
-  all-in, Crr .006, CdA .32; the model back-solves plausible masses for 10 of the 11
-  riders in 11th–22nd, so ±10 W. **These are watts, not `%FTP` — the same exception the
-  Wednesday sprints get.**
-- Modelled segment times at 82 kg: 197 W → 29.8 min *(actual was 30.0, so the model is
-  within 1%)*, 250 W → 24.9, 275 W → 23.1, 300 W → 21.6, 325 W → 20.3, 350 W → 19.3. The
-  extrapolation upward leans increasingly on the assumed CdA; treat the high end as ±1 min.
-- **Approach handicap: 2–4%**, not the 5–8% the durability literature quotes. At ~160 W
-  for 2h20 he oxidises roughly 63 g/h of carbohydrate, so absorbing 70–80 g/h of the 90
-  taken in leaves endogenous glycogen use near zero. What remains is fluid loss and thermal
-  strain, not depletion. Cutting the other way: durability is his named weakness, so he may
-  sit at the worse end.
+
+**Target: 285 W, band 278–293.** These are watts, not `%FTP` — the same exception the
+Wednesday sprints get. Triangulated three ways: the Jan 52-min max of 270 W implies a
+24-min max of 284–297 W as of January; the Aug 18-min at 279 W in 74°F dew heat-corrects
+to ~295 W for 18 min; and the 25 Aug 1×55 at 249 W / HR 152 implies hour power of
+278–288 W, so a 22–24 min max near 294–300 W fresh. Less the approach handicap below.
+
+### Converting watts to a segment time
+
+**The leaderboard is scored in time, so don't model rivals' watts.** Read the 10th-place
+elapsed time off the board and convert it here. Back-solving plausible masses for the
+riders above him adds a free parameter per rider and lands 20–30 W high.
+
+**The only trustworthy calibration input is his own 2025 file** — same road, same bike,
+same power meter. Two models bracket the answer, and the gap between them is mostly
+whether that social ride carried a draft:
+
+- **Raw physics**, race setup after the stop: 80.5 kg all-in, Crr .005, CdA .30, ρ 1.18,
+  drivetrain 97.5%.
+- **Scaled to the 2025 file**, forcing 197 W → 30.0 min. That needs a 8.1% correction,
+  i.e. he was 8% faster in 2025 than the raw inputs predict.
+
+| His power | Raw physics | Scaled to 2025 file |
+|---|---|---|
+| 275 W | 23.4 min | 22.1 min |
+| **285 W** | **22.8 min** | **21.5 min** |
+| 295 W | 22.2 min | 20.9 min |
+| 300 W | 21.9 min | 20.7 min |
+
+Inverted: **23.0 min costs him 261–282 W, 22.0 min costs 276–299 W.** So a top-10 time
+near 23 min is comfortably inside the 285 W target, and 300 W is not required for it.
+
+**Approach handicap: 2–4%**, not the 5–8% the durability literature quotes. At ~160 W
+for 2h20 he oxidises roughly 63 g/h of carbohydrate, so absorbing 70–80 g/h of the 90
+taken in leaves endogenous glycogen use near zero. What remains is fluid loss and thermal
+strain, not depletion. Cutting the other way: durability is his named weakness, so he may
+sit at the worse end.
+
+### Bicarbonate is not the lever, and dew point is
+
+Sodium bicarbonate buffers H+ from high glycolytic flux, so its benefit concentrates in
+1–10 min efforts. Past 20 minutes it is roughly 0–1%, i.e. 0–3 W here. Against that: 90
+g/h of carbohydrate goes in for 2h20 beforehand, and bicarb GI distress on top of that
+load can cost 30 W. It has never been trialled in training, and the ride that sets the
+FTP for the next four months is the wrong place to trial it.
+
+**Dew point is about five times the lever bicarb is.** By the `plan.md` heat table a 70°F
+dew point costs 4–6%, which puts 285 W out of reach on its own. Start early for the
+coolest air available; that decision is worth more than every supplement and equipment
+choice combined.
+
+### Pacing
+
+**Ride toward 285 W, don't hold it flat.** The climb rolls around a 4.4% average, so push
+300–310 W on the steep pitches and let it sag to 265–270 W on the shallow sections — more
+time is spent on the steep, so the variable pacing is worth 10–20 s for free.
+
+Open at ~275 W for 3 min (the first minutes feel free; that is the trap), settled by
+minute 5, empty it from minute 19.
+
+**In-effort check at minute 10: if power is at 285 W and HR is below 172, he is
+under-cooking it.** 25 Aug puts him at 152 bpm for 249 W, so there is a great deal of HR
+between there and a max.
 
 ## The diagnosis, and what would refute it
 
