@@ -9,18 +9,9 @@ review training, write workouts, and revise a plan.
 CTL number in a doc example is clearer than a placeholder. Two things still stay
 out of git: `.env` and `.strava_tokens.json`, because credentials leak
 independently of who can see the repo. `data/` and `__marimo__/` are gitignored too,
-but only because they're regenerable — not secret. `plan.md` and `plan/` **are**
-tracked, deliberately: their history is the record of how the plan evolved.
-
-**Read `plan.md` before prescribing anything.** It's the athlete's brief: goal,
-zones, weekly structure, and the rules for when to push or back off. It's free-form
-and may carry its own instructions for whoever plans from it — follow those over
-anything here. If it doesn't exist, say so rather than inventing an athlete profile.
-
-`plan/` holds the parts with a different lifecycle — `block-*.md` (current block),
-`roadmap.md`, `decisions.md` (re-anchor history and the evidence behind the plan's
-key numbers), `check-ins.md`. Read the block file when planning a week; read
-`decisions.md` when re-anchoring FTP.
+but only because they're regenerable — not secret. Athlete-specific scheduling
+notes have been archived outside this repository. Do not invent an athlete
+profile or a training plan from repository context.
 
 **Keep these documents currently correct rather than appending to them.** When a rule
 changes, rewrite it — don't leave a dated amendment beside it explaining what it used
@@ -33,9 +24,8 @@ documented root cause of this athlete's 2026 plateau. Neuromuscular targets
 (sprints) are the one exception and the plan names them.
 
 **Lifting has no `%FTP`.** Hevy routines take absolute kilograms and the API offers
-no %1RM, so the same staleness trap is unavoidable in the tool. Keep the
-prescription relative in `plan.md` — sets, reps, reps in reserve — and resolve to
-kilograms at push time from anchors in `plan/decisions.md`. See `docs/hevy.md`.
+no %1RM, so loads must be used only when the user supplies or approves them.
+See `docs/hevy.md`.
 
 **Don't invent data.** If a number is missing, state the assumption and what
 changes if it's wrong.
@@ -58,6 +48,7 @@ changes if it's wrong.
 - `docs/reading-data.md` — fields, sources, rate limits
 - `docs/intervals-workouts.md` — workout-text syntax, calendar API
 - `docs/hevy.md` — the strength log: routines, sets, and why loads go stale there
+- `docs/stats.md` — conservative HRV/resting-HR summaries based on individual baselines
 
 Skills in `.claude/skills/` should stay thin and link to these docs rather than
 restating them.

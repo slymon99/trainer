@@ -35,15 +35,11 @@ So the push model is *update in place*, never create-per-week. See
 This is exactly the staleness trap `CLAUDE.md` names, and the API gives no way
 out of it. The mitigation is procedural, not technical:
 
-- The **prescription stays relative** in `plan.md` — sets, reps, and reps in
-  reserve, which don't go stale.
-- The **kilograms are resolved at push time** by the push script, from anchors
-  recorded in `plan/decisions.md`.
-- Re-anchoring therefore means editing the anchors and re-running the push,
-  not hand-editing weights in the app.
+- The **prescription comes from the user** — preserve sets, reps, and loads
+  exactly, and ask before filling in anything missing.
 
-A weight written straight into a Hevy routine and never revisited is the same
-failure mode as a watt number written into a plan.
+A weight written straight into a Hevy routine should be treated as the user's
+explicit instruction, not as an inferred progression.
 
 ## Units
 
