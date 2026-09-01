@@ -15,9 +15,8 @@ resource. A routine written by mistake is edited into shape or abandoned in the
 app by hand. Plan pushes accordingly: update in place, don't rebuild.
 
 **Routines carry absolute kilograms.** There is no %1RM equivalent of `%FTP`
-here, which is exactly the staleness trap CLAUDE.md names. The prescription
-stays relative in `plan.md`; the kilograms are resolved at push time from the
-anchors in `plan/decisions.md`. See docs/hevy.md.
+here, which means the client preserves explicit user prescriptions and does not
+invent loads. See docs/hevy.md.
 """
 
 from trainer.config import require_env

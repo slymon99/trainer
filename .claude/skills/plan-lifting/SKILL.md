@@ -21,11 +21,8 @@ Run from the repo root with `pixi run python <script>.py`.
 
 ## Before writing
 
-1. Read `plan.md`, especially the **Strength** section — it sets the weekly
-   floor, which day takes loaded legs, the reps-in-reserve ceiling, and the
-   ramp. Then read `plan/block-*.md` for the week you're programming into. If
-   the plan carries instructions for whoever plans from it, follow those over
-   anything here.
+1. Use only the exercises, sets, reps, loads, and notes the user supplied. Ask
+   for missing details rather than inventing a progression or weekly schedule.
 2. Read what's already in the warehouse rather than the API:
    `SELECT * FROM lift_sets ORDER BY date DESC` for recent loads, and
    `hevy_exercise_templates` to resolve exercise names to ids.
@@ -35,11 +32,9 @@ Run from the repo root with `pixi run python <script>.py`.
 
 ## Loads
 
-**Sets, reps and reps-in-reserve are the prescription. Kilograms are a
-resolution of it.** Hevy has no %1RM, so absolute weights are unavoidable in the
-routine itself — which makes them exactly as prone to going stale as a watt
-number written into a bike workout. Keep the relative form in `plan.md` and
-resolve to kilograms in the push script, from anchors in `plan/decisions.md`.
+**Preserve the user's prescription.** Hevy has no %1RM, so absolute weights are
+unavoidable in the routine itself. Never estimate a load or substitute a
+progression without explicit approval.
 Push scripts go in `scripts/`, which is gitignored.
 
 Never invent a load. If there's no anchor for a movement, say so and either ask

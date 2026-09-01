@@ -20,20 +20,18 @@ Run from the repo root with `pixi run python <script>.py`.
 
 ## Before writing
 
-1. If `plan.md` exists, read it, plus `plan/block-*.md` for the block you're
-   scheduling into. It defines targets, zones, the week structure and the rules the
-   prescription must satisfy. If it carries instructions for whoever plans from it,
-   follow those over anything here.
+1. Use only the workout details the user supplied. Ask one concise question for
+   any missing field that materially changes the workout; do not infer a plan,
+   progression, or intensity.
 2. Call `client.events(oldest=..., newest=...)` over the target range to see what's
    already on the calendar. Don't clobber completed or pre-existing sessions.
 3. Check the **sport settings** `ftp` for the activity type — that's what `%` targets
    resolve against. Athlete-level `icu_ftp` is often `None` and doesn't matter.
 
-## Percentages, not watts
+## Preserve the user's targets
 
-Write every power target as `%FTP` (`- 12m 90%`, `- 20m 85-88%`). intervals.icu
-resolves it against sport settings at display time, so a scheduled block stays
-correct through a re-anchor instead of silently going stale.
+Preserve the user's target units exactly. `%FTP` is useful when the user asks for
+it, but never convert watts, heart rate, cadence, or RPE into another target.
 
 Two consequences worth knowing:
 

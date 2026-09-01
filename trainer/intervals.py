@@ -108,8 +108,8 @@ class IntervalsClient:
         activity types. Only the fields you pass are changed.
 
         These values drive every zone intervals.icu displays and the TSS it models,
-        so they should track `plan.md` rather than drift from it — a stale FTP here
-        silently rescales the load history.
+        so changing them is an explicit user action: it silently rescales the
+        load history.
         """
         return self._put(
             f"/api/v1/athlete/{self.athlete_id}/sport-settings/{settings_id}", fields

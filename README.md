@@ -1,7 +1,7 @@
 # trainer
 
-Let Claude read your training data, judge how a block is going, and write the next
-week to your calendar.
+Read your training data, calculate a few conservative summaries, and write exactly
+the workouts you request to your calendar.
 
 It's a thin Python client over [intervals.icu](https://intervals.icu) and
 [Strava](https://www.strava.com), plus a set of Claude Code skills and reference
@@ -10,8 +10,8 @@ docs. There's no app and no server — you talk to Claude, and Claude uses these
 **What you can ask for:**
 
 - *"How did the last four weeks actually go?"* — pulls CTL, planned vs. completed sessions, and per-rep power, then gives a progress / repeat / back off verdict.
-- *"Build next week."* — writes structured workouts straight to the intervals.icu calendar.
-- *"I was sick for ten days, redo the block."* — revises the plan document and the calendar together.
+- *"Schedule this exact workout on Thursday."* — writes a structured workout to the intervals.icu calendar.
+- *"Summarize the last 14 days."* — queries the local warehouse and reports basic stats.
 
 ## Setup
 
@@ -78,31 +78,11 @@ per-rep detail arrives over a few runs, newest first. Everything downstream
 reads from here rather than the APIs — see
 [docs/data-store.md](docs/data-store.md).
 
-### Your plan
+### Training notes
 
-Write a `plan.md` at the repo root. It's the brief Claude reads before prescribing
-anything — your goal, zones, weekly structure, and the rules for when to push
-versus back off. There's no required format; write it the way you'd brief a coach,
-or ask Claude to interview you and draft it.
-
-The one thing worth being explicit about is **decision rules** — what has to be
-true to progress, repeat, or back off a week. Without those, a plan drifts into
-"whatever felt good", and neither you nor Claude can tell whether it's working.
-
-Two things this plan learned the hard way, both worth copying:
-
-- **Write targets as percentages of FTP, not watts.** intervals.icu resolves `%`
-  against your sport settings, so re-testing updates every scheduled workout at
-  once. Absolute watts scattered through a plan go stale silently, and training off
-  a stale FTP is the classic way to spend a season getting nowhere.
-- **Split anything that grows.** Block detail expires in a month and check-in logs
-  grow forever; neither belongs in the file that gets read before every session.
-  Optional `plan/` files keep the brief short — see the layout below.
-
-**`plan.md` is tracked**, deliberately: its history is worth having, and this repo
-is private. It holds weight, resting HR, HRV and physiological history, so if you
-fork this, decide that deliberately — untrack it *before* the first commit, since
-rewriting history is the only way to remove it afterwards.
+The old athlete-specific schedule, progression rules, check-ins, and source notes
+were assessed and moved to `~/archive/trainer-notes`. They are not inputs to future
+workout generation. Use [docs/stats.md](docs/stats.md) for the small HRV/resting-HR summary.
 
 ## Layout
 
@@ -120,17 +100,12 @@ docs/
   data-store.md          the tables, how to query them, how the sync decides
   reading-data.md        what each field means, which source to use
   intervals-workouts.md  workout-text syntax and the calendar API
+  stats.md               basic individual-baseline readiness summary
 .claude/skills/
-  review-training/   assess the block
-  create-workouts/   write workouts to the calendar
-  adjust-plan/       revise plan.md
+  review-training/   summarize recent data
+  create-workouts/   write exactly requested workouts to the calendar
+  plan-lifting/      write exactly requested strength routines
 data/                your training data (gitignored)
-plan.md              the standing brief — read before every prescription
-plan/
-  block-1.md         the current block; expires when the block does
-  roadmap.md         later blocks and the test schedule
-  decisions.md       re-anchor history and the evidence behind the key numbers
-  check-ins.md       weekly subjective check-in log
 .env                 your credentials (gitignored)
 ```
 

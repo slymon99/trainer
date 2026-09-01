@@ -160,6 +160,6 @@ days with everything else capped in Z2 tops out around IF 0.70. If the TSS targe
 needs 0.72, the hours target and the TSS target are not both achievable — say which
 one gives, rather than writing down both.
 
-Interpretation belongs in `plan.md`, not here. This doc tells you what the numbers
-are; the athlete's plan is what says which of them justify progressing, repeating,
-or backing off a week.
+Interpretation belongs to the user, not to a repository plan. This doc tells you
+what the numbers are; [docs/stats.md](stats.md) provides one deliberately small
+individual-baseline summary.
