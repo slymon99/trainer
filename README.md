@@ -78,11 +78,11 @@ per-rep detail arrives over a few runs, newest first. Everything downstream
 reads from here rather than the APIs — see
 [docs/data-store.md](docs/data-store.md).
 
-### Training notes
+### Training plans
 
-The old athlete-specific schedule, progression rules, check-ins, and source notes
-were assessed and moved to `~/archive/trainer-notes`. They are not inputs to future
-workout generation. Use [docs/stats.md](docs/stats.md) for the small HRV/resting-HR summary.
+Athlete-specific long-term schedules, progression rules, and check-ins are not kept
+in this repository and are not inputs to future workout generation. The repository
+holds reusable workout-writing references and the data needed for ad-hoc analysis.
 
 ## Layout
 

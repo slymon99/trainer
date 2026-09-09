@@ -7,10 +7,11 @@
 # rebuilt by `pixi run sync`, and __marimo__/ is a cache of notebook cell
 # outputs that churns on every run.
 #
-# plan.md and plan/ are deliberately NOT here — they're the athlete's brief and
-# their history is worth tracking. They hold weight, HR and HRV, which is fine
-# while this repo is private. If it is ever made public, untrack them first, and
-# note that rewriting history is the only way to remove them from past commits.
+# Keep athlete-specific, long-term prescriptions out of the repository. One-off
+# calendar payloads belong in ignored scripts; reusable workout syntax stays in docs/.
+plan.md
+plan/
+training-plan.md
 data/
 *.private.md
 __marimo__/
