@@ -67,4 +67,5 @@ proportional to power, is the design working — not evidence the target is soft
 - Lead with observed facts and the one or two numbers that drove the summary.
 - Show planned vs. actual as a table.
 - **Flag every assumption.** If a number is missing (RPE, sleep, whether a session was outdoors in heat), say what you assumed and what changes if it's wrong. Don't invent data.
-- Don't recommend raising the working FTP just because sessions felt easy. That's a decision the plan's own re-anchoring protocol governs, and sub-threshold work feeling comfortable is expected rather than evidence.
+- Don't recommend changing FTP from repository context or a single easy session.
+  Report the evidence and leave prescription changes to an explicit user request.

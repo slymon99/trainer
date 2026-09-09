@@ -9,19 +9,18 @@ review training, write workouts, and revise a plan.
 CTL number in a doc example is clearer than a placeholder. Two things still stay
 out of git: `.env` and `.strava_tokens.json`, because credentials leak
 independently of who can see the repo. `data/` and `__marimo__/` are gitignored too,
-but only because they're regenerable — not secret. Athlete-specific scheduling
-notes have been archived outside this repository. Do not invent an athlete
-profile or a training plan from repository context.
+but only because they're regenerable — not secret. Athlete-specific long-term plans
+do not belong in this repository. Do not invent an athlete profile or training plan
+from repository context.
 
 **Keep these documents currently correct rather than appending to them.** When a rule
 changes, rewrite it — don't leave a dated amendment beside it explaining what it used
 to say.
 
-**Prescribe in `%FTP`, never absolute watts.** intervals.icu resolves percentages
-against sport settings, so re-anchoring updates every scheduled workout at once. A
-watt number written into a plan or a workout goes stale silently — that is the
-documented root cause of this athlete's 2026 plateau. Neuromuscular targets
-(sprints) are the one exception and the plan names them.
+**Preserve the requested target units.** intervals.icu accepts percentages, zones,
+absolute watts, heart rate, pace, and cadence. Use the units the user supplies rather
+than importing assumptions from an old plan. When percentages are requested, remember
+that intervals.icu resolves them against the athlete's current sport settings.
 
 **Lifting has no `%FTP`.** Hevy routines take absolute kilograms and the API offers
 no %1RM, so loads must be used only when the user supplies or approves them.
