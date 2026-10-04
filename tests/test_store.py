@@ -139,3 +139,26 @@ def test_bad_value_names_the_column_it_choked_on(store):
 
 def _event(event_id: str, day: str) -> dict:
     return {"id": event_id, "start_date_local": f"{day}T00:00:00", "category": "WORKOUT"}
+
+
+def test_garmin_activity_joins_its_strava_twin_once(store):
+    """intervals.icu's `i…` id and Strava's id are one ride — one row, paired to the calendar."""
+    store.write(
+        "iv_activities",
+        [{"id": "i9", "start_date_local": "2026-08-11T06:00:00", "source": "GARMIN_CONNECT",
+          "strava_id": "77", "icu_training_load": 60}],
+    )
+    store.write(
+        "strava_activities",
+        [{"id": 77, "start_date_local": "2026-08-11T06:00:00", "average_watts": 200}],
+    )
+    store.write(
+        "iv_events",
+        [{"id": 5, "start_date_local": "2026-08-11T00:00:00", "category": "WORKOUT",
+          "name": "Z2", "paired_activity_id": "i9"}],
+    )
+
+    rows = store.sql("SELECT id, iv_id, average_watts, icu_training_load FROM activities").fetchall()
+    assert rows == [("77", "i9", 200.0, 60)]
+    paired = store.sql("SELECT activity_id FROM planned_vs_actual").fetchall()
+    assert paired == [("77",)]

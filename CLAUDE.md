@@ -1,15 +1,17 @@
 # trainer
 
 Thin clients over intervals.icu, Strava and Hevy, plus skills that use them to
-review training, write workouts, and revise a plan.
+review training, write workouts, and revise a plan — for several athletes, one
+profile each.
 
 ## Ground rules
 
 **This repo is private**, so health values in committed files are fine — a real
-CTL number in a doc example is clearer than a placeholder. Two things still stay
-out of git: `.env` and `.strava_tokens.json`, because credentials leak
-independently of who can see the repo. `data/` and `__marimo__/` are gitignored too,
-but only because they're regenerable — not secret. Athlete-specific long-term plans
+CTL number in a doc example is clearer than a placeholder. Credentials still stay
+out of git — each athlete's `.env` and Strava tokens live in the gitignored
+`profiles/`, because credentials leak independently of who can see the repo. Each
+profile's `data/` sits there too, and `__marimo__/` is gitignored, but only
+because they're regenerable — not secret. Athlete-specific long-term plans
 do not belong in this repository. Do not invent an athlete profile or training plan
 from repository context.
 
@@ -28,6 +30,12 @@ See `docs/hevy.md`.
 
 **Don't invent data.** If a number is missing, state the assumption and what
 changes if it's wrong.
+
+**Know which athlete you're acting for.** Each athlete is a profile under
+`profiles/<name>/` with their own keys and warehouse. Commands act on the
+active profile (`--profile`, then `TRAINER_PROFILE`, then `pixi run activate`).
+Name the athlete before every write, and switch with `pixi run activate <name>`
+— exporting `TRAINER_PROFILE` from a Bash call doesn't outlive that call.
 
 ## Working here
 

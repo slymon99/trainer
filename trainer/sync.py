@@ -3,6 +3,7 @@
     pixi run sync                      # bring everything up to date
     pixi run sync --since 2025-09-01   # backfill further back
     pixi run sync --streams 5          # also pull per-second data for 5 rides
+    pixi run sync --profile alex       # another athlete than the active one
 
 Safe to re-run: every step works out what it already holds and asks only for
 what's missing. Strava's 100-requests-per-15-minutes is the binding constraint,
@@ -18,7 +19,7 @@ from pathlib import Path
 
 import requests
 
-from trainer.config import ROOT
+from trainer.config import Profile, active_profile
 from trainer.hevy import HevyClient
 from trainer.http import RateLimitExceeded
 from trainer.intervals import IntervalsClient
@@ -51,7 +52,6 @@ BUDGET_RESERVE = 5
 # which widens the window rather than being bounded by it.
 HEVY_LOOKBACK = 30
 
-RAW = ROOT / "data" / "strava"
 STREAM_KEYS = [
     "time",
     "watts",
@@ -75,35 +75,49 @@ class Sync:
         iv: IntervalsClient | None = None,
         st: StravaClient | None = None,
         hv: HevyClient | None = None,
-        raw: Path = RAW,
+        raw: Path | None = None,
+        profile: Profile | None = None,
     ):
         self.store = store
         self.today = today
         self.since = since
-        self.raw = raw
+        self._raw = raw
+        self._profile = profile
         self._iv = iv
         self._st = st
         self._hv = hv
         self.pending: list[str] = []
 
-    # Clients are built on demand so a wellness-only sync doesn't require
-    # Strava authorization to be set up.
+    # Clients, the profile and the raw cache are resolved on demand so a
+    # wellness-only sync doesn't require Strava authorization to be set up.
+    @property
+    def profile(self) -> Profile:
+        if self._profile is None:
+            self._profile = active_profile()
+        return self._profile
+
+    @property
+    def raw(self) -> Path:
+        if self._raw is None:
+            self._raw = self.profile.raw
+        return self._raw
+
     @property
     def iv(self) -> IntervalsClient:
         if self._iv is None:
-            self._iv = IntervalsClient()
+            self._iv = IntervalsClient(self.profile)
         return self._iv
 
     @property
     def st(self) -> StravaClient:
         if self._st is None:
-            self._st = StravaClient()
+            self._st = StravaClient(self.profile)
         return self._st
 
     @property
     def hv(self) -> HevyClient:
         if self._hv is None:
-            self._hv = HevyClient()
+            self._hv = HevyClient(self.profile)
         return self._hv
 
     def start_for(self, table: str, lookback: int) -> date:
@@ -298,8 +312,10 @@ class Sync:
         """Activity ids known to either source but without laps stored.
 
         intervals.icu is included because it may know about a ride Strava's
-        list endpoint hasn't returned in our window. Newest first, so a
-        budget-capped run covers the block you're most likely reviewing.
+        list endpoint hasn't returned in our window. Its own `i…` ids (Garmin,
+        uploads, manual) are swapped for the Strava twin it names, and dropped
+        when there is none — Strava would answer them with a 404 on every run. Newest first, so a budget-capped run covers the block you're
+        most likely reviewing.
         """
         clause = "" if refresh else "WHERE NOT COALESCE(has_detail, false)"
         rows = self.store.sql(
@@ -307,8 +323,9 @@ class Sync:
             SELECT id FROM (
                 SELECT s.id, s.date, s.has_detail FROM strava_activities s
                 UNION
-                SELECT i.id, i.date, false FROM iv_activities i
-                WHERE i.id NOT IN (SELECT id FROM strava_activities)
+                SELECT COALESCE(i.strava_id, i.id), i.date, false FROM iv_activities i
+                WHERE COALESCE(i.strava_id, i.id) NOT IN (SELECT id FROM strava_activities)
+                  AND regexp_full_match(COALESCE(i.strava_id, i.id), '[0-9]+')
             ) {clause}
             ORDER BY date DESC
             """
@@ -436,6 +453,7 @@ def main(argv: list[str] | None = None) -> int:
         "--refresh", action="store_true", help="re-fetch activity detail already stored"
     )
     parser.add_argument("--today", type=date.fromisoformat, default=date.today())
+    parser.add_argument("--profile", help="athlete profile (default: the active one)")
     args = parser.parse_args(argv)
 
     steps = [s.strip() for s in args.tables.split(",") if s.strip()]
@@ -443,8 +461,9 @@ def main(argv: list[str] | None = None) -> int:
     if unknown:
         parser.error(f"unknown step(s): {', '.join(sorted(unknown))}. Known: {', '.join(STEPS)}")
 
-    store = Store()
-    sync = Sync(store, today=args.today, since=args.since)
+    profile = active_profile(args.profile)
+    store = Store(profile.warehouse)
+    sync = Sync(store, today=args.today, since=args.since, profile=profile)
     plan = {
         "wellness": sync.wellness,
         "events": sync.events,
@@ -465,6 +484,9 @@ def main(argv: list[str] | None = None) -> int:
             print(f"\n{exc}", file=sys.stderr)
             stopped_early = True
             break
+        except SystemExit as exc:  # a service this athlete hasn't set up — not every profile has all three
+            print(f"  {name:<11} skipped — {exc}")
+            continue
         print(f"  {name:<11} {written:>7,} rows")
 
     print()

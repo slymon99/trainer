@@ -3,14 +3,14 @@
 What's available from each source, and which one to reach for.
 
 > **Read from the store, not the API.** Both sources are synced into
-> `data/warehouse/` and queried with SQL — see [data-store.md](data-store.md).
+> each athlete's warehouse and queried with SQL — see [data-store.md](data-store.md).
 > This doc is the *why*: what each field means, which source owns it, and the
 > quirks the sync is working around. Reach for the clients directly only when
 > you need something the sync doesn't pull yet.
 
 ## Which source
 
-Use **both, joined on activity id** — neither is sufficient alone.
+Use **both, joined on the Strava id** — neither is sufficient alone.
 
 - **intervals.icu** owns everything *modelled or planned*: CTL/ATL/ramp rate, the
   wellness series (resting HR, HRV, sleep), and the calendar of prescribed workouts.
@@ -67,7 +67,9 @@ is working or the athlete is quietly failing sessions.
 
 **The id intervals.icu returns for a Strava-sourced activity *is* the Strava
 activity id.** So the stub is still useful — it tells you which ids exist on which
-day, and Strava fills in the rest.
+day, and Strava fills in the rest. Activities that reach intervals.icu another way
+(Garmin, a file upload, manual entry) get an `i…` id instead and carry their
+Strava twin in `strava_id`; the join is on `COALESCE(strava_id, id)`.
 
 The sync does this join for you; it's the `activities` view:
 

@@ -1,5 +1,8 @@
 # --- secrets -----------------------------------------------------------
-.env
+# Every athlete's credentials and data live under profiles/<name>/.
+profiles/
+.env*
+!.env.example
 .strava_tokens.json
 
 # --- local data --------------------------------------------------------

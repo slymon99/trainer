@@ -14,8 +14,11 @@ pixi run sync
 
 ```python
 from trainer.store import Store
-store = Store()
+store = Store()   # the active profile's warehouse
 ```
+
+Several athletes share this repo — say whose data you're summarizing. The
+commands print the active profile; `pixi run activate <name>` switches.
 
 [docs/data-store.md](../../../docs/data-store.md) has the tables and views;
 [docs/reading-data.md](../../../docs/reading-data.md) has what each field means

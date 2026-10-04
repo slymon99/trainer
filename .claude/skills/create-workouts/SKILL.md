@@ -13,10 +13,16 @@ Use the client, not raw HTTP:
 
 ```python
 from trainer import IntervalsClient
-client = IntervalsClient()
+client = IntervalsClient()   # the active profile's athlete
 ```
 
 Run from the repo root with `pixi run python <script>.py`.
+
+**Know whose calendar this is.** Several athletes share this repo. Before
+writing, say which profile is active (`pixi run profiles`) and confirm it's the
+athlete the user means; switch with `pixi run activate <name>`. Writes refuse
+to go out until `pixi run check intervals` has recorded who the profile's key
+belongs to.
 
 ## Before writing
 

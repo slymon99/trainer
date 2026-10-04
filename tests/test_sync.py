@@ -511,3 +511,19 @@ def test_templates_are_fetched_once(store):
     assert sync.hevy_templates() == 1
     assert sync.hevy_templates() == 0
     assert sync.hevy_templates(refresh=True) == 1
+
+
+def test_intervals_native_ids_are_swapped_for_their_strava_twin(store, tmp_path):
+    """Garmin and file uploads get intervals.icu's own `i…` ids — Strava 404s them, every run."""
+    store.write(
+        "iv_activities",
+        [
+            {"id": "1", "start_date_local": "2026-08-11T06:00:00"},
+            {"id": "i100847559", "start_date_local": "2026-08-12T06:00:00", "source": "GARMIN_CONNECT"},
+            {"id": "i100847560", "start_date_local": "2026-08-13T06:00:00", "source": "UPLOAD",
+             "strava_id": "2"},
+        ],
+    )
+    strava = FakeStrava({"1": detail("1", "2026-08-11"), "2": detail("2", "2026-08-13")})
+    make_sync(store, tmp_path, strava).strava_details(budget=10)
+    assert strava.calls == ["2", "1"]  # the upload's Strava twin, never its i… id

@@ -1,7 +1,9 @@
 """Client for the Strava API.
 
-Auth: OAuth2. Run `python -m trainer.strava_auth` once to authorize; this client
-then refreshes the access token automatically (they expire every 6h).
+Auth: OAuth2. Run `pixi run strava-auth` once per profile to authorize; this
+client then refreshes the access token automatically (they expire every 6h).
+Each athlete's Strava app credentials live in their profile's `.env`, so each
+athlete has their own rate-limit budget.
 Docs: https://developers.strava.com/docs/reference/
 """
 
@@ -11,11 +13,10 @@ from dataclasses import dataclass
 
 import requests
 
-from trainer.config import ROOT, require_env
+from trainer.config import Profile, active_profile
 from trainer.http import check, make_session
 
 BASE_URL = "https://www.strava.com/api/v3"
-TOKENS_PATH = ROOT / ".strava_tokens.json"
 
 
 @dataclass
@@ -41,15 +42,17 @@ class Budget:
 
 
 class StravaClient:
-    def __init__(self, client_id: str | None = None, client_secret: str | None = None):
-        self.client_id = client_id or require_env("STRAVA_CLIENT_ID")
-        self.client_secret = client_secret or require_env("STRAVA_CLIENT_SECRET")
-        if not TOKENS_PATH.exists():
+    def __init__(self, profile: Profile | None = None):
+        self.profile = profile or active_profile()
+        self.client_id = self.profile.require("STRAVA_CLIENT_ID")
+        self.client_secret = self.profile.require("STRAVA_CLIENT_SECRET")
+        self.tokens_path = self.profile.strava_tokens
+        if not self.tokens_path.exists():
             raise SystemExit(
-                f"Not authorized yet — no {TOKENS_PATH.name}. "
-                "Run `pixi run python -m trainer.strava_auth` first."
+                f"Profile {self.profile.name!r} isn't authorized with Strava yet — "
+                f"no {self.tokens_path}. Run `pixi run strava-auth` first."
             )
-        self.tokens = json.loads(TOKENS_PATH.read_text())
+        self.tokens = json.loads(self.tokens_path.read_text())
         self.session = make_session()
         self.budget = Budget()
 
@@ -73,7 +76,7 @@ class StravaClient:
             "refresh_token": payload["refresh_token"],
             "expires_at": payload["expires_at"],
         }
-        TOKENS_PATH.write_text(json.dumps(self.tokens, indent=2))
+        self.tokens_path.write_text(json.dumps(self.tokens, indent=2))
         return self.tokens["access_token"]
 
     def _get(self, path: str, **params):

@@ -14,10 +14,16 @@ Use the client, not raw HTTP:
 
 ```python
 from trainer import HevyClient
-client = HevyClient()
+client = HevyClient()   # the active profile's athlete
 ```
 
 Run from the repo root with `pixi run python <script>.py`.
+
+**Know whose account this is.** Several athletes share this repo, and Hevy
+can't delete. Before writing, say which profile is active (`pixi run profiles`)
+and confirm it's the athlete the user means; switch with `pixi run activate
+<name>`. Writes refuse to go out until `pixi run check hevy` has recorded who
+the profile's key belongs to.
 
 ## Before writing
 
