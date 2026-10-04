@@ -79,3 +79,17 @@ def test_write_refused_when_no_identity_recorded(base):
     make(base, "sabrina")
     with pytest.raises(identity.WrongAthlete, match="pixi run check intervals"):
         identity.confirm(Profile.load("sabrina", base=base), "intervals", "i222", "Sabrina")
+
+
+def test_check_cannot_quietly_replace_a_recorded_account(base):
+    """Re-running check after a key mix-up must not launder the wrong account into the record."""
+    make(base, "sabrina")
+    profile = Profile.load("sabrina", base=base)
+    identity.record(profile, "intervals", "i222", "Sabrina")
+
+    with pytest.raises(identity.WrongAthlete, match="--reset-identity"):
+        identity.record(profile, "intervals", "i111", "Simon")
+    identity.confirm(profile, "intervals", "i222", "Sabrina")  # record untouched
+
+    identity.record(profile, "intervals", "i111", "Simon", reset=True)
+    identity.confirm(profile, "intervals", "i111", "Simon")

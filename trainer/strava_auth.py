@@ -30,7 +30,7 @@ import webbrowser
 import requests
 
 from trainer.config import active_profile
-from trainer.identity import claimed_by, record
+from trainer.identity import WrongAthlete, claimed_by, record
 
 REDIRECT_URI = "http://localhost:8000/callback"
 # activity:read_all also covers activities you've marked private
@@ -68,6 +68,9 @@ def main(argv: list[str] | None = None):
     parser.add_argument("--profile", help="athlete profile (default: the active one)")
     parser.add_argument("--link", action="store_true", help="print the consent link and stop")
     parser.add_argument("--code", help="the code, or the whole localhost URL the athlete landed on")
+    parser.add_argument(
+        "--reset-identity", action="store_true", help="replace a different recorded Strava account"
+    )
     args = parser.parse_args(argv)
     profile = active_profile(args.profile)
     client_id = profile.require("STRAVA_CLIENT_ID")
@@ -113,6 +116,12 @@ def main(argv: list[str] | None = None):
     )
     resp.raise_for_status()
     payload = resp.json()
+    athlete = payload.get("athlete", {})
+    name = f"{athlete.get('firstname')} {athlete.get('lastname')}"
+    try:  # before the tokens are saved, so a wrong login never replaces the right one
+        record(profile, "strava", athlete.get("id"), name, args.reset_identity)
+    except WrongAthlete as exc:
+        raise SystemExit(f"{exc}\nNothing was saved.") from exc
 
     profile.strava_tokens.write_text(
         json.dumps(
@@ -124,9 +133,6 @@ def main(argv: list[str] | None = None):
             indent=2,
         )
     )
-    athlete = payload.get("athlete", {})
-    name = f"{athlete.get('firstname')} {athlete.get('lastname')}"
-    record(profile, "strava", athlete.get("id"), name)
     print(f"Saved tokens to {profile.strava_tokens}")
     print(f"Authorized as {name} (id {athlete.get('id')})")
     if others := claimed_by("strava", athlete.get("id"), exclude=profile.name):

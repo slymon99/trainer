@@ -133,7 +133,11 @@ class Sync:
         held = self.store.max_date(table)
         if held is None:
             return self.today - timedelta(days=FIRST_RUN_DAYS)
-        return held - timedelta(days=lookback)
+        start = held - timedelta(days=lookback)
+        # A column added since older rows were written reads NULL there; reach
+        # back far enough to refill it. One-time: the rewrite carries the column.
+        stale = self.store.missing_since(table)
+        return start if stale is None else min(start, stale)
 
     # --- steps -------------------------------------------------------------
 

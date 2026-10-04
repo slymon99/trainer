@@ -188,7 +188,10 @@ exits (non-zero).
 
 Add the column to the table in `trainer/tables.py`. Older parquet files don't
 have it and don't need rewriting — reads union against the declared schema, so
-it comes back NULL until a sync refills it. Re-run with `--since` to backfill
+it comes back NULL until a sync refills it. The steps that resume from a
+watermark (`wellness`, `activities`) notice files written before the column
+existed and reach back to the oldest of them on the next run — once, since the
+rewrite carries the column. For anything else, re-run with `--since` to backfill
 from the API, or delete `data/warehouse/<table>/` and rebuild from the raw JSON.
 
 Writes are not atomic per file. If a sync is killed mid-write, that month's

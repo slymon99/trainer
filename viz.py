@@ -50,9 +50,13 @@ def _():
 
 @app.cell
 def _(active_profile, mo, profile_names):
-    athlete = mo.ui.dropdown(
-        options=profile_names(), value=active_profile().name, label="Athlete"
-    )
+    # Several profiles and none active is exactly when a picker is needed —
+    # start on the first rather than failing the cell.
+    try:
+        _current = active_profile().name
+    except SystemExit:
+        _current = next(iter(profile_names()), None)
+    athlete = mo.ui.dropdown(options=profile_names(), value=_current, label="Athlete")
     athlete
     return (athlete,)
 

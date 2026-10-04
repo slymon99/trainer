@@ -24,9 +24,23 @@ def recorded(profile: Profile) -> dict:
     return json.loads(profile.identity_path.read_text())
 
 
-def record(profile: Profile, service: str, account_id, name: str | None) -> None:
-    """Remember who `service` says this profile's keys belong to."""
+def record(
+    profile: Profile, service: str, account_id, name: str | None, reset: bool = False
+) -> None:
+    """Remember who `service` says this profile's keys belong to.
+
+    Refuses to replace a *different* recorded account unless `reset` — otherwise
+    the check the docs tell you to run would quietly launder a wrong key into
+    the record that's meant to catch it.
+    """
     held = recorded(profile)
+    previous = held.get(service)
+    if previous and previous["id"] != str(account_id) and not reset:
+        raise WrongAthlete(
+            f"Profile {profile.name!r} is recorded as {service} account {previous['name']} "
+            f"(id {previous['id']}), but its key now belongs to {name} (id {account_id}). "
+            f"Fix {profile.env_path}, or re-run with --reset-identity if the change is intended."
+        )
     held[service] = {"id": str(account_id), "name": name}
     profile.identity_path.write_text(json.dumps(held, indent=2) + "\n")
 

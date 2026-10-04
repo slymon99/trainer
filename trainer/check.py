@@ -3,10 +3,12 @@
     pixi run check                      # every service, active profile
     pixi run check intervals            # just one
     pixi run check --profile alex       # another athlete
+    pixi run check --reset-identity     # the account behind a key changed on purpose
 
 A passing check records who each service says the keys belong to in
 `profiles/<name>/identity.json`. Writes are checked against that before they
-go out — see trainer/identity.py.
+go out — see trainer/identity.py. A check that finds a *different* account
+from the recorded one fails instead of overwriting it.
 """
 
 import argparse
@@ -15,12 +17,12 @@ from trainer.config import Profile, active_profile
 from trainer.identity import claimed_by, record
 
 
-def check_intervals(profile: Profile) -> bool:
+def check_intervals(profile: Profile, reset: bool = False) -> bool:
     from trainer import IntervalsClient
 
     client = IntervalsClient(profile)
     me = client.athlete()
-    record(profile, "intervals", me.get("id"), me.get("name"))
+    record(profile, "intervals", me.get("id"), me.get("name"), reset)
     ftp = me.get("icu_ftp")
     print(f"intervals.icu  OK — {me.get('name')} (id {me.get('id')})")
     if ftp:
@@ -31,13 +33,13 @@ def check_intervals(profile: Profile) -> bool:
     return True
 
 
-def check_strava(profile: Profile) -> bool:
+def check_strava(profile: Profile, reset: bool = False) -> bool:
     from trainer import StravaClient
 
     client = StravaClient(profile)
     me = client.athlete()
     name = f"{me.get('firstname')} {me.get('lastname')}"
-    record(profile, "strava", me.get("id"), name)
+    record(profile, "strava", me.get("id"), name, reset)
     print(f"strava         OK — {name} (id {me.get('id')})")
     for a in client.activities(limit=5):
         km = a["distance"] / 1000
@@ -47,12 +49,12 @@ def check_strava(profile: Profile) -> bool:
     return True
 
 
-def check_hevy(profile: Profile) -> bool:
+def check_hevy(profile: Profile, reset: bool = False) -> bool:
     from trainer import HevyClient
 
     client = HevyClient(profile)
     me = client.user()
-    record(profile, "hevy", me.get("id"), me.get("name"))
+    record(profile, "hevy", me.get("id"), me.get("name"), reset)
     count = client.workout_count()
     print(f"hevy           OK — {me.get('name')} (id {me.get('id')})")
     print(f"               {count} workouts logged")
@@ -77,6 +79,9 @@ def main(argv: list[str] | None = None):
         "services", nargs="*", metavar="SERVICE", help=f"any of {', '.join(CHECKS)} (default: all)"
     )
     parser.add_argument("--profile", help="athlete profile (default: the active one)")
+    parser.add_argument(
+        "--reset-identity", action="store_true", help="replace a different recorded account"
+    )
     args = parser.parse_args(argv)
     if unknown := set(args.services) - set(CHECKS):
         parser.error(f"unknown check(s) {', '.join(sorted(unknown))} — pick from {', '.join(CHECKS)}")
@@ -85,7 +90,7 @@ def main(argv: list[str] | None = None):
     failed = False
     for name in args.services or list(CHECKS):
         try:
-            CHECKS[name](profile)
+            CHECKS[name](profile, args.reset_identity)
         except SystemExit as e:  # missing credentials — expected, keep going
             print(f"{name:<14} skipped — {e}")
         except Exception as e:

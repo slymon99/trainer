@@ -25,6 +25,7 @@ from pathlib import Path
 
 import duckdb
 import pyarrow as pa
+import pyarrow.parquet as pq
 
 from trainer import tables
 from trainer.config import active_profile
@@ -186,6 +187,25 @@ class Store:
     def ids(self, table: str, column: str = "id", where: str = "true") -> set[str]:
         rows = self.sql(f"SELECT DISTINCT {column} FROM {table} WHERE {where}").fetchall()
         return {r[0] for r in rows if r[0] is not None}
+
+    def missing_since(self, table: str) -> date | None:
+        """Earliest date held in files written before a declared column existed.
+
+        Those rows read back NULL for the new column, which looks exactly like
+        "the API sent nothing". Writes always carry the full schema, so a file
+        lacking a column is old by definition — and re-fetching back to here
+        fills it in once, after which no file lacks it.
+        """
+        spec = tables.get(table)
+        if spec.date_column is None:
+            return None
+        declared = set(spec.schema.names)
+        old = [str(f) for f in self._files(spec) if declared - set(pq.read_schema(f).names)]
+        if not old:
+            return None
+        return self.con.execute(
+            f"SELECT min({spec.date_column}) FROM read_parquet(?, union_by_name=true)", [old]
+        ).fetchone()[0]
 
     def count(self, table: str) -> int:
         return self.sql(f"SELECT count(*) FROM {table}").fetchone()[0]
