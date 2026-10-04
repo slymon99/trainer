@@ -1,8 +1,9 @@
 """The local warehouse: normalised parquet on disk, queried with DuckDB.
 
-Layout — one directory per table, partitioned by month of the row's date:
+Each athlete profile has its own warehouse. Layout — one directory per table,
+partitioned by month of the row's date:
 
-    data/warehouse/iv_wellness/month=2026-08/data_0.parquet
+    profiles/<name>/data/warehouse/iv_wellness/month=2026-08/data_0.parquet
 
 Partitioning is for *incremental writes*, not query speed: a sync touches one
 or two months and rewrites only those files. Everything is small enough that
@@ -14,7 +15,7 @@ storing this at all, given Strava allows 100 requests per 15 minutes.
 
     from trainer.store import Store
 
-    store = Store()
+    store = Store()          # the active profile's warehouse
     store.sql("SELECT date, ctl, atl FROM iv_wellness ORDER BY date DESC LIMIT 7").show()
 """
 
@@ -24,12 +25,11 @@ from pathlib import Path
 
 import duckdb
 import pyarrow as pa
+import pyarrow.parquet as pq
 
 from trainer import tables
-from trainer.config import ROOT
+from trainer.config import active_profile
 from trainer.tables import Table
-
-WAREHOUSE = ROOT / "data" / "warehouse"
 
 # Views defined over the raw tables, so the common joins are one name, not a
 # paragraph of SQL. Kept here rather than in tables.py because they are query
@@ -37,9 +37,14 @@ WAREHOUSE = ROOT / "data" / "warehouse"
 VIEWS = {
     "activities": """
         -- Every completed activity, intervals.icu's index joined to Strava's
-        -- measurements. The id is the same number in both systems.
+        -- measurements, one row per activity. Strava-sourced activities share
+        -- one id across both systems; Garmin/upload/manual ones have an `i…`
+        -- id in intervals.icu, which names its Strava twin in strava_id.
+        -- `id` is the Strava id wherever there is one (what strava_laps uses);
+        -- `iv_id` is intervals.icu's (what the calendar pairs on).
         SELECT
             COALESCE(s.id, i.id)                        AS id,
+            i.id                                        AS iv_id,
             COALESCE(s.date, i.date)                    AS date,
             COALESCE(s.name, i.name)                    AS name,
             COALESCE(s.type, i.type)                    AS type,
@@ -62,7 +67,7 @@ VIEWS = {
             s.has_detail,
             s.lap_count
         FROM iv_activities i
-        FULL OUTER JOIN strava_activities s ON s.id = i.id
+        FULL OUTER JOIN strava_activities s ON s.id = COALESCE(i.strava_id, i.id)
     """,
     "lift_sets": """
         -- Every logged set with its exercise metadata and an estimated 1RM.
@@ -105,15 +110,15 @@ VIEWS = {
             a.average_heartrate     AS actual_avg_hr,
             a.lap_count
         FROM iv_events e
-        LEFT JOIN activities a ON a.id = e.paired_activity_id
+        LEFT JOIN activities a ON a.iv_id = e.paired_activity_id
         WHERE e.category = 'WORKOUT'
     """,
 }
 
 
 class Store:
-    def __init__(self, root: Path | str = WAREHOUSE):
-        self.root = Path(root)
+    def __init__(self, root: Path | str | None = None):
+        self.root = Path(root) if root is not None else active_profile().warehouse
         self._con: duckdb.DuckDBPyConnection | None = None
         self._empties: dict[str, pa.Table] = {}
 
@@ -182,6 +187,25 @@ class Store:
     def ids(self, table: str, column: str = "id", where: str = "true") -> set[str]:
         rows = self.sql(f"SELECT DISTINCT {column} FROM {table} WHERE {where}").fetchall()
         return {r[0] for r in rows if r[0] is not None}
+
+    def missing_since(self, table: str) -> date | None:
+        """Earliest date held in files written before a declared column existed.
+
+        Those rows read back NULL for the new column, which looks exactly like
+        "the API sent nothing". Writes always carry the full schema, so a file
+        lacking a column is old by definition — and re-fetching back to here
+        fills it in once, after which no file lacks it.
+        """
+        spec = tables.get(table)
+        if spec.date_column is None:
+            return None
+        declared = set(spec.schema.names)
+        old = [str(f) for f in self._files(spec) if declared - set(pq.read_schema(f).names)]
+        if not old:
+            return None
+        return self.con.execute(
+            f"SELECT min({spec.date_column}) FROM read_parquet(?, union_by_name=true)", [old]
+        ).fetchone()[0]
 
     def count(self, table: str) -> int:
         return self.sql(f"SELECT count(*) FROM {table}").fetchone()[0]

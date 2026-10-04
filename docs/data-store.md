@@ -1,8 +1,9 @@
 # The local data store
 
-Both APIs are pulled into normalised parquet under `data/warehouse/` and queried
-with DuckDB. Read this before writing anything that fetches training data —
-almost always the data is already on disk.
+Every API is pulled into normalised parquet under the active athlete's
+`profiles/<name>/data/warehouse/` and queried with DuckDB. Read this before
+writing anything that fetches training data — almost always the data is
+already on disk.
 
 ## Why it exists
 
@@ -24,7 +25,7 @@ From Python — this is the normal path for a skill:
 ```python
 from trainer.store import Store
 
-store = Store()
+store = Store()   # the active profile's warehouse
 store.sql("SELECT date, ctl, atl FROM iv_wellness ORDER BY date DESC LIMIT 14").fetchall()
 ```
 
@@ -37,13 +38,30 @@ argument. For SQL containing string literals use:
 pixi run python -m trainer.query "SELECT * FROM iv_events WHERE date > '2026-08-01'"
 ```
 
+## Which athlete
+
+Each athlete is a profile, and each profile has its own warehouse — there's no
+athlete column, so every query below is implicitly about one person. `sync`,
+`sql` and `check` all act on the **active** profile, the first of:
+
+1. `--profile alex` on the command
+2. `TRAINER_PROFILE=alex` in the environment
+3. `profiles/.active`, written by `pixi run activate alex`
+4. the only profile, if there's exactly one
+
+Every command prints `athlete: <name> (from <where>)` on stderr. With several
+profiles and none chosen, it stops rather than guessing. `pixi run profiles`
+lists them; `trainer/config.py` has the rest.
+
 ## Layout
 
 ```
-data/warehouse/<table>/month=YYYY-MM/data_0.parquet
-data/strava/<activity_id>.json          # raw responses, kept as-is
-data/strava/streams/<activity_id>.json
+profiles/<name>/data/warehouse/<table>/month=YYYY-MM/data_0.parquet
+profiles/<name>/data/strava/<activity_id>.json          # raw responses, kept as-is
+profiles/<name>/data/strava/streams/<activity_id>.json
 ```
+
+Paths below are relative to `profiles/<name>/`.
 
 Partitioning by month is for **incremental writes**, not query speed: a sync
 touches one or two months and rewrites only those files. Everything here is
@@ -77,7 +95,7 @@ Three views do the joins for you:
 
 | View | What it is |
 |---|---|
-| `activities` | `iv_activities` + `strava_activities` on id — the whole picture of one ride |
+| `activities` | `iv_activities` + `strava_activities`, one row per ride — `id` is the Strava id, `iv_id` intervals.icu's |
 | `planned_vs_actual` | `iv_events` left-joined to `activities` on intervals.icu's own `paired_activity_id` |
 | `lift_sets` | `hevy_sets` + session title + muscle group, with an Epley 1RM estimate |
 
@@ -91,6 +109,12 @@ definitive schema, including which API field each column came from.
   fields are mostly NULL there. The measurements come from `strava_activities`;
   the id is the same number in both systems. See
   [reading-data.md](reading-data.md).
+- **Garmin, upload and manual activities have two ids.** intervals.icu gives
+  them its own `i…` id and names the Strava copy in `strava_id`; the views join
+  on that, so each ride is one row. The calendar pairs on the `i…` id, which is
+  why `planned_vs_actual` joins on `activities.iv_id`. A ride merged or
+  re-uploaded on Strava leaves `strava_id` pointing at a deleted activity — both
+  copies then show as separate rows, and that day's hours count twice.
 - **Strava reports no `max_watts` per lap** — only the average. There's no
   column for it because there's no data for it.
 - **`has_detail`** distinguishes an activity known only from the list endpoint
@@ -164,7 +188,10 @@ exits (non-zero).
 
 Add the column to the table in `trainer/tables.py`. Older parquet files don't
 have it and don't need rewriting — reads union against the declared schema, so
-it comes back NULL until a sync refills it. Re-run with `--since` to backfill
+it comes back NULL until a sync refills it. The steps that resume from a
+watermark (`wellness`, `activities`) notice files written before the column
+existed and reach back to the oldest of them on the next run — once, since the
+rewrite carries the column. For anything else, re-run with `--since` to backfill
 from the API, or delete `data/warehouse/<table>/` and rebuild from the raw JSON.
 
 Writes are not atomic per file. If a sync is killed mid-write, that month's

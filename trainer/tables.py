@@ -237,8 +237,10 @@ IV_ACTIVITIES = Table(
     name="iv_activities",
     doc=(
         "Index of completed activities known to intervals.icu. Strava-sourced "
-        "rows are stubs by design — the detail lives in strava_activities, "
-        "joined on this id."
+        "rows are stubs by design and their id is the Strava id; rows from "
+        "Garmin, file uploads or manual entry get intervals.icu's own `i…` id "
+        "and carry the Strava twin in strava_id. Either way, the detail lives "
+        "in strava_activities, joined on COALESCE(strava_id, id)."
     ),
     key=("id",),
     columns=[
@@ -246,6 +248,7 @@ IV_ACTIVITIES = Table(
         ("date", DATE, "start_date_local"),
         ("start_date_local", TS),
         ("source", STR),
+        ("strava_id", STR),
         ("athlete_id", STR, "icu_athlete_id"),
         ("name", STR),
         ("type", STR),

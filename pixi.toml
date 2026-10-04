@@ -5,9 +5,13 @@ platforms = ["osx-arm64"]
 version = "0.1.0"
 
 [tasks]
-# One-time Strava authorization
+# Athlete profiles — `pixi run profiles`, `pixi run profiles new alex`
+profiles = "python -m trainer.profiles"
+# Make an athlete active — `pixi run activate alex` (TRAINER_PROFILE overrides it)
+activate = "python -m trainer.profiles activate"
+# One-time Strava authorization, per profile
 strava-auth = "python -m trainer.strava_auth"
-# Connection smoke test — `pixi run check` or `pixi run check intervals`
+# Connection smoke test; records who each profile's keys belong to — `pixi run check intervals`
 check = "python -m trainer.check"
 # Incremental pull into data/warehouse — `pixi run sync` or `pixi run sync --help`
 sync = "python -m trainer.sync"

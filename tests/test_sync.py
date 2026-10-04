@@ -18,7 +18,8 @@ import requests
 from trainer.http import RateLimitExceeded
 from trainer.store import Store
 from trainer.strava import Budget
-from trainer.sync import HEVY_LOOKBACK, Sync
+from trainer.sync import ACTIVITIES_LOOKBACK, HEVY_LOOKBACK, Sync
+from trainer.tables import get as store_table
 
 TODAY = date(2026, 8, 13)
 
@@ -511,3 +512,38 @@ def test_templates_are_fetched_once(store):
     assert sync.hevy_templates() == 1
     assert sync.hevy_templates() == 0
     assert sync.hevy_templates(refresh=True) == 1
+
+
+def test_intervals_native_ids_are_swapped_for_their_strava_twin(store, tmp_path):
+    """Garmin and file uploads get intervals.icu's own `i…` ids — Strava 404s them, every run."""
+    store.write(
+        "iv_activities",
+        [
+            {"id": "1", "start_date_local": "2026-08-11T06:00:00"},
+            {"id": "i100847559", "start_date_local": "2026-08-12T06:00:00", "source": "GARMIN_CONNECT"},
+            {"id": "i100847560", "start_date_local": "2026-08-13T06:00:00", "source": "UPLOAD",
+             "strava_id": "2"},
+        ],
+    )
+    strava = FakeStrava({"1": detail("1", "2026-08-11"), "2": detail("2", "2026-08-13")})
+    make_sync(store, tmp_path, strava).strava_details(budget=10)
+    assert strava.calls == ["2", "1"]  # the upload's Strava twin, never its i… id
+
+
+def test_column_added_later_is_backfilled_once(store):
+    """Rows written before iv_activities had strava_id must be re-read, or Garmin rides stay doubled."""
+    import pyarrow.parquet as pq
+
+    old_day = TODAY - timedelta(days=ACTIVITIES_LOOKBACK + 200)
+    store.write("iv_activities", [ride("i1", str(old_day)), ride("i2", str(TODAY - timedelta(days=3)))])
+    for f in store.table_dir(store_table("iv_activities")).glob("*/*.parquet"):
+        pq.write_table(pq.read_table(f).drop_columns(["strava_id"]), f)  # as written pre-column
+    store = Store(store.root)
+
+    iv = FakeIntervals(activities=[ride("i1", str(old_day)), ride("i2", str(TODAY - timedelta(days=3)))])
+    Sync(store, today=TODAY, iv=iv).activities()
+    assert iv.windows[0][0] == str(old_day)
+
+    iv.windows.clear()
+    Sync(Store(store.root), today=TODAY, iv=iv).activities()
+    assert iv.windows[0][0] == str(TODAY - timedelta(days=3 + ACTIVITIES_LOOKBACK))  # once only

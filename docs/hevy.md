@@ -4,8 +4,8 @@ Hevy is where gym sessions are entered and where lifting prescriptions are
 pushed. `HevyClient` wraps it; `pixi run sync` pulls it into the warehouse.
 
 Auth is an `api-key` header — **not** Bearer, and not OAuth. The key comes from
-<https://hevy.com/settings?developer> and needs **Hevy Pro**. It lives in `.env`
-as `HEVY_API_KEY`.
+<https://hevy.com/settings?developer> and needs **Hevy Pro**. It lives in the
+athlete's `profiles/<name>/.env` as `HEVY_API_KEY`.
 
 API docs: <https://api.hevyapp.com/docs/> (Swagger UI; the spec itself is
 embedded in `swagger-ui-init.js` rather than served as JSON).

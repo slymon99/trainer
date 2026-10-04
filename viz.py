@@ -10,11 +10,10 @@ def _():
     import marimo as mo
     import polars as pl
 
+    from trainer.config import active_profile, profile_names
     from trainer.store import Store
 
     alt.data_transformers.disable_max_rows()
-
-    store = Store()
 
     CATEGORICAL_COLORS = [
         "#2a78d6", "#eb6834", "#1baf7a", "#eda100",
@@ -37,7 +36,35 @@ def _():
         )
 
 
-    return CATEGORICAL_COLORS, alt, mo, pl, store, style_chart
+    return (
+        CATEGORICAL_COLORS,
+        Store,
+        active_profile,
+        alt,
+        mo,
+        pl,
+        profile_names,
+        style_chart,
+    )
+
+
+@app.cell
+def _(active_profile, mo, profile_names):
+    # Several profiles and none active is exactly when a picker is needed —
+    # start on the first rather than failing the cell.
+    try:
+        _current = active_profile().name
+    except SystemExit:
+        _current = next(iter(profile_names()), None)
+    athlete = mo.ui.dropdown(options=profile_names(), value=_current, label="Athlete")
+    athlete
+    return (athlete,)
+
+
+@app.cell
+def _(Store, active_profile, athlete):
+    store = Store(active_profile(athlete.value).warehouse)
+    return (store,)
 
 
 @app.cell(hide_code=True)
@@ -45,7 +72,7 @@ def _(mo):
     mo.md("""
     # Training dashboard
 
-    Pulled straight from the local warehouse (`data/warehouse/`) via `Store` —
+    Pulled straight from the athlete's local warehouse via `Store` —
     nothing here calls intervals.icu or Strava. Fitness/fatigue/form, weekly
     load, time by activity type, and aerobic efficiency over the last year.
     """)

@@ -5,26 +5,38 @@ from https://intervals.icu/settings ("Developer Settings").
 Docs: https://intervals.icu/api-docs.html
 """
 
-from trainer.config import get_env, require_env
+from trainer.config import Profile, active_profile
 from trainer.http import check, make_session
+from trainer.identity import confirm
 
 BASE_URL = "https://intervals.icu"
 
 
 class IntervalsClient:
-    def __init__(self, api_key: str | None = None, athlete_id: str | None = None):
-        self.api_key = api_key or require_env("INTERVALS_API_KEY")
-        self.athlete_id = athlete_id or get_env("INTERVALS_ATHLETE_ID", "0")
+    def __init__(self, profile: Profile | None = None):
+        self.profile = profile or active_profile()
+        self.api_key = self.profile.require("INTERVALS_API_KEY")
+        self.athlete_id = self.profile.get("INTERVALS_ATHLETE_ID", "0")
         self.session = make_session()
         self.session.auth = ("API_KEY", self.api_key)
+        self._confirmed = False
+
+    def _confirm_athlete(self):
+        """Once per client, before the first write: is this key still who we think?"""
+        if not self._confirmed:
+            me = self.athlete()
+            confirm(self.profile, "intervals", me.get("id"), me.get("name"))
+            self._confirmed = True
 
     def _get(self, path: str, **params):
         return check(self.session.get(f"{BASE_URL}{path}", params=params)).json()
 
     def _post(self, path: str, json_body, **params):
+        self._confirm_athlete()
         return check(self.session.post(f"{BASE_URL}{path}", json=json_body, params=params)).json()
 
     def _put(self, path: str, json_body, **params):
+        self._confirm_athlete()
         return check(self.session.put(f"{BASE_URL}{path}", json=json_body, params=params)).json()
 
     # --- reading -----------------------------------------------------------

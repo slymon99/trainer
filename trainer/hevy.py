@@ -19,8 +19,9 @@ here, which means the client preserves explicit user prescriptions and does not
 invent loads. See docs/hevy.md.
 """
 
-from trainer.config import require_env
+from trainer.config import Profile, active_profile
 from trainer.http import check, make_session
+from trainer.identity import confirm
 
 BASE_URL = "https://api.hevyapp.com"
 
@@ -30,19 +31,30 @@ MAX_TEMPLATE_PAGE_SIZE = 100
 
 
 class HevyClient:
-    def __init__(self, api_key: str | None = None):
-        self.api_key = api_key or require_env("HEVY_API_KEY")
+    def __init__(self, profile: Profile | None = None):
+        self.profile = profile or active_profile()
+        self.api_key = self.profile.require("HEVY_API_KEY")
         self.session = make_session()
         self.session.headers.update({"api-key": self.api_key, "Accept": "application/json"})
+        self._confirmed = False
+
+    def _confirm_athlete(self):
+        """Once per client, before the first write — there's no DELETE to undo a wrong one."""
+        if not self._confirmed:
+            me = self.user()
+            confirm(self.profile, "hevy", me.get("id"), me.get("name"))
+            self._confirmed = True
 
     def _get(self, path: str, **params):
         params = {k: v for k, v in params.items() if v is not None}
         return check(self.session.get(f"{BASE_URL}{path}", params=params)).json()
 
     def _post(self, path: str, json_body):
+        self._confirm_athlete()
         return check(self.session.post(f"{BASE_URL}{path}", json=json_body)).json()
 
     def _put(self, path: str, json_body):
+        self._confirm_athlete()
         return check(self.session.put(f"{BASE_URL}{path}", json=json_body)).json()
 
     def _batches(self, path: str, key: str, page_size: int = MAX_PAGE_SIZE, **params):
